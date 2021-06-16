@@ -28,7 +28,14 @@ const Login = (props) => {
                             }} />
                     </Item>
                     <View style={{ marginTop: "10%" }}>
-                        <Button primary block ><Text>Login</Text></Button>
+                        <Button primary block onPress={async()=>{
+                            let tempObj = {
+                                name:userName,
+                                password:password
+                            }
+                            await LoginAction(tempObj);
+                            
+                        }} ><Text>Login</Text></Button>
                     </View>
                 </Form>
                 <Text style={{ color: 'blue' ,marginTop:'3%'}}
