@@ -1,13 +1,12 @@
-import { Button, View,Container,Content,Text } from "native-base"
-// import {Text} from "react-native"
+import { Button, View,Container,Content,Text,Picker } from "native-base"
 import React from "react"
 
-const Home = ({navigation})=>{
 
+const Home = ({navigation})=>{
     return (
         <Container>
         <Content style={{marginTop:'40%',width:'90%',alignContent:"center",marginLeft:'5%'}}>
-        
+            
             <View style={{marginTop:"10%"}}>
             <Button primary  block
             onPress={()=>{
@@ -20,7 +19,7 @@ const Home = ({navigation})=>{
             }}><Text>Register</Text></Button>
             </View>
         </Content>
-      </Container>
+    </Container>
         
     )
 }

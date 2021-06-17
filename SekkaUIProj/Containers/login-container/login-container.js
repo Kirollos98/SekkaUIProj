@@ -22,7 +22,8 @@ const Login = (props) => {
                     </Item>
                     <Item floatingLabel last>
                         <Label>Password</Label>
-                        <Input value={password}
+                        <Input secureTextEntry={true}
+                        value={password}
                             onChangeText={(txt) => {
                                 setPassword(txt);
                             }} />

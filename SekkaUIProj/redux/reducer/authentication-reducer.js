@@ -12,5 +12,5 @@ export default function authentication(state={},action) {
         default:{
             return state
         }
-    } ///sanya w gy 
+    }
 }

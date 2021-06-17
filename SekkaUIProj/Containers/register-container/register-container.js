@@ -44,7 +44,9 @@ Register = (props)=>{
         setCity("")
         setPasswordConfirm("")
         setEmail("")
-        console.log("gwa useeffect")}
+        console.log("gwa useeffect")
+        props.navigation.replace("Login");
+      }
     }, [registerFlag])
 
     return(
@@ -69,7 +71,8 @@ Register = (props)=>{
 
             <Item floatingLabel>
               <Label>Password</Label>
-              <Input   value={password}
+              <Input secureTextEntry={true} 
+                value={password}
                 onChangeText={(txt)=>{
                     setPassword(txt);
                 }}/>
@@ -77,14 +80,15 @@ Register = (props)=>{
 
             <Item floatingLabel>
               <Label>Confirm Password</Label>
-              <Input   value={passwordConfirm}
+              <Input secureTextEntry={true} 
+                value={passwordConfirm}
                 onChangeText={(txt)=>{
                     setPasswordConfirm(txt);
                 }}/>
             </Item>
             <Item floatingLabel last>
               <Label>City</Label>
-              <Input  value={city}
+              <Input value={city}
                 onChangeText={(txt)=>{
                     setCity(txt);
                 }}/>
@@ -100,12 +104,12 @@ Register = (props)=>{
                     if(validForm()==true)
                     {
                       console.log("hwaaa");
-                     let x= async()=>{ await RegisterAction({name:userName,password:password,
+                      let x= async()=>{ await RegisterAction({name:userName,password:password,
                         email: email,
                         city: city})
                         setRegisterFlag(true)
                       }
-                      x()
+                      x();
                       // await RegisterAction({name:userName,password:password,
                       //   email: email,
                       //   city: city})
