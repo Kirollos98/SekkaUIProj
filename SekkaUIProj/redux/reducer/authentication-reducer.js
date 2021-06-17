@@ -6,6 +6,9 @@ export default function authentication(state={},action) {
         case 'registerOperation':{
             return {...state,registeredUser:action.payload}
         }
+        case 'logoutOperation':{
+            return {...state,message:action.payload}
+        }
         default:{
             return state
         }

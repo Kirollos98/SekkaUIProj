@@ -34,7 +34,7 @@ const Login = (props) => {
                                 password:password
                             }
                             await LoginAction(tempObj);
-                            
+                            props.navigation.replace("MainPage")
                         }} ><Text>Login</Text></Button>
                     </View>
                 </Form>
