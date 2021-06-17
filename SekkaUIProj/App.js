@@ -17,6 +17,7 @@ import rootReducer from "./redux/reducer/index"
 import registerContainer from './Containers/register-container/register-container';
 import Home from './Components/home-component/home-component';
 import loginContainer from './Containers/login-container/login-container';
+import mainScreen from './Containers/main-screen-container/main-screen';
 
 // const createStoreWithMW = applyMiddleware(promiseMW)(createStore)
 
@@ -63,6 +64,14 @@ export default function App() {
           component={Home}
           options={{
               title:"Home",
+              headerTitleStyle: { textAlign: 'center' }
+            }}
+          />
+          <Navigator.Screen
+          name="MainPage"
+          component={mainScreen}
+          options={{
+              title:"Main",
               headerTitleStyle: { textAlign: 'center' }
             }}
           />

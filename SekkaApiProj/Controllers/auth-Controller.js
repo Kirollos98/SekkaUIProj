@@ -1,10 +1,11 @@
 const User = require('../Models/User');
+const Token = require('../Models/Token');
 
 var bcrypt = require('bcrypt');
 const salt = 8;
 const register = (req,res)=>{
-
-    console.log(req.body,"bodyy");
+    //req.header
+    console.log(JSON.stringify(req.headers),"peeeeep");
     bcrypt.hash(req.body.password,salt,(err,hash)=>{
         //console.log(typeof hash);
         let userToAdd = new User({
@@ -42,9 +43,18 @@ const login = (req,res)=>{
     User.findOne({name:req.body.name},(err,user)=>{
         if (user) {
             bcrypt.compare(req.body.password, user.password, (err, done) => {
-                res.send(done);
+                
+                const _expiryDate = new Date(Date.now() + 30 * 24 * 3600 * 1000);
+                var token = new Token({
+                    userId:user._id,
+                    expiryDate:_expiryDate
+                }) 
+                token.save((err,data)=>{
+                    res.send({done,token:token._id,user});
+                })
+                
             })
-
+            
         }
         else {
             res.send(false);
@@ -80,7 +90,20 @@ const login = (req,res)=>{
     // });
 }
 
+const logout = async (req, res, next) => {
+    //const tokenId = req.cookies.token;
+    const tokenId = req.headers.authorization.split(" ")[1];
+    console.log(tokenId,"hena yarkod el token mn el logout");
+    await Token.findOneAndRemove({ _id: tokenId }).catch(() => {
+      throw new CustomError(500);
+    });
+    //res.clearCookie('token');
+    res.send('logged out successfully');
+  };
+  
+
 module.exports ={
     register,
-    login
+    login,
+    logout
 }
