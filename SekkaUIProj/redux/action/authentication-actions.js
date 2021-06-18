@@ -23,7 +23,6 @@ const getData = async (name) => {
 
 export async function LoginAction(user){
     //var authToken = await getData("authToken");
-        body:JSON.stringify(user),
    try{
       console.log("User From Login Action",user);
     let data = await fetch('http://192.168.1.10:3344/api/auth/login', {
