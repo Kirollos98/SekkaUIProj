@@ -24,7 +24,7 @@ const getData = async (name) => {
 export async function LoginAction(user){
     //var authToken = await getData("authToken");
     console.log("User From Login Action",user);
-    let data = await fetch("http://192.168.1.135:3344/api/auth/login",{
+    let data = await fetch("http://192.168.1.6:3344/api/auth/login",{
         method:"POST",
         body:JSON.stringify(user),
         headers: {
@@ -50,7 +50,7 @@ export async function RegisterAction(newUser){
     // })
     // let x=await data.json();
    // let data = await fetch("http://192.168.1.7:3344/api/auth/register",{
-        let data = await fetch("http://192.168.1.135:3344/api/auth/register",{
+        let data = await fetch("http://192.168.1.6:3344/api/auth/register",{
 
         method:"POST",
         body:JSON.stringify(newUser),
@@ -69,7 +69,7 @@ export async function RegisterAction(newUser){
 export async function LogoutAction(){
     var authToken = await getData("authToken");
     console.log(authToken,"hopaa")
-    let data = await fetch("http://192.168.1.135:3344/api/auth/logout",{
+    let data = await fetch("http://192.168.1.6:3344/api/auth/logout",{
         method:"POST",
         headers: {
             'Authorization': `Bearer ${authToken}`
@@ -86,10 +86,10 @@ export async function LogoutAction(){
 export const getCities = async () => {
   let payload = null;
   try {
-    const response = await fetch(`http://192.168.1.135:3344/api/city/getAllCities`,{
+    const response = await fetch(`http://192.168.1.6:3344/api/city/getAllCities`,{
       method:"get"});
     payload = await response.json();
-    console.log(payload);
+  //  console.log(payload);
   } catch (err) {
     console.log(err);
   }
