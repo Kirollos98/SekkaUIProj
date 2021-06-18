@@ -1,5 +1,6 @@
 import { Label, View, Textarea, Text, Input, Container, Header, Content, Form, Item, Button } from "native-base"
 import React, { useState } from "react";
+import { Alert } from "react-native";
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux";
 import { LoginAction } from "../../redux/action/authentication-actions"
@@ -34,9 +35,15 @@ const Login = (props) => {
                                 name:userName,
                                 password:password
                             }
-                            await LoginAction(tempObj);
-                            props.navigation.replace("MainPage")
-                        }} ><Text>Login</Text></Button>
+
+                            let response = await LoginAction(tempObj);
+                            console.log( "response from login ",response)
+                            if (response.payload === 'Not Valid'){
+                                Alert.alert(response.payload);
+                            }else{
+                              props.navigation.replace('MainPage');
+                            }
+                        }}><Text>Login</Text></Button>
                     </View>
                 </Form>
                 <Text style={{ color: 'blue' ,marginTop:'3%'}}

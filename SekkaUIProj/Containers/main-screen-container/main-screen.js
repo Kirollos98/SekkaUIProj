@@ -3,10 +3,11 @@
  import DateTimePicker from '@react-native-community/datetimepicker';
 
  import React from "react";
- import { Alert ,Button, StyleSheet} from "react-native";
+ import {Alert, Button, StyleSheet} from 'react-native';
  import { connect } from "react-redux"
  import { bindActionCreators } from "redux";
  import { LogoutAction, getCities } from "../../redux/action/authentication-actions"
+ import {search} from '../../redux/action/trip-actions.js';
  import { createIconSetFromFontello } from "react-native-vector-icons";
 
 // const MainScreen = (props) => {
@@ -164,12 +165,14 @@ class MainScreen extends Component {
         mode:'date',
         show:false,
         messFlag:false,
+        listTrip:[],
       
     }
   }
  async componentDidMount()
  {
      await this.props.getCities();
+     
     
  }
      onChange = (event, selectedDate) => {
@@ -208,58 +211,66 @@ class MainScreen extends Component {
     }
   render() {
     return (
-               <Container>
-                <Text>Welcome !!! to Sekka </Text>
-                  <View style={styles.container}>
-                <Picker
-                    
-                    selectedValue={this.state.selectedValueFrom}
-                    style={{ height: 50, width: 150 }}
-                    onValueChange={(itemValue, itemIndex) => this.setState({selectedValueFrom:itemValue})}
-                 
-                >
-                    <Picker.Item label='From' value=''  />
-                   
-                    {this.renderCities(this.props)}
-                  
-                </Picker>
-            </View>
-            <View style={styles.container}>
-                <Picker
-                    
-                    selectedValue={this.state.selectedValueTo}
-                    style={{ height: 50, width: 150 }}
-                    onValueChange={(itemValue, itemIndex) => this.setState({selectedValueTo:itemValue})}
-                 
-                >
-                    <Picker.Item label='To' value=''  />
-                   
-                    {this.renderCities(this.props)}
-                  
-                </Picker>
-            </View>
-            <View>
-                <Button onPress={this.showDatepicker} title="Show date picker!" />
-            </View>
-            <View>
-                <Button onPress={this.showTimepicker} title="Show time picker!" />
-             </View>
-             <Content>
-                 {this.state.show && (
-                     <DateTimePicker
-                         testID="dateTimePicker"
-                         value={this.state.date}
-                         mode={this.state.mode}
-                         is24Hour={true}
-                         display="default"
-                         onChange={this.onChange}
-                     />
-                 )}          
-             <Text>{this.state.date.toString()}</Text>
+      <Container>
+        <Text>Welcome !!! to Sekka </Text>
+        <View style={styles.container}>
+          <Picker
+            selectedValue={this.state.selectedValueFrom}
+            style={{height: 50, width: 150}}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({selectedValueFrom: itemValue})
+            }
+          >
+            <Picker.Item label="From" value="" />
 
-             </Content>
-            
-            </Container>
+            {this.renderCities(this.props)}
+          </Picker>
+        </View>
+        <View style={styles.container}>
+          <Picker
+            selectedValue={this.state.selectedValueTo}
+            style={{height: 50, width: 150}}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({selectedValueTo: itemValue})
+            }
+          >
+            <Picker.Item label="To" value="" />
+
+            {this.renderCities(this.props)}
+          </Picker>
+        </View>
+        <View>
+          <Button onPress={async()=>{
+              let obj = {
+                fromCityName: this.state.selectedValueFrom,
+                toCityName: this.state.selectedValueTo
+              };
+              console.log("from obj hey ",obj)
+
+              this.setState({listTrip:await this.props.search(obj)})
+              console.log("list of trips ",this.state.listTrip)
+          }} title="submit Your Trip!" />
+        </View>
+        <View>
+          <Button onPress={this.showDatepicker} title="Show date picker!" />
+        </View>
+        <View>
+          <Button onPress={this.showTimepicker} title="Show time picker!" />
+        </View>
+        <Content>
+          {this.state.show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={this.state.date}
+              mode={this.state.mode}
+              is24Hour={true}
+              display="default"
+              onChange={this.onChange}
+            />
+          )}
+          <Text>{this.state.date.toString()}</Text>
+        </Content>
+      </Container>
     );
   }
  
@@ -298,6 +309,6 @@ export default connect(
         }
     },
     (dispatch) => {
-        return bindActionCreators({ LogoutAction,  getCities}, dispatch)
+        return bindActionCreators({LogoutAction, getCities, search}, dispatch);
     }
 )(MainScreen)

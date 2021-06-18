@@ -42,17 +42,22 @@ const login = (req,res)=>{
 
     User.findOne({name:req.body.name},(err,user)=>{
         if (user) {
+
             bcrypt.compare(req.body.password, user.password, (err, done) => {
-                
-                const _expiryDate = new Date(Date.now() + 30 * 24 * 3600 * 1000);
-                var token = new Token({
-                    userId:user._id,
-                    expiryDate:_expiryDate
-                }) 
-                token.save((err,data)=>{
-                    res.send({done,token:token._id,user});
-                })
-                
+                if(done === true){
+                  const _expiryDate = new Date(
+                    Date.now() + 30 * 24 * 3600 * 1000
+                  );
+                  var token = new Token({
+                    userId: user._id,
+                    expiryDate: _expiryDate,
+                  });
+                  token.save((err, data) => {
+                    res.send({done, token: token._id, user});
+                  });
+                }else{
+                    res.send("not valid");
+                }
             })
             
         }

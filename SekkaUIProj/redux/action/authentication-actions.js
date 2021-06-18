@@ -23,23 +23,34 @@ const getData = async (name) => {
 
 export async function LoginAction(user){
     //var authToken = await getData("authToken");
-    console.log("User From Login Action",user);
-    let data = await fetch("http://192.168.1.6:3344/api/auth/login",{
-        method:"POST",
         body:JSON.stringify(user),
-        headers: {
-            'Content-Type': 'application/json',
-            //'authorization': 'Bearer '+ authToken
-    
-        }
-    })
+   try{
+      console.log("User From Login Action",user);
+    let data = await fetch('http://192.168.1.10:3344/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json',
+        //'authorization': 'Bearer '+ authToken
+      },
+    });
     response = await data.json();
-
-    await storeData(response.token,"authToken");
-    console.log(response.user);
-    return {
-        type:"loginOperation",
-        payload:response.user
+    console.log("response from Action" , response);
+    if(response === false){
+      return {
+        type: 'loginOperation',
+        payload: "Not Valid",
+      }; 
+    }else{
+      await storeData(response.token, 'authToken');
+      console.log(response.user);
+      return {
+        type: 'loginOperation',
+        payload: response.user,
+      };
+    }
+    }catch(e){
+      
     }
 }
 
@@ -50,12 +61,11 @@ export async function RegisterAction(newUser){
     // })
     // let x=await data.json();
    // let data = await fetch("http://192.168.1.7:3344/api/auth/register",{
-        let data = await fetch("http://192.168.1.6:3344/api/auth/register",{
-
-        method:"POST",
-        body:JSON.stringify(newUser),
-        headers: { 'Content-Type': 'application/json' }
-    })
+        let data = await fetch('http://192.168.1.10:3344/api/auth/register', {
+          method: 'POST',
+          body: JSON.stringify(newUser),
+          headers: {'Content-Type': 'application/json'},
+        });
     console.log("hellooooo")
     let x=await data.json();
     console.log(x)
@@ -69,12 +79,12 @@ export async function RegisterAction(newUser){
 export async function LogoutAction(){
     var authToken = await getData("authToken");
     console.log(authToken,"hopaa")
-    let data = await fetch("http://192.168.1.6:3344/api/auth/logout",{
-        method:"POST",
-        headers: {
-            'Authorization': `Bearer ${authToken}`
-        }
-    })
+    let data = await fetch('http://192.168.1.10:3344/api/auth/logout', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
     response = await data.json();
     console.log(response);
     return {
@@ -86,8 +96,11 @@ export async function LogoutAction(){
 export const getCities = async () => {
   let payload = null;
   try {
-    const response = await fetch(`http://192.168.1.6:3344/api/city/getAllCities`,{
-      method:"get"});
+    const response = await fetch(`http://192.168.1.10:3344/api/city/getAllCities`,
+      {
+        method: 'get',
+      }
+    );
     payload = await response.json();
   //  console.log(payload);
   } catch (err) {

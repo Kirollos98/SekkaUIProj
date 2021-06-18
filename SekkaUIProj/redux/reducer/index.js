@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import authentication from "./authentication-reducer"
-import city from "./city-reducer"
+import city from './city-reducer';
+import SearchTrip from './trip-reducer';
 
 // export default combineReducers({
 //     users
@@ -8,5 +9,6 @@ import city from "./city-reducer"
 
 export default combineReducers({
     authentication,
-    city
+    city,
+    SearchTrip
 })
