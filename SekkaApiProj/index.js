@@ -8,7 +8,7 @@ const app = express();
 
 app.use(cors())
 
-app.use(errorHandler);
+//app.use(errorHandler);
 //app.use(express.bodyParser());
 app.use(express.json());
 

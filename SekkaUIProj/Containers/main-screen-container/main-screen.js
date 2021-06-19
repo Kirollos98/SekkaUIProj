@@ -241,14 +241,55 @@ class MainScreen extends Component {
         </View>
         <View>
           <Button onPress={async()=>{
+             console.log("Awel el on press --------------------------------");
+
               let obj = {
                 fromCityName: this.state.selectedValueFrom,
-                toCityName: this.state.selectedValueTo
+                toCityName: this.state.selectedValueTo,
+                date: this.state.date.toISOString().split('T')[0],
               };
               console.log("from obj hey ",obj)
+              console.log('state to props ', this.props.listOfTrips);
 
-              this.setState({listTrip:await this.props.search(obj)})
-              console.log("list of trips ",this.state.listTrip)
+              await this.props.search(obj);
+              console.log(
+                'state to props b3d el search call ',
+                this.props.listOfTrips
+              );
+
+
+             this.setState({listTrip: this.props.listOfTrips});
+              console.log("mashy ya kiro yarab awsal hena ");
+
+              
+            this.props.navigation.push('ListTrip');
+            // this.setState({listTrip:listt})
+            // this.state.listTrip.map(()=>{
+            //   console.log("el date ",item.date);
+            // })
+          //   let listt = [...this.state.listTrip]
+          // let filtered = [];
+          //   listt.forEach((item)=>{
+          //       console.log(item.date.split('T')[0]+'   -----------++++++++++=========');
+               
+          //        if(item.date.split('T')[0] == this.state.mode.toISOString().split('T')[0]){
+          //           filtered.push(item);
+          //        }
+                
+          //   })  
+
+            // this.setState({listTrip:filtered});
+             console.log('--------------------------------the new list',listt);
+
+             console.log(
+               'b3d assigning el state --------------------------------',
+               this.state.listTrip
+
+
+             );
+              console.log("list of trips======@@@### ",this.state.listTrip)
+
+
           }} title="submit Your Trip!" />
         </View>
         <View>
@@ -268,7 +309,7 @@ class MainScreen extends Component {
               onChange={this.onChange}
             />
           )}
-          <Text>{this.state.date.toString()}</Text>
+          <Text>{this.state.date.toISOString().split('T')[0]}</Text>
         </Content>
       </Container>
     );
@@ -304,9 +345,10 @@ export default connect(
     (state) => {
         
         return {
-            message: state.authentication.message,
-            ReciviedCities: state.city.citiesLIST
-        }
+          message: state.authentication.message,
+          ReciviedCities: state.city.citiesLIST,
+          listOfTrips: state.SearchTrip.tripsLIST,
+        };
     },
     (dispatch) => {
         return bindActionCreators({LogoutAction, getCities, search}, dispatch);

@@ -18,6 +18,8 @@ import registerContainer from './Containers/register-container/register-containe
 import Home from './Components/home-component/home-component';
 import loginContainer from './Containers/login-container/login-container';
 import mainScreen from './Containers/main-screen-container/main-screen';
+import listTripsScreen from './Containers/list-trips/list-trips-screen';
+import detailContainer from './Containers/detail-container/detail-container';
 
 // const createStoreWithMW = applyMiddleware(promiseMW)(createStore)
 
@@ -41,38 +43,53 @@ export default function App() {
   return (
     <Provider store={createStoreWithMW(rootReducer)}>
       <NavigationContainer>
-        <Navigator.Navigator
-        initialRouteName="Home">
-        <Navigator.Screen
-          name="Register"
-          component={registerContainer}
-          options={{
-              title:"Registeration",
-              headerTitleStyle: { textAlign: 'center' }
+        <Navigator.Navigator initialRouteName="Home">
+          <Navigator.Screen
+            name="Register"
+            component={registerContainer}
+            options={{
+              title: 'Registeration',
+              headerTitleStyle: {textAlign: 'center'},
             }}
           />
           <Navigator.Screen
-          name="Login"
-          component={loginContainer}
-          options={{
-              title:"Login",
-              headerTitleStyle: { textAlign: 'center' }
+            name="Login"
+            component={loginContainer}
+            options={{
+              title: 'Login',
+              headerTitleStyle: {textAlign: 'center'},
             }}
           />
           <Navigator.Screen
-          name="Home"
-          component={Home}
-          options={{
-              title:"Home",
-              headerTitleStyle: { textAlign: 'center' }
+            name="Home"
+            component={Home}
+            options={{
+              title: 'Home',
+              headerTitleStyle: {textAlign: 'center'},
             }}
           />
           <Navigator.Screen
-          name="MainPage"
-          component={mainScreen}
-          options={{
-              title:"Main",
-              headerTitleStyle: { textAlign: 'center' }
+            name="MainPage"
+            component={mainScreen}
+            options={{
+              title: 'Main',
+              headerTitleStyle: {textAlign: 'center'},
+            }}
+          />
+          <Navigator.Screen
+            name="ListTrip"
+            component={listTripsScreen}
+            options={{
+              title: 'ListTrip',
+              headerTitleStyle: {textAlign: 'center'},
+            }}
+          />
+          <Navigator.Screen
+            name="detail"
+            component={detailContainer}
+            options={{
+              title: 'detail',
+              headerTitleStyle: {textAlign: 'center'},
             }}
           />
         </Navigator.Navigator>

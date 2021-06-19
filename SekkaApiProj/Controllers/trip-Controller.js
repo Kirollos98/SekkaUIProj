@@ -60,14 +60,43 @@ await Trip.find({fromId: from, toId:to}, (request, response) => {
     console.log('di trip nod henaaaa', response);
 
     trip = response;
-}); 
+});
+
+// await trip.filter((item)=>{
+//   return item.date.split("T")[0] == req.date
+// })
   //2021-06-18 T 15:33:08.416 Z
 
   resp.send(trip);
 };
 
+
+//   await Trip.findOne({_id: req.query.}, (requ, res) => {
+  //     //console.log('gwa', res);
+  //     from = res._id;
+  //     // res.send(res._id);s
+  //   });
+  
+  const detailTrip = async (req, res) => {
+    console.log(req.params);
+
+   await Trip.findOne({_id: req.params.id})
+     .populate('fromId').populate('toId')
+    //  .select('cityName')
+     .exec((err, trip) => {
+       if (!err) {
+         console.log(trip);
+         res.send(trip);
+       } else {
+         res.send('errror');
+       }
+     });
+
+  };
+
 module.exports = {
   addTrip,
   getAllTrips,
   search,
+  detailTrip,
 };
