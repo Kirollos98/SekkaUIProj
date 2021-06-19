@@ -7,7 +7,8 @@ const tripShema = new mongoose.Schema({
     toId: { type: mongoose.SchemaTypes.ObjectId, ref: 'City' },
     date:{type: Date},
     price:{type:Number},
-    type:{type:String}
+    type:{type:String},
+    seat:{type:Number}
    // time:{type:Timestamp}
 });
 //assign the user schema to User Class

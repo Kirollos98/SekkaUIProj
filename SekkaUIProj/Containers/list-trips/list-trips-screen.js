@@ -5,8 +5,13 @@ import {StyleSheet, ActivityIndicator, Image} from 'react-native';
 
 import { View, Text, Button,Right,Left,Icon,ListItem, Row, Col } from 'native-base';
 
+import TripScreen from '../../Components/trip-component/Trip-component';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+
 
 const TripList = (props) => {
+
+  const Tab = createMaterialBottomTabNavigator();
     return (
       // <FlatList
       //     data={props.tripsLIST}
@@ -22,37 +27,42 @@ const TripList = (props) => {
       //     }}
 
       // />
-
-      <FlatList
-        style={{backgroundColor: 'lightblue'}}
-        data={props.tripList}
-        renderItem={({item}) => {
-          return (
-            <ListItem>
-              <Left>
-                <Col>
-                  <Text>{item.tripNum}</Text>
-                  <Text>{item.price}</Text>
-                </Col>
-              </Left>
-              <Right>
-                <Icon
-                  name="eye"
-                  onPress={() => {
+      // <View>
+      //   <Tab.Navigator>
+      //     <Tab.Screen name="Train" component={TripScreen} />
+      //     <Tab.Screen name="Bus" component={TripScreen} />
+      //     <Tab.Screen name="plan" component={TripScreen} />
+      //   </Tab.Navigator>
+        <FlatList
+          style={{backgroundColor: 'lightblue'}}
+          data={props.tripList}
+          renderItem={({item}) => {
+            return (
+              <ListItem>
+                <Left>
+                  <Col>
+                    <Text>{item.tripNum}</Text>
+                    <Text>{item.price}</Text>
+                  </Col>
+                </Left>
+                <Right>
+                  <Icon
+                    name="eye"
+                    onPress={() => {
                       props.navigation.push('detail', {id: item._id});
-                  }}
-                  style={{color: 'white'}}
-                  // color={'white'}
-                />
-              </Right>
-            </ListItem>
-          );
-        }}
-        ItemSeparatorComponent={ItemSeparator}
-        keyExtractor={(item) => item._id.toString()}
-        ListEmptyComponent={EmptyList(props)}
-        
-      />
+                    }}
+                    style={{color: 'white'}}
+                    // color={'white'}
+                  />
+                </Right>
+              </ListItem>
+            );
+          }}
+          ItemSeparatorComponent={ItemSeparator}
+          keyExtractor={(item) => item._id.toString()}
+          ListEmptyComponent={EmptyList(props)}
+        />
+      // </View>
     );
 }
  
