@@ -54,7 +54,7 @@ console.log('start heere from node search');
   await City.findOne({cityName: req.body.toCityName}, (reqs, ress) => {
     //console.log('gwa', ress);
     to = ress._id;
-    // res.send(res._id);s
+    // res.send(res._id);
   });
 await Trip.find({fromId: from, toId:to}, (request, response) => {
     console.log('di trip nod henaaaa', response);
