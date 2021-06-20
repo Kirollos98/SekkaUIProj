@@ -1,15 +1,28 @@
 import { FlatList } from "react-native-gesture-handler";
 import { connect }  from "react-redux";
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, ActivityIndicator, Image} from 'react-native';
 
 import { View, Text, Button,Right,Left,Icon,ListItem, Row, Col } from 'native-base';
 
-import TripScreen from '../../Components/trip-component/Trip-component';
+// import TripScreen from '../../Components/trip-component/Trip-component';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 
-
 const TripList = (props) => {
+
+  const [animating, setAnimating] = useState(true);
+  const [visible, setVisible] = useState(false);
+ 
+  const closeActivityIndicator = () => {
+    setTimeout(() => {
+      setAnimating(false);    
+      setVisible(true);
+    }, 3000)
+  }
+  useEffect(() => closeActivityIndicator(),[])
+ 
+  let anime = animating;
+  let vis = visible;
 
   const Tab = createMaterialBottomTabNavigator();
     return (
@@ -60,25 +73,23 @@ const TripList = (props) => {
           }}
           ItemSeparatorComponent={ItemSeparator}
           keyExtractor={(item) => item._id.toString()}
-          ListEmptyComponent={EmptyList(props)}
+          ListEmptyComponent={EmptyList(anime,vis)}
         />
       // </View>
     );
 }
  
 
-const EmptyList = (props) => {
-    setTimeout(() => {
-        if(props.tripList){
-            return (
-                <View style={[styles.container, styles.horizontal]}>
-            <ActivityIndicator size="large" color="red" />
-          </View>
-          );
-        }else {
-            return <Text style={{textAlign: 'center'}}>No Trips available</Text>;
-        }    
-    },3000);
+const EmptyList = (anime,visible) => {
+  return(
+  <View style={[styles.container, styles.horizontal]}>
+    <ActivityIndicator size="large" color="red" animating={anime}/>
+    {
+    visible &&
+    (<Text style={{ textAlign: "center" }}>No Trips available</Text>)
+    }
+  </View>
+  );
 };
 
 const ItemSeparator = () => {
@@ -92,7 +103,7 @@ const styles = StyleSheet.create({
     marginVertical: '50%',
   },
   horizontal: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-around',
     padding: 10,
   },

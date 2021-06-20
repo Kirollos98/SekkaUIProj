@@ -309,7 +309,8 @@ class MainScreen extends Component {
               onChange={this.onChange}
             />
           )}
-          <Text>{this.state.date.toISOString().split('T')[0]}</Text>
+          <Text>{this.state.date.toString()}</Text>
+          {/* ISOString().split('T')[0] */}
         </Content>
       </Container>
     );
