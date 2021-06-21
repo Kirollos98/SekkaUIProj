@@ -7,342 +7,342 @@
    Icon,
    Button,
  } from 'native-base';
-
+import {MaterialCommunityIcons} from '@expo/vector-icons';
  import DateTimePicker from '@react-native-community/datetimepicker';
 
  import React from "react";
- import {Alert, StyleSheet} from 'react-native';
+ import {
+   Alert,
+   StyleSheet,
+   TouchableOpacity,
+ } from 'react-native';
  import { connect } from "react-redux"
  import { bindActionCreators } from "redux";
  import { LogoutAction, getCities } from "../../redux/action/authentication-actions"
  import {search} from '../../redux/action/trip-actions.js';
  import { createIconSetFromFontello } from "react-native-vector-icons";
+ import {
+   Table,
+   TableWrapper,
+   Col,
+   Cols,
+   Cell,
+ } from 'react-native-table-component';
 
-// const MainScreen = (props) => {
-
-//     let [messFlag, setMessFlag] = useState(false);
-//     let [citiesList,setCities]=useState([]);
-//      const get=async()=>{ 
-//         await props.getCities();
-//         let x=[];
-//         if(await props.ReciviedCities){
-//             console.log("if");
-//            console.log( await props.ReciviedCities);
-//             console.log("7aga tanya");
-//            props.ReciviedCities.forEach(city=>{
-//                console.log(city.cityName);
-//            // setCities([...citiesList,city.cityName]);
-//            x.push(city.cityName);
-//            })
-//            setCities(x);
-//            console.log(x);
-//          console.log(citiesList);
-//         }  
-//        }
-
-// const get2=async()=>{
-//     await get();
-// }
-//         useEffect(() => {
-    //kiroooooooooooooooooooooooooooooooooooooooooooooooo
-     // if (messFlag) {
-        //     Alert.alert("success", message, [
-        //         {
-        //             text: "OK", onPress: () => {
-        //                 navigation.navigate('Home')
-        //             }
-
-        //         }
-        //     ]);
-//             get2();
-//     },[]);//, [messFlag]
-
-//     const [date, setDate] = useState(new Date(1598051730000));
-//     const [mode, setMode] = useState('date');
-//     const [show, setShow] = useState(false);
-//     const [selectedValue, setSelectedValue] = useState("from");
-//   //  const [cities, setCities] = useState([]);
-
-
-//     const onChange = (event, selectedDate) => {
-//         const currentDate = selectedDate || date;
-//         setShow(Platform.OS === 'ios');
-//         setDate(currentDate);
-//     };
-
-//     const showMode = (currentMode) => {
-//         setShow(true);
-//         setMode(currentMode);
-//     };
-
-//     const showDatepicker = () => {
-//         showMode('date');
-//     };
-
-//     const showTimepicker = () => {
-//         showMode('time');
-//     };
-
-
-
-//     const setDaate = (newDate) => {
-//         setDate(newDate);
-//     }
-//     let PickerItems = citiesList.map( (s, i) => {
-//         return <Picker.Item key={i} value={s} label={s} />
-//     });
-//     return (
-//         <Container>
-//             <Text>Welcome !!! to Sekka </Text>
-//             <View style={styles.container}>
-//                 <Picker
-//                     selectedValue={selectedValue}
-//                     style={{ height: 50, width: 150 }}
-//                     onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-//                    // onPress={get()}
-//                 >
-//                     <Picker.Item label={selectedValue} value={selectedValue} />
-//                     {/* {console.log("citiesssssssss",cities.toString())} */}
-//                     {  console.log("cityarray itm",citiesList)} 
-//                     {PickerItems}
-//                     {/* {citiesList.forEach(city => {
-//                         <Picker.Item label={city} value={city} />
-//                     })} */}
-//                 </Picker>
-//             </View>
-//             <View>
-//                 <Button onPress={showDatepicker} title="Show date picker!" />
-//             </View>
-//             <View>
-//                 <Button onPress={showTimepicker} title="Show time picker!" />
-//             </View>
-//             <Content>
-//                 {show && (
-//                     <DateTimePicker
-//                         testID="dateTimePicker"
-//                         value={date}
-//                         mode={mode}
-//                         is24Hour={true}
-//                         display="default"
-//                         onChange={onChange}
-//                     />
-//                 )}          
-//                 <Text>{date.toDateString()}</Text>
-//             </Content>
-
-//             {/* <Button onPress={async()=>{
-//                 console.log("gowa el logout onpress")
-//                 await LogoutAction();
-//                 setMessFlag(true);
-                
-//             }}><Text>Logout</Text></Button> */}
-//         </Container>
-//     )
-// }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         paddingTop: 40,
-//         alignItems: "center"
-//     }
-// });
-
-// export default connect(
-//     (state) => {
-        
-//         return {
-//             message: state.authentication.message,
-//             ReciviedCities: state.city.citiesLIST
-//         }
-//     },
-//     (dispatch) => {
-//         return bindActionCreators({ LogoutAction,  getCities}, dispatch)
-//     }
-// )(MainScreen)
 
 import { Component } from "react";
 
 class MainScreen extends Component {
   constructor(props) {
     super(props);
-    this.state={
-        selectedValueFrom:"",
-        selectedValueTo:"",
-        date:new Date(1598051730000),
-        mode:'date',
-        show:false,
-        messFlag:false,
-        listTrip:[],
-      
-    }
-  }
- async componentDidMount()
- {
-     await this.props.getCities();
-     
+    const elementIcon = () => (
+      // <TouchableOpacity onPress={() => this._alertIndex(value)}>
+      //   <View style={styles.btn}>
+      //     <Text style={styles.btnText}>button</Text>
+      //   </View>
+      // </TouchableOpacity>
+      // <Icon name="map-signs" />
+      <MaterialCommunityIcons
+        name="google-maps"
+        size={30}
+        color="#001648"
+        style={{textAlign: 'center'}}
+      />
+    );
     
- }
-     onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || this.state.date;
-     
-        this.setState({show:(Platform.OS === 'ios')});
-        
-        this.setState({date:currentDate});
-
-    };
-
-     showMode = (currentMode) => {
+    this.state = {
+      selectedValueFrom: '',
+      selectedValueTo: '',
+      date: new Date(1598051730000),
+      mode: 'date',
+      show: false,
+      messFlag: false,
+      listTrip: [],
       
-        this.setState({show:true});
-
-       this.setState({mode:currentMode});
-
+      tableData: [elementIcon()],
     };
+    
 
-     showDatepicker = () => {
-        this.showMode('date');
-        
+  }
+   
+ 
+  async componentDidMount() {
+    await this.props.getCities();
+  }
+  onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || this.state.date;
 
-    };
+    this.setState({show: Platform.OS === 'ios'});
 
-    //  showTimepicker = () => {
-    //    this.showMode('time');
-    // };
+    this.setState({date: currentDate});
+  };
+
+  showMode = (currentMode) => {
+    this.setState({show: true});
+
+    this.setState({mode: currentMode});
+  };
+
+  showDatepicker = () => {
+    this.showMode('date');
+  };
+
+  //  showTimepicker = () => {
+  //    this.showMode('time');
+  // };
+
+  setDaate = (newDate) => {
+    this.setState({date: newDate});
+  };
 
 
 
-     setDaate = (newDate) => {
-       
-        this.setState({date:newDate});
-
-    }
   render() {
+   const fromInput = () => (
+     //<View style={styles.container}>
+     <Picker
+       selectedValue={this.state.selectedValueFrom}
+       style={{height: 50, width: '90%', marginLeft: '10%'}}
+      //  itemStyle={{color: 'red'}}
+       onValueChange={(itemValue, itemIndex) =>
+           this.setState({selectedValueFrom: itemValue})      
+       }
+      //  itemTextStyle={{color: 'red'}}
+     >
+       <Picker.Item label="From" value="" />
+       {this.renderCities(this.props)}
+     </Picker>
+     // </View>
+   );
+    const toInput = () => (
+      <Picker
+        selectedValue={this.state.selectedValueTo}
+        style={{height: 50, width: '90%', marginLeft: '10%'}}
+        onValueChange={(itemValue, itemIndex) =>
+          this.setState({selectedValueTo: itemValue})
+        }
+      >
+        <Picker.Item label="To" value="" style={{textAlign: 'center'}} />
+
+        {this.renderCities(this.props)}
+      </Picker>
+    );
+
+const swapIcon = () => (
+  <MaterialCommunityIcons
+    name="swap-vertical"
+    size={30}
+    color="#001648"
+    style={{textAlign: 'left', marginLeft:0}}
+    onPress={()=>{
+      let temp= this.state.selectedValueTo;
+      this.setState({selectedValueTo: this.state.selectedValueFrom});
+      this.setState({selectedValueFrom: temp});
+    }}
+  />
+);
+const DatePick = () => (
+  <View>
+    <Button onPress={this.showDatepicker}>
+      <Icon name="calendar" />
+    </Button>
+    <Content>
+      {this.state.show && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={this.state.date}
+          mode={this.state.mode}
+          is24Hour={true}
+          display="default"
+          onChange={this.onChange}
+        />
+      )}
+      <Text>{this.state.date.toString()}</Text>
+      {/* ISOString().split('T')[0] */}
+    </Content>
+  </View>
+);
     return (
       <Container>
         <Text>Welcome !!! to Sekka </Text>
-        <View style={styles.container}>
-          <Picker
-            selectedValue={this.state.selectedValueFrom}
-            style={{height: 50, width: 150}}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({selectedValueFrom: itemValue})
-            }
-          >
-            <Picker.Item label="From" value="" />
 
-            {this.renderCities(this.props)}
-          </Picker>
-        </View>
-        <View style={styles.container}>
-          <Picker
-            selectedValue={this.state.selectedValueTo}
-            style={{height: 50, width: 150}}
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({selectedValueTo: itemValue})
-            }
+        <View
+          style={{
+            flex: 1,
+            padding: 16,
+            paddingTop: 30,
+            backgroundColor: '#fff',
+            borderRadius: 30,
+          }}
+          borderRadius={30}
+        >
+          <Table
+            style={{flexDirection: 'row', borderRadius: 30}}
+            // borderStyle={{
+            //   borderWidth: 2,
+            //   // borderColor: 'black',
+            // }}
           >
-            <Picker.Item label="To" value="" />
+            {/* Left Wrapper */}
+            <TableWrapper style={{width: '95%', borderRadius: 30}}>
+              {/* <Cell data="" style={styless.singleHead} /> */}
+              <TableWrapper style={{flexDirection: 'row'}}>
+                <Col
+                  data={this.state.tableData}
+                  style={{flex: 1, backgroundColor: '#c8e1ff'}}
+                  heightArr={[60]}
+                  textStyle={{textAlign: 'center'}}
+                ></Col>
+                <Col
+                  data={[fromInput(), toInput()]}
+                  style={{flex: 5, backgroundColor: '#f6f8fa', width: '50%'}}
+                  heightArr={[30, 30]}
+                  textStyle={{marginRight: 6, textAlign: 'right'}}
+                ></Col>
+                <Col
+                  data={[swapIcon()]}
+                  style={{flex: 1, backgroundColor: '#f6f8fa'}}
+                  heightArr={[60]}
+                  textStyle={{}}
+                ></Col>
+              </TableWrapper>
+            </TableWrapper>
 
-            {this.renderCities(this.props)}
-          </Picker>
+            {/* Right Wrapper */}
+            {/* <TableWrapper style={{flex: 1}}>
+              <Cols
+                data={this.state.tableData}
+                heightArr={[40, 30, 30, 30, 30]}
+                textStyle={styless.text}
+              />
+            </TableWrapper> */}
+          </Table>
         </View>
+
+        <View
+          style={{
+            flex: 1,
+            padding: 16,
+            paddingTop: 30,
+            backgroundColor: '#fff',
+            borderRadius: 30,
+          }}
+          borderRadius={30}
+        >
+          <Table style={{flexDirection: 'row', borderRadius: 30}}>
+            {/* Left Wrapper */}
+            <TableWrapper style={{width: '95%', borderRadius: 30}}>
+              <TableWrapper style={{flexDirection: 'row'}}>
+                <Col
+                  data={[DatePick()]}
+                  style={{flex: 1, backgroundColor: '#c8e1ff'}}
+                  heightArr={[60]}
+                  textStyle={{textAlign: 'center'}}
+                ></Col>
+                <Col
+                  data={[this.state.date.toString().split(" ")[0]+" " + 
+                  this.state.date.toString().split(" ")[1] +" " +
+                  this.state.date.toString().split(" ")[2] +" " +
+                  this.state.date.toString().split(" ")[3] 
+                   ]}
+                  style={{flex: 5, backgroundColor: '#f6f8fa', width: '50%'}}
+                  heightArr={[30]}
+                  textStyle={{marginRight: 6, textAlign: 'right'}}
+                ></Col>
+              </TableWrapper>
+            </TableWrapper>
+
+           
+          </Table>
+        </View>
+
         <View>
           <Button
             onPress={async () => {
               console.log('Awel el on press --------------------------------');
+              if (
+                this.state.selectedValueFrom !== 'From' &&
+                this.state.selectedValueFrom !== ''
+              ) {
+                if (
+                  this.state.selectedValueTo !== 'From' &&
+                  this.state.selectedValueTo !== ''
+                ) {
+                  let obj = {
+                    fromCityName: this.state.selectedValueFrom,
+                    toCityName: this.state.selectedValueTo,
+                    date: this.state.date.toISOString().split('T')[0],
+                  };
+                  console.log('from obj hey ', obj);
+                  console.log('state to props ', this.props.listOfTrips);
 
-              let obj = {
-                fromCityName: this.state.selectedValueFrom,
-                toCityName: this.state.selectedValueTo,
-                date: this.state.date.toISOString().split('T')[0],
-              };
-              console.log('from obj hey ', obj);
-              console.log('state to props ', this.props.listOfTrips);
+                  await this.props.search(obj);
+                  console.log(
+                    'state to props b3d el search call ',
+                    this.props.listOfTrips
+                  );
 
-              await this.props.search(obj);
-              console.log(
-                'state to props b3d el search call ',
-                this.props.listOfTrips
-              );
+                  this.setState({listTrip: this.props.listOfTrips});
+                  console.log('mashy ya kiro yarab awsal hena ');
 
-              this.setState({listTrip: this.props.listOfTrips});
-              console.log('mashy ya kiro yarab awsal hena ');
+                  this.props.navigation.push('ListTrip');
+                  // this.setState({listTrip:listt})
+                  // this.state.listTrip.map(()=>{
+                  //   console.log("el date ",item.date);
+                  // })
+                  //   let listt = [...this.state.listTrip]
+                  // let filtered = [];
+                  //   listt.forEach((item)=>{
+                  //       console.log(item.date.split('T')[0]+'   -----------++++++++++=========');
 
-              this.props.navigation.push('ListTrip');
-              // this.setState({listTrip:listt})
-              // this.state.listTrip.map(()=>{
-              //   console.log("el date ",item.date);
-              // })
-              //   let listt = [...this.state.listTrip]
-              // let filtered = [];
-              //   listt.forEach((item)=>{
-              //       console.log(item.date.split('T')[0]+'   -----------++++++++++=========');
+                  //        if(item.date.split('T')[0] == this.state.mode.toISOString().split('T')[0]){
+                  //           filtered.push(item);
+                  //        }
 
-              //        if(item.date.split('T')[0] == this.state.mode.toISOString().split('T')[0]){
-              //           filtered.push(item);
-              //        }
+                  //   })
 
-              //   })
+                  // this.setState({listTrip:filtered});
+                  console.log(
+                    '--------------------------------the new list',
+                    listt
+                  );
 
-              // this.setState({listTrip:filtered});
-              console.log(
-                '--------------------------------the new list',
-                listt
-              );
-
-              console.log(
-                'b3d assigning el state --------------------------------',
-                this.state.listTrip
-              );
-              console.log('list of trips======@@@### ', this.state.listTrip);
+                  console.log(
+                    'b3d assigning el state --------------------------------',
+                    this.state.listTrip
+                  );
+                  console.log(
+                    'list of trips======@@@### ',
+                    this.state.listTrip
+                  );
+                } else {
+                  Alert.alert('Please enter your destination city');
+                }
+              } else {
+                Alert.alert('Please enter your pickup city');
+              }
             }}
-            
           >
             <Text>submit Your Trip!</Text>
           </Button>
         </View>
-        <View>
-          <Button onPress={this.showDatepicker}>
-            <Icon name="calendar" />
-          </Button>
-        </View>
-        {/* <View>
-          <Button onPress={this.showTimepicker} title="Show time picker!" />
-        </View> */}
-        <Content>
-          {this.state.show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={this.state.date}
-              mode={this.state.mode}
-              is24Hour={true}
-              display="default"
-              onChange={this.onChange}
-            />
-          )}
-          <Text>{this.state.date.toString()}</Text>
-          {/* ISOString().split('T')[0] */}
-        </Content>
+        
       </Container>
     );
   }
- 
-  renderCities({ ReciviedCities }) {
-    if (ReciviedCities ) {
-        let x=[];
-        ReciviedCities.forEach(element => {
-            x.push(element.cityName);
-            
-        });
 
-      return x.map((s,i) => {
-        return (
-           <Picker.Item key={i} value={s} label={s}  />
-        );
+  renderCities({ReciviedCities}) {
+    if (ReciviedCities) {
+      let x = [];
+      ReciviedCities.forEach((element) => {
+        x.push(element.cityName);
+      });
+
+      return x.map((s, i) => {
+        return <Picker.Item key={i} value={s} label={s} />;
       });
     } else {
-      return <Text >No User Found</Text>;
+      return <Text>No User Found</Text>;
     }
   }
 }
@@ -353,6 +353,10 @@ class MainScreen extends Component {
         alignItems: "center"
     }
 });
+
+
+
+
 
 export default connect(
     (state) => {
