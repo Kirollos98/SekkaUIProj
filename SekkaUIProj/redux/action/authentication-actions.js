@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const Base = 'http://172.28.112.1:3344/api/';
+
 const storeData = async (value,name) => {
     try {
       const jsonValue = JSON.stringify(value)
@@ -25,7 +27,7 @@ export async function LoginAction(user){
     //var authToken = await getData("authToken");
    try{
       console.log("User From Login Action",user);
-    let data = await fetch('http://192.168.176.1:3344/api/auth/login', {
+    let data = await fetch(`${Base}auth/login`, {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
@@ -60,7 +62,7 @@ export async function RegisterAction(newUser){
     // })
     // let x=await data.json();
    // let data = await fetch("http://192.168.1.7:3344/api/auth/register",{
-        let data = await fetch('http://192.168.176.1:3344/api/auth/register', {
+        let data = await fetch(`${Base}auth/register`, {
           method: 'POST',
           body: JSON.stringify(newUser),
           headers: {'Content-Type': 'application/json'},
@@ -78,7 +80,7 @@ export async function RegisterAction(newUser){
 export async function LogoutAction(){
     var authToken = await getData("authToken");
     console.log(authToken,"hopaa")
-    let data = await fetch('http://192.168.176.1:3344/api/auth/logout', {
+    let data = await fetch(`${Base}auth/logout`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${authToken}`,
@@ -95,12 +97,9 @@ export async function LogoutAction(){
 export const getCities = async () => {
   let payload = null;
   try {
-    const response = await fetch(
-      `http://192.168.176.1:3344/api/city/getAllCities`,
-      {
-        method: 'get',
-      }
-    );
+    const response = await fetch(`${Base}city/getAllCities`, {
+      method: 'get',
+    });
     payload = await response.json();
   //  console.log(payload);
   } catch (err) {

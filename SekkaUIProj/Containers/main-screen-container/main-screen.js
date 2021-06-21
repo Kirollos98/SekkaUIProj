@@ -206,9 +206,9 @@ class MainScreen extends Component {
 
     };
 
-     showTimepicker = () => {
-       this.showMode('time');
-    };
+    //  showTimepicker = () => {
+    //    this.showMode('time');
+    // };
 
 
 

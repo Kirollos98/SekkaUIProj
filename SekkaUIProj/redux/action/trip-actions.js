@@ -1,7 +1,8 @@
 
+const Base = 'http://172.28.112.1:3344/api/trip/';
 export async function search(trip){
 console.log("start actionssss")
-    let data = await fetch('http://192.168.176.1:3344/api/trip/search', {
+    let data = await fetch(`${Base}search`, {
       method: 'POST',
       body: JSON.stringify(trip),
       headers: {'Content-Type': 'application/json'},
@@ -28,9 +29,7 @@ console.log('actions',response);
 
 export async function getTripDetial(tripID){
 
-  let data = await fetch(
-    `http://192.168.176.1:3344/api/trip/detailTrip/${tripID}`
-  );
+  let data = await fetch(`${Base}detailTrip/${tripID}`);
 
   let response = await data.json();
   console.log(response,"from details");
