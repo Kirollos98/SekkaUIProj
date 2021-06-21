@@ -1,5 +1,5 @@
 
-const Base = 'http://172.28.112.1:3344/api/trip/';
+const Base = 'http://192.168.1.15:3344/api/trip/';
 export async function search(trip){
 console.log("start actionssss")
     let data = await fetch(`${Base}search`, {

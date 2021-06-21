@@ -1,9 +1,11 @@
 import { Label, View ,Text,Button,Textarea ,Input,Container, Header, Content, Form, Item} from "native-base"
 import React ,{ useEffect, useState } from "react";
-import { Alert } from "react-native";
+import { Alert ,StyleSheet} from "react-native";
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux";
 import {RegisterAction,LoginAction} from "../../redux/action/authentication-actions"
+import LottieView from 'lottie-react-native';
+import { TouchableHighlight } from "react-native-gesture-handler";
 
 Register = (props)=>{
 
@@ -48,53 +50,76 @@ Register = (props)=>{
         props.navigation.replace("Login");
       }
     }, [registerFlag])
+    var [ isPress, setIsPress ] = React.useState(false);
 
+    var touchProps = {
+      activeOpacity: 1,
+      underlayColor: '#00a3cc',                               // <-- "backgroundColor" will be always overwritten by "underlayColor"
+      style: isPress ? styles.btnPress : styles.btnNormal, // <-- but you can still apply other style changes
+      onHideUnderlay: () => setIsPress(false),
+      onShowUnderlay: () => setIsPress(true),
+      onPress: () => console.log('HELLO'),                 // <-- "onPress" is apparently required
+    };
+  
     return(
         <Container>
-        <Content style={{width:'90%',alignContent:"center",marginLeft:'5%'}}>
-          <Form>
-            <Item floatingLabel>
-              <Label>Username</Label>
+        
+        <Content style={{width:'90%',alignContent:"center",marginLeft:'5%',backgroundColor: '#001648'}}>
+        <LottieView source={require('../../assets/lottie/user-profile.json')} autoPlay loop style={{width:250,height:250,alignSelf:"center"}}/>         
+
+          <Form style={{marginTop:-35}}>
+            <Item floatingLabel last>
+              <Label style={{color: '#03CFFF',marginVertical:-5,marginLeft:-15}}>Username</Label>
               <Input   value={userName}
                 onChangeText={(txt)=>{
                     setUserName(txt);
-                }}/>
+                }}
+                style={{color: 'white'}}
+                />
             </Item>
 
-            <Item floatingLabel>
-              <Label>Email</Label>
+            <Item floatingLabel last>
+              <Label style={{color: '#03CFFF',marginVertical:-5,marginLeft:-15}}>Email</Label>
               <Input    value={email}
                 onChangeText={(txt)=>{
                     setEmail(txt);
-                }}/>
+                }}
+                style={{color: 'white'}}
+                />
             </Item>
 
-            <Item floatingLabel>
-              <Label>Password</Label>
+            <Item floatingLabel last>
+              <Label style={{color: '#03CFFF',marginVertical:-5,marginLeft:-15}}>Password</Label>
               <Input secureTextEntry={true} 
                 value={password}
                 onChangeText={(txt)=>{
                     setPassword(txt);
-                }}/>
+                }}
+                style={{color: 'white'}}
+                />
             </Item>
 
-            <Item floatingLabel>
-              <Label>Confirm Password</Label>
+            <Item floatingLabel last>
+              <Label style={{color: '#03CFFF',marginVertical:-5,marginLeft:-15}}>Confirm Password</Label>
               <Input secureTextEntry={true} 
                 value={passwordConfirm}
                 onChangeText={(txt)=>{
                     setPasswordConfirm(txt);
-                }}/>
+                }}
+                style={{color: 'white'}}
+                />
             </Item>
             <Item floatingLabel last>
-              <Label>City</Label>
+              <Label style={{color: '#03CFFF',marginVertical:-5,marginLeft:-15}}>City</Label>
               <Input value={city}
                 onChangeText={(txt)=>{
                     setCity(txt);
-                }}/>
+                }}
+                style={{color: 'white'}}
+                />
             </Item>
-            <View style={{marginTop:"10%"}}>
-            <Button primary  block onPress={async()=>{
+            <View style= {styles.container}>
+            <TouchableHighlight {...touchProps}   block onPress={async()=>{
                     let tempObj = {
                         name:userName,
                         password,
@@ -124,14 +149,15 @@ Register = (props)=>{
 
                     }
                    
-                }}><Text>Register</Text></Button>
+                }}><Text style={{fontWeight:"bold",color:"white",alignSelf:"center",textAlignVertical:"center",marginTop:9}}>Register</Text></TouchableHighlight>
             
             </View>
-            <Text style={{ color: 'blue',marginTop:'3%' }}
-                    onPress={() =>props.navigation.replace("Login")
-                }>
-                    You already have an account? Login
-                </Text>
+            <Text style={{fontWeight:"bold",color:"white",alignSelf:"center",textAlignVertical:"center",marginTop:9}} >
+               
+                    You already have an account? &nbsp;
+                    <Text onPress={() =>props.navigation.replace("Login") }
+                    style={{color:"#ff0066",textDecorationLine:"underline"}}> Login</Text>
+            </Text>
           </Form>
         </Content>
       </Container>
@@ -150,3 +176,33 @@ export default connect(
         return bindActionCreators({RegisterAction},dispatch)
     }
 )(Register)
+
+
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop:"5%",
+    textAlignVertical:"center",
+    width:"100%"
+  },
+  btnNormal: {
+    borderColor: '#03CFFF',
+    borderWidth: 1,
+    borderRadius: 25,
+    height: 45,
+    width: 300,
+    backgroundColor: '#03CFFF'
+  },
+  btnPress: {
+    borderColor: '#00a3cc',
+    borderWidth: 1,
+    borderRadius: 25,
+    height: 45,
+    width: 300,
+    backgroundColor: '#00a3cc'
+    
+  }
+});

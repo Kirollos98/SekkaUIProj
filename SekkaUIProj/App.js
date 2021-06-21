@@ -50,9 +50,10 @@ export default function App() {
             component={registerContainer}
             options={{
               title: 'Registeration',
-              headerTitleStyle: {textAlign: 'center', color: '#03CFFF'},
+              headerTitleStyle: {textAlign: 'center', color: '#03CFFF',marginRight:'25%'},
               headerStyle: {backgroundColor: '#001648'},
               headerTintColor: '#03CFFF',
+              
             }}
           />
           <Navigator.Screen
@@ -62,8 +63,9 @@ export default function App() {
               title: 'Login',
               headerTitleStyle: {
                 textAlign: 'center',
+                
                 color: '#03CFFF',
-                margin: 'auto',
+                marginRight:'25%'
               },
               headerStyle: {backgroundColor: '#001648'},
               headerTintColor: '#03CFFF',
@@ -77,6 +79,7 @@ export default function App() {
               headerTitleStyle: {
                 textAlign: 'center',
                 color: '#03CFFF',
+                fontSize:25
               },
               headerStyle: {backgroundColor: '#001648'},
             }}

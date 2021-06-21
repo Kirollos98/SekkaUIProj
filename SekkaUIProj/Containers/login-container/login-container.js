@@ -1,15 +1,24 @@
 import { Label, View, Textarea, Text, Input, Container, Header, Content, Form, Item, Button } from "native-base"
 import React, { useState } from "react";
-import { Alert } from "react-native";
+import { Alert, Image,StyleSheet,TouchableHighlight} from "react-native";
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux";
 import { LoginAction } from "../../redux/action/authentication-actions"
-
+import LottieView from 'lottie-react-native';
 const Login = (props) => {
 
     let [userName, setUserName] = useState();
     let [password, setPassword] = useState();
+    var [ isPress, setIsPress ] = React.useState(false);
 
+    var touchProps = {
+      activeOpacity: 1,
+      underlayColor: '#00a3cc',                               // <-- "backgroundColor" will be always overwritten by "underlayColor"
+      style: isPress ? styles.btnPress : styles.btnNormal, // <-- but you can still apply other style changes
+      onHideUnderlay: () => setIsPress(false),
+      onShowUnderlay: () => setIsPress(true),
+      onPress: () => console.log('HELLO'),                 // <-- "onPress" is apparently required
+    };
     return (
       <Container>
         <Content
@@ -20,9 +29,11 @@ const Login = (props) => {
             backgroundColor: '#001648',
           }}
         >
-          <Form>
-            <Item floatingLabel>
-              <Label style={{color: '#03CFFF'}}>Username</Label>
+        
+        <LottieView source={require('../../assets/lottie/login.json')} autoPlay loop style={{width:400,height:400,alignSelf:"center"}}/>          
+        <Form style={{marginTop:-70}}>
+            <Item floatingLabel last >
+              <Label style={{color: '#03CFFF',marginVertical:-5,marginLeft:-15}}>Username</Label>
               <Input
                 value={userName}
                 onChangeText={(txt) => {
@@ -32,7 +43,7 @@ const Login = (props) => {
               />
             </Item>
             <Item floatingLabel last>
-              <Label style={{color: '#03CFFF'}}>Password</Label>
+              <Label style={{color: '#03CFFF',marginVertical:-5,marginLeft:-15}}>Password</Label>
               <Input
                 secureTextEntry={true}
                 value={password}
@@ -42,9 +53,9 @@ const Login = (props) => {
                 style={{color: 'white'}}
               />
             </Item>
-            <View style={{marginTop: '10%'}}>
-              <Button
-                style={{backgroundColor: '#03CFFF'}}
+            <View style= {styles.container}>
+              <TouchableHighlight {...touchProps} 
+                
                 block
                 onPress={async () => {
                   let tempObj = {
@@ -61,16 +72,15 @@ const Login = (props) => {
                   }
                 }}
               >
-                <Text>Login</Text>
-              </Button>
+                <Text style={{fontWeight:"bold",color:"white",alignSelf:"center",textAlignVertical:"center",marginTop:9}}>Login</Text>
+              </TouchableHighlight>
             </View>
           </Form>
-          <Text
-            style={{color: 'white', marginTop: '3%'}}
-            onPress={() => props.navigation.replace('Register')}
-          >
-            You don't have an account? Register now
+          <Text style={{fontWeight:"bold",color:"white",alignSelf:"center",textAlignVertical:"center",marginTop:9}}>
+            You don't have an account? &nbsp;
+            <Text  onPress={() => props.navigation.replace('Register')} style={{color:"#ff0066",textDecorationLine:"underline"}}>Register now</Text> 
           </Text>
+      
         </Content>
       </Container>
     );
@@ -86,3 +96,31 @@ export default connect(
         return bindActionCreators({ LoginAction }, dispatch)
     }
 )(Login)
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop:"5%",
+    textAlignVertical:"center",
+    width:"100%"
+  },
+  btnNormal: {
+    borderColor: '#03CFFF',
+    borderWidth: 1,
+    borderRadius: 25,
+    height: 45,
+    width: 300,
+    backgroundColor: '#03CFFF'
+  },
+  btnPress: {
+    borderColor: '#00a3cc',
+    borderWidth: 1,
+    borderRadius: 25,
+    height: 45,
+    width: 300,
+    backgroundColor: '#00a3cc'
+    
+  }
+});
