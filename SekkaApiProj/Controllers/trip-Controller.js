@@ -128,7 +128,7 @@ const BookingTrip = (req, res) => {
 module.exports = {
   addTrip,
   getAllTrips,
-  search,
+  search, 
   detailTrip,
   BookingTrip,
 };

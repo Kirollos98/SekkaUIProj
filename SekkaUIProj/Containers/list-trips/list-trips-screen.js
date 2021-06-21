@@ -6,6 +6,7 @@ import {StyleSheet, ActivityIndicator, Image} from 'react-native';
 import { View, Text, Button,Right,Left,Icon,ListItem, Row, Col } from 'native-base';
 
 // import TripScreen from '../../Components/trip-component/Trip-component';
+
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 
 const TripList = (props) => {
@@ -48,7 +49,7 @@ const TripList = (props) => {
       //   </Tab.Navigator>
         <FlatList
           style={{backgroundColor: 'lightblue'}}
-          data={props.tripList}
+          data={props.list}
           renderItem={({item}) => {
             return (
               <ListItem>
@@ -109,11 +110,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(
-    (state)=>{
-        return{
-            tripList:state.SearchTrip.tripsLIST
-        }
-    },
-)(TripList) ;
+export default TripList;
+// export default connect(
+//     (state)=>{
+//         return{
+//             tripList:state.SearchTrip.tripsLIST
+//         }
+//     },
+// )(TripList) ;
 

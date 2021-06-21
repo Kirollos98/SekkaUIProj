@@ -1,9 +1,17 @@
- import { View, Text, Picker, Container, Content } from "native-base";
+ import {
+   View,
+   Text,
+   Picker,
+   Container,
+   Content,
+   Icon,
+   Button,
+ } from 'native-base';
 
  import DateTimePicker from '@react-native-community/datetimepicker';
 
  import React from "react";
- import {Alert, Button, StyleSheet} from 'react-native';
+ import {Alert, StyleSheet} from 'react-native';
  import { connect } from "react-redux"
  import { bindActionCreators } from "redux";
  import { LogoutAction, getCities } from "../../redux/action/authentication-actions"
@@ -240,15 +248,16 @@ class MainScreen extends Component {
           </Picker>
         </View>
         <View>
-          <Button onPress={async()=>{
-             console.log("Awel el on press --------------------------------");
+          <Button
+            onPress={async () => {
+              console.log('Awel el on press --------------------------------');
 
               let obj = {
                 fromCityName: this.state.selectedValueFrom,
                 toCityName: this.state.selectedValueTo,
                 date: this.state.date.toISOString().split('T')[0],
               };
-              console.log("from obj hey ",obj)
+              console.log('from obj hey ', obj);
               console.log('state to props ', this.props.listOfTrips);
 
               await this.props.search(obj);
@@ -257,47 +266,50 @@ class MainScreen extends Component {
                 this.props.listOfTrips
               );
 
+              this.setState({listTrip: this.props.listOfTrips});
+              console.log('mashy ya kiro yarab awsal hena ');
 
-             this.setState({listTrip: this.props.listOfTrips});
-              console.log("mashy ya kiro yarab awsal hena ");
+              this.props.navigation.push('ListTrip');
+              // this.setState({listTrip:listt})
+              // this.state.listTrip.map(()=>{
+              //   console.log("el date ",item.date);
+              // })
+              //   let listt = [...this.state.listTrip]
+              // let filtered = [];
+              //   listt.forEach((item)=>{
+              //       console.log(item.date.split('T')[0]+'   -----------++++++++++=========');
 
-              
-            this.props.navigation.push('ListTrip');
-            // this.setState({listTrip:listt})
-            // this.state.listTrip.map(()=>{
-            //   console.log("el date ",item.date);
-            // })
-          //   let listt = [...this.state.listTrip]
-          // let filtered = [];
-          //   listt.forEach((item)=>{
-          //       console.log(item.date.split('T')[0]+'   -----------++++++++++=========');
-               
-          //        if(item.date.split('T')[0] == this.state.mode.toISOString().split('T')[0]){
-          //           filtered.push(item);
-          //        }
-                
-          //   })  
+              //        if(item.date.split('T')[0] == this.state.mode.toISOString().split('T')[0]){
+              //           filtered.push(item);
+              //        }
 
-            // this.setState({listTrip:filtered});
-             console.log('--------------------------------the new list',listt);
+              //   })
 
-             console.log(
-               'b3d assigning el state --------------------------------',
-               this.state.listTrip
+              // this.setState({listTrip:filtered});
+              console.log(
+                '--------------------------------the new list',
+                listt
+              );
 
-
-             );
-              console.log("list of trips======@@@### ",this.state.listTrip)
-
-
-          }} title="submit Your Trip!" />
+              console.log(
+                'b3d assigning el state --------------------------------',
+                this.state.listTrip
+              );
+              console.log('list of trips======@@@### ', this.state.listTrip);
+            }}
+            
+          >
+            <Text>submit Your Trip!</Text>
+          </Button>
         </View>
         <View>
-          <Button onPress={this.showDatepicker} title="Show date picker!" />
+          <Button onPress={this.showDatepicker}>
+            <Icon name="calendar" />
+          </Button>
         </View>
-        <View>
+        {/* <View>
           <Button onPress={this.showTimepicker} title="Show time picker!" />
-        </View>
+        </View> */}
         <Content>
           {this.state.show && (
             <DateTimePicker

@@ -20,6 +20,7 @@ import loginContainer from './Containers/login-container/login-container';
 import mainScreen from './Containers/main-screen-container/main-screen';
 import listTripsScreen from './Containers/list-trips/list-trips-screen';
 import detailContainer from './Containers/detail-container/detail-container';
+import commonTripList from './Containers/Common-trip-list/common-trip-list';
 
 // const createStoreWithMW = applyMiddleware(promiseMW)(createStore)
 
@@ -49,7 +50,9 @@ export default function App() {
             component={registerContainer}
             options={{
               title: 'Registeration',
-              headerTitleStyle: {textAlign: 'center'},
+              headerTitleStyle: {textAlign: 'center', color: '#03CFFF'},
+              headerStyle: {backgroundColor: '#001648'},
+              headerTintColor: '#03CFFF',
             }}
           />
           <Navigator.Screen
@@ -57,39 +60,56 @@ export default function App() {
             component={loginContainer}
             options={{
               title: 'Login',
-              headerTitleStyle: {textAlign: 'center'},
+              headerTitleStyle: {
+                textAlign: 'center',
+                color: '#03CFFF',
+                margin: 'auto',
+              },
+              headerStyle: {backgroundColor: '#001648'},
+              headerTintColor: '#03CFFF',
             }}
           />
           <Navigator.Screen
             name="Home"
             component={Home}
             options={{
-              title: 'Home',
-              headerTitleStyle: {textAlign: 'center'},
+              title: 'SEKKA',
+              headerTitleStyle: {
+                textAlign: 'center',
+                color: '#03CFFF',
+              },
+              headerStyle: {backgroundColor: '#001648'},
             }}
           />
           <Navigator.Screen
             name="MainPage"
             component={mainScreen}
             options={{
-              title: 'Main',
+              title: 'Home',
               headerTitleStyle: {textAlign: 'center'},
+              headerStyle: {backgroundColor: '#001648'},
+              headerTintColor: '#03CFFF',
             }}
           />
           <Navigator.Screen
             name="ListTrip"
-            component={listTripsScreen}
+            component={commonTripList}
             options={{
-              title: 'ListTrip',
+              title: 'Trips',
               headerTitleStyle: {textAlign: 'center'},
+              headerStyle: {backgroundColor: '#001648'},
+              headerTintColor: '#03CFFF',
             }}
           />
+
           <Navigator.Screen
             name="detail"
             component={detailContainer}
             options={{
               title: 'detail',
               headerTitleStyle: {textAlign: 'center'},
+              headerStyle: {backgroundColor: '#001648'},
+              headerTintColor: '#03CFFF',
             }}
           />
         </Navigator.Navigator>
