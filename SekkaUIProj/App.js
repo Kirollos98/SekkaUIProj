@@ -79,7 +79,8 @@ export default function App() {
               headerTitleStyle: {
                 textAlign: 'center',
                 color: '#03CFFF',
-                fontSize:25
+                fontSize:25,
+                marginRight:'20%'
               },
               headerStyle: {backgroundColor: '#001648'},
             }}
@@ -89,7 +90,7 @@ export default function App() {
             component={mainScreen}
             options={{
               title: 'Home',
-              headerTitleStyle: {textAlign: 'center'},
+              headerTitleStyle: {textAlign: 'center',marginRight:'20%'},
               headerStyle: {backgroundColor: '#001648'},
               headerTintColor: '#03CFFF',
             }}
@@ -99,7 +100,7 @@ export default function App() {
             component={commonTripList}
             options={{
               title: 'Trips',
-              headerTitleStyle: {textAlign: 'center'},
+              headerTitleStyle: {textAlign: 'center',marginRight:'20%'},
               headerStyle: {backgroundColor: '#001648'},
               headerTintColor: '#03CFFF',
             }}
@@ -110,7 +111,7 @@ export default function App() {
             component={detailContainer}
             options={{
               title: 'detail',
-              headerTitleStyle: {textAlign: 'center'},
+              headerTitleStyle: {textAlign: 'center',marginRight:'20%'},
               headerStyle: {backgroundColor: '#001648'},
               headerTintColor: '#03CFFF',
             }}

@@ -10,6 +10,9 @@ export default function searchTrip(state = {}, action) {
     case 'Trip_Details': {
       return {...state, tripDetails: action.payload};
     }
+    case 'Trip-Booking': {
+      return {...state, bookedTrip: action.payload};
+    }
     default: {
       return state;
     }

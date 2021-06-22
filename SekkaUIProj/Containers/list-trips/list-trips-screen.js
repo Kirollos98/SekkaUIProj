@@ -1,8 +1,7 @@
 import { FlatList } from "react-native-gesture-handler";
-import { connect }  from "react-redux";
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, ActivityIndicator, Image} from 'react-native';
-
+import { connect } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, ActivityIndicator, Image } from 'react-native';
 import {
   View,
   Text,
@@ -14,131 +13,161 @@ import {
   Row,
   Col,
   Body,
-  Thumbnail,
 } from 'native-base';
 
 // import TripScreen from '../../Components/trip-component/Trip-component';
 
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import moment from "moment";
 
 const TripList = (props) => {
 
   const [animating, setAnimating] = useState(true);
   const [visible, setVisible] = useState(false);
- 
+
   const closeActivityIndicator = () => {
     setTimeout(() => {
-      setAnimating(false);    
+      setAnimating(false);
       setVisible(true);
     }, 3000)
   }
-  useEffect(() => closeActivityIndicator(),[])
- 
+  useEffect(() => closeActivityIndicator(), [])
+
   let anime = animating;
   let vis = visible;
-
+  function makeTwoDigits(time) {
+    const timeString = `${time}`;
+    if (timeString.length === 2) return time
+    return `0${time}`
+  }
   const Tab = createMaterialBottomTabNavigator();
-  let img = '../../assets/' + item.type + '.png';
-    return (
-      // <FlatList
-      //     data={props.tripsLIST}
-      //     renderItem={(item)=>{
+  // let img = '../../assets/' + item.type + '.png';
+  return (
+    // <FlatList
+    //     data={props.tripsLIST}
+    //     renderItem={(item)=>{
 
-      //     }}
-      //     ItemSeparatorComponent{()=>{
-      //         return(
-      //             <View style={{width:"100%",backgroundColor:"black"}}>
+    //     }}
+    //     ItemSeparatorComponent{()=>{
+    //         return(
+    //             <View style={{width:"100%",backgroundColor:"black"}}>
 
-      //             </View>
-      //         )
-      //     }}
+    //             </View>
+    //         )
+    //     }}
 
-      // />
-      // <View>
-      //   <Tab.Navigator>
-      //     <Tab.Screen name="Train" component={TripScreen} />
-      //     <Tab.Screen name="Bus" component={TripScreen} />
-      //     <Tab.Screen name="plan" component={TripScreen} />
-      //   </Tab.Navigator>
+    // />
+    // <View>
+    //   <Tab.Navigator>
+    //     <Tab.Screen name="Train" component={TripScreen} />
+    //     <Tab.Screen name="Bus" component={TripScreen} />
+    //     <Tab.Screen name="plan" component={TripScreen} />
+    //   </Tab.Navigator>
 
-      /**
-       * 
-       * [2:59 PM] huda.ahmeed.2020 (Guest)
-      <ListItem avatar style={​{​height:120 ,margin:20,padding:20,borderRadius:30,backgroundColor:'#3081A7'}​}​>
-      <Left>
-      <Thumbnailstyle={​{​width:70,height:70}​}​source={​{​ uri:item.avatar }​}​/>
-      </Left>
-      <Body>
-      <Text>{​item.first_name}​</Text>
-      <Textnotestyle={​{​color:'white'}​}​>{​item.email}​</Text>
-      </Body>
-      <Rightstyle={​{​height:68}​}​>
-      <Iconname="eye"onPress={​
-                              () => {​
-      navigation.navigate('details', {​ id:item.id }​)
-                              }​
-      }​/>
-      </Right>
-      </ListItem>
+    /**
+     * 
+     * [2:59 PM] huda.ahmeed.2020 (Guest)
+    <ListItem avatar style={​{​height:120 ,margin:20,padding:20,borderRadius:30,backgroundColor:'#3081A7'}​}​>
+    <Left>
+    <Thumbnailstyle={​{​width:70,height:70}​}​source={​{​ uri:item.avatar }​}​/>
+    </Left>
+    <Body>
+    <Text>{​item.first_name}​</Text>
+    <Textnotestyle={​{​color:'white'}​}​>{​item.email}​</Text>
+    </Body>
+    <Rightstyle={​{​height:68}​}​>
+    <Iconname="eye"onPress={​
+                            () => {​
+    navigation.navigate('details', {​ id:item.id }​)
+                            }​
+    }​/>
+    </Right>
+    </ListItem>
 
-       */
-      <FlatList
-        style={{backgroundColor: '#001648'}}
-        data={props.list}
-        renderItem={({item}) => {
-          return (
-            <ListItem
-              style={{
-                height: 100,
-                margin: '5%',
-                padding: '5%',
-                borderRadius: 20,
-                backgroundColor: '#c8e1ff',
-              }}
-            >
-              <Left>
-                <Thumbnail
-                  style={{width: 70, height: 70}}
-                  source= {require(img)}
-                />
-              </Left>
-              <Body>
+     */
+    <FlatList
+      style={{ backgroundColor: '#001648' }}
+      data={props.list}
+      renderItem={({ item }) => {
+
+        // console.log(item.date);
+
+        // console.log(moment(item.date).utc().format('hh:mm:ss a'));
+
+        // console.log(new Date(item.date).getHours());
+        // console.log(new Date(item.date).getMinutes());
+        // console.log(new Date(item.date).getSeconds());
+        // console.log(`${new Date(item.date)}:${new Date(item.date).getSeconds()}:${new Date(item.date).getSeconds()}`);
+        return (
+          <ListItem
+            style={{
+              height: 120,
+              margin: '5%',
+              padding: '5%',
+              borderRadius: 20,
+              backgroundColor: '#c8e1ff',
+            }}
+          >
+            <Left style={{ flex: 0.5 }}>
+              <Image
+                style={{ width: 50, height: 50 }}
+                source={item.type == "train" ? require("../../assets/train.png") : item.type == "bus" ? require("../../assets/bus.png") : require("../../assets/plane.png")}
+              />
+            </Left>
+            <Body style={{ flex: 3 }}>
+              <Row>
                 <Col>
-                  <Text style={{color: '#001648'}}>{item.tripNum}</Text>
-                  <Text>  {item.price}</Text>
-                </Col>
-              </Body>
-              <Right>
-                <Icon
-                  name="eye"
-                  onPress={() => {
-                    props.navigation.push('detail', {id: item._id});
-                  }}
-                  style={{color: '#001648'}}
-                  // color={'white'}
-                />
-              </Right>
-            </ListItem>
-          );
-        }}
-        ItemSeparatorComponent={ItemSeparator}
-        keyExtractor={(item) => item._id.toString()}
-        ListEmptyComponent={EmptyList(anime, vis)}
-      />
-      // </View>
-    );
-}
- 
+                  <Row>
 
-const EmptyList = (anime,visible) => {
-  return(
-  <View style={[styles.container, styles.horizontal]}>
-    <ActivityIndicator size="large" color="red" animating={anime}/>
-    {
-    visible &&
-    (<Text style={{ textAlign: "center" }}>No Trips available</Text>)
-    }
-  </View>
+                    <Text style={{ color: '#001648', fontWeight: "bold" }}>TripNumber:</Text>
+                    <Text style={{ color: '#001648' }}>{item.tripNum}</Text>
+                  </Row>
+                  <Row>
+
+                    <Text style={{ color: '#001648', fontWeight: "bold" }}>Price:</Text>
+                    <Text style={{ color: '#001648' }}>{item.price / 1000} L.E</Text>
+                  </Row>
+                  <Row>
+                    <Text style={{ color: '#001648', fontWeight: "bold" }}>Time:</Text>
+                    <Text>{moment(item.date).utc().format('hh:mm:ss a')}</Text>
+                  </Row>
+                </Col>
+
+
+              </Row>
+
+            </Body>
+            <Right>
+              <Icon
+                name="eye"
+                onPress={() => {
+                  props.navigation.push('detail', { id: item._id });
+                }}
+                style={{ color: '#001648' }}
+              // color={'white'}
+              />
+            </Right>
+          </ListItem>
+        );
+      }}
+      ItemSeparatorComponent={ItemSeparator}
+      keyExtractor={(item) => item._id.toString()}
+      ListEmptyComponent={EmptyList(anime, vis)}
+    />
+    // </View>
+  );
+}
+
+
+const EmptyList = (anime, visible) => {
+  return (
+    <View style={[styles.container, styles.horizontal]}>
+      <ActivityIndicator size="large" color="red" animating={anime} />
+      {
+        visible &&
+        (<Text style={{ textAlign: "center",color:"#c8e1ff" }}>No Trips available</Text>)
+      }
+    </View>
   );
 };
 

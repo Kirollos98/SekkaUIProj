@@ -31,13 +31,13 @@ useEffect(()=>{
     }
 },[])
     return (
-      <View style={{height: '100%', backgroundColor: '#F1E9E7'}}>
-        <Tabs style={{backgroundColor: '#F1E9E7'}} initialPage={0}>
+      <View style={{height: '100%', backgroundColor: '#ff0066'}}>
+        <Tabs style={{backgroundColor: '#ff0066'}} initialPage={0}>
           <Tab
-            tabStyle={{alignContent: 'center', backgroundColor: '#F1E9E7'}}
+            tabStyle={{alignContent: 'center', backgroundColor: '#ff0066'}}
             heading={
-              <TabHeading>
-                <Icon name="bus" />
+              <TabHeading style={{backgroundColor:'#001648'}}>
+                <Icon name="bus"/>
                 <Text>Bus</Text>
               </TabHeading>
             }
@@ -47,8 +47,8 @@ useEffect(()=>{
           <Tab
             tabStyle={{alignContent: 'center', backgroundColor: '#F1E9E7'}}
             heading={
-              <TabHeading>
-                <Icon name="train" />
+              <TabHeading style={{backgroundColor:'#001648'}}>
+                <Icon name="train"  />
                 <Text>Train</Text>
               </TabHeading>
             }
@@ -58,7 +58,7 @@ useEffect(()=>{
           <Tab
             tabStyle={{alignContent: 'center', backgroundColor: '#F1E9E7'}}
             heading={
-              <TabHeading>  
+              <TabHeading style={{backgroundColor:'#001648'}}>  
                 <Icon name="airplane" />
                 <Text>Plane</Text>
               </TabHeading>

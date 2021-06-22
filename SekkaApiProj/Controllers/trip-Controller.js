@@ -91,7 +91,7 @@ const detailTrip = async (req, res) => {
 };
 //trip => seats => minus => add
 const BookingTrip = (req, res) => {
-  console.log(req.body);
+  console.log(req.body,"body here ");
   Trip.findOne({_id: req.body.tripId}, (err, trip) => {
     console.log('--------+++++++++++-------', trip.seat);
     if (!err) {
@@ -114,7 +114,10 @@ const BookingTrip = (req, res) => {
                   'error happened while booking your trip, try again later'
                 );
               } else {
-                res.status(200).send(newBook);
+                Booking.findOne({_id:newBook._id}).populate("UserID").populate("TripID").exec((err,bookingConfirmed)=>{
+                  
+                  res.status(200).send(bookingConfirmed);
+                })
               }
             });
           }
