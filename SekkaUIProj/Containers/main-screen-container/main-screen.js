@@ -103,11 +103,9 @@ class MainScreen extends Component {
      <Picker
        selectedValue={this.state.selectedValueFrom}
        style={{height: 50, width: '90%', marginLeft: '10%'}}
-      //  itemStyle={{color: 'red'}}
        onValueChange={(itemValue, itemIndex) =>
            this.setState({selectedValueFrom: itemValue})      
        }
-      //  itemTextStyle={{color: 'red'}}
      >
        <Picker.Item label="From" value="" />
        {this.renderCities(this.props)}
@@ -143,9 +141,13 @@ const swapIcon = () => (
 );
 const DatePick = () => (
   <View>
-    <Button onPress={this.showDatepicker}>
-      <Icon name="calendar" />
-    </Button>
+    {/* <Button onPress={this.showDatepicker} style={{backgroundColor: '#c8e1ff'}}> */}
+    <Icon
+      name="calendar"
+      onPress={this.showDatepicker}
+      style={{color: '#001648', textAlign: 'center'}}
+    />
+    {/* </Button> */}
     <Content>
       {this.state.show && (
         <DateTimePicker
@@ -163,9 +165,7 @@ const DatePick = () => (
   </View>
 );
     return (
-      <Container>
-        <Text>Welcome !!! to Sekka </Text>
-
+      <Container style={{backgroundColor: '#001648'}}>
         <View
           style={{
             flex: 1,
@@ -173,6 +173,7 @@ const DatePick = () => (
             paddingTop: 30,
             backgroundColor: '#fff',
             borderRadius: 30,
+            backgroundColor: '#001648'
           }}
           borderRadius={30}
         >
@@ -189,7 +190,7 @@ const DatePick = () => (
               <TableWrapper style={{flexDirection: 'row'}}>
                 <Col
                   data={this.state.tableData}
-                  style={{flex: 1, backgroundColor: '#c8e1ff'}}
+                  style={{flex: 1.2, backgroundColor: '#c8e1ff'}}
                   heightArr={[60]}
                   textStyle={{textAlign: 'center'}}
                 ></Col>
@@ -217,19 +218,10 @@ const DatePick = () => (
               />
             </TableWrapper> */}
           </Table>
-        </View>
 
-        <View
-          style={{
-            flex: 1,
-            padding: 16,
-            paddingTop: 30,
-            backgroundColor: '#fff',
-            borderRadius: 30,
-          }}
-          borderRadius={30}
-        >
-          <Table style={{flexDirection: 'row', borderRadius: 30}}>
+          <Table
+            style={{flexDirection: 'row', borderRadius: 30, marginTop: '5%'}}
+          >
             {/* Left Wrapper */}
             <TableWrapper style={{width: '95%', borderRadius: 30}}>
               <TableWrapper style={{flexDirection: 'row'}}>
@@ -240,24 +232,34 @@ const DatePick = () => (
                   textStyle={{textAlign: 'center'}}
                 ></Col>
                 <Col
-                  data={[this.state.date.toString().split(" ")[0]+" " + 
-                  this.state.date.toString().split(" ")[1] +" " +
-                  this.state.date.toString().split(" ")[2] +" " +
-                  this.state.date.toString().split(" ")[3] 
-                   ]}
+                  data={[
+                    this.state.date.toString().split(' ')[0] +
+                      ' ' +
+                      this.state.date.toString().split(' ')[1] +
+                      ' ' +
+                      this.state.date.toString().split(' ')[2] +
+                      ' ' +
+                      this.state.date.toString().split(' ')[3],
+                  ]}
                   style={{flex: 5, backgroundColor: '#f6f8fa', width: '50%'}}
                   heightArr={[30]}
-                  textStyle={{marginRight: 6, textAlign: 'right'}}
+                  textStyle={{
+                    marginRight: 6,
+                    textAlign: 'center',
+                    marginTop: '10%',
+                  }}
                 ></Col>
               </TableWrapper>
             </TableWrapper>
-
-           
           </Table>
-        </View>
 
-        <View>
           <Button
+            style={{
+              marginTop: '10%',
+              marginLeft: '30%',
+              backgroundColor: '#c8e1ff',
+              // shadowColor: '#97C2F7',
+            }}
             onPress={async () => {
               console.log('Awel el on press --------------------------------');
               if (
@@ -268,10 +270,17 @@ const DatePick = () => (
                   this.state.selectedValueTo !== 'From' &&
                   this.state.selectedValueTo !== ''
                 ) {
+                  console.log(
+                    this.state.date.toISOString(),
+                    'dateIossssssssssssssssssssssssssoooo'
+                  );
                   let obj = {
                     fromCityName: this.state.selectedValueFrom,
                     toCityName: this.state.selectedValueTo,
-                    date: this.state.date.toISOString().split('T')[0],
+                    date: this.state.date
+                      .toISOString()
+                      .replace(`.000Z`, ` `)
+                      .split('T')[0],
                   };
                   console.log('from obj hey ', obj);
                   console.log('state to props ', this.props.listOfTrips);
@@ -323,10 +332,9 @@ const DatePick = () => (
               }
             }}
           >
-            <Text>submit Your Trip!</Text>
+            <Text style={{color: '#001648'}}>submit Your Trip!</Text>
           </Button>
         </View>
-        
       </Container>
     );
   }

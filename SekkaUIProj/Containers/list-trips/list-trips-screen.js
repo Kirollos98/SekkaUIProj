@@ -3,7 +3,19 @@ import { connect }  from "react-redux";
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, ActivityIndicator, Image} from 'react-native';
 
-import { View, Text, Button,Right,Left,Icon,ListItem, Row, Col } from 'native-base';
+import {
+  View,
+  Text,
+  Button,
+  Right,
+  Left,
+  Icon,
+  ListItem,
+  Row,
+  Col,
+  Body,
+  Thumbnail,
+} from 'native-base';
 
 // import TripScreen from '../../Components/trip-component/Trip-component';
 
@@ -26,6 +38,7 @@ const TripList = (props) => {
   let vis = visible;
 
   const Tab = createMaterialBottomTabNavigator();
+  let img = '../../assets/' + item.type + '.png';
     return (
       // <FlatList
       //     data={props.tripsLIST}
@@ -47,35 +60,71 @@ const TripList = (props) => {
       //     <Tab.Screen name="Bus" component={TripScreen} />
       //     <Tab.Screen name="plan" component={TripScreen} />
       //   </Tab.Navigator>
-        <FlatList
-          style={{backgroundColor: 'lightblue'}}
-          data={props.list}
-          renderItem={({item}) => {
-            return (
-              <ListItem>
-                <Left>
-                  <Col>
-                    <Text>{item.tripNum}</Text>
-                    <Text>{item.price}</Text>
-                  </Col>
-                </Left>
-                <Right>
-                  <Icon
-                    name="eye"
-                    onPress={() => {
-                      props.navigation.push('detail', {id: item._id});
-                    }}
-                    style={{color: 'white'}}
-                    // color={'white'}
-                  />
-                </Right>
-              </ListItem>
-            );
-          }}
-          ItemSeparatorComponent={ItemSeparator}
-          keyExtractor={(item) => item._id.toString()}
-          ListEmptyComponent={EmptyList(anime,vis)}
-        />
+
+      /**
+       * 
+       * [2:59 PM] huda.ahmeed.2020 (Guest)
+      <ListItem avatar style={​{​height:120 ,margin:20,padding:20,borderRadius:30,backgroundColor:'#3081A7'}​}​>
+      <Left>
+      <Thumbnailstyle={​{​width:70,height:70}​}​source={​{​ uri:item.avatar }​}​/>
+      </Left>
+      <Body>
+      <Text>{​item.first_name}​</Text>
+      <Textnotestyle={​{​color:'white'}​}​>{​item.email}​</Text>
+      </Body>
+      <Rightstyle={​{​height:68}​}​>
+      <Iconname="eye"onPress={​
+                              () => {​
+      navigation.navigate('details', {​ id:item.id }​)
+                              }​
+      }​/>
+      </Right>
+      </ListItem>
+
+       */
+      <FlatList
+        style={{backgroundColor: '#001648'}}
+        data={props.list}
+        renderItem={({item}) => {
+          return (
+            <ListItem
+              style={{
+                height: 100,
+                margin: '5%',
+                padding: '5%',
+                borderRadius: 20,
+                backgroundColor: '#c8e1ff',
+              }}
+            >
+              <Left>
+                <Thumbnail
+                  style={{width: 70, height: 70}}
+                  source= {require(img)}
+                />
+              </Left>
+              <Body>
+                <Col>
+                  <Text style={{color: '#001648'}}>{item.tripNum}</Text>
+                  <Text>  {item.price}</Text>
+                </Col>
+              </Body>
+              <Right>
+                <Icon
+                  name="eye"
+                  onPress={() => {
+                    props.navigation.push('detail', {id: item._id});
+                  }}
+                  style={{color: '#001648'}}
+                  // color={'white'}
+                />
+              </Right>
+            </ListItem>
+          );
+        }}
+        ItemSeparatorComponent={ItemSeparator}
+        keyExtractor={(item) => item._id.toString()}
+        ListEmptyComponent={EmptyList(anime, vis)}
+      />
       // </View>
     );
 }
