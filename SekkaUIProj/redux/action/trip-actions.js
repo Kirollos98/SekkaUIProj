@@ -1,11 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Base = 'http://192.168.1.117:3344/api/trip/';
+const Base = 'http://192.168.1.135:3344/api/trip/';
 
 const storeData = async (value,name) => {
   try {
     const jsonValue = JSON.stringify(value)
-    await AsyncStoragerage.setItem(name, jsonValue)
+    await AsyncStorage.setItem(name, jsonValue)
   } catch (e) {
     // saving error
   }
