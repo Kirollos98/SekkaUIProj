@@ -18,11 +18,11 @@ import registerContainer from './Containers/register-container/register-containe
 import Home from './Components/home-component/home-component';
 import loginContainer from './Containers/login-container/login-container';
 import mainScreen from './Containers/main-screen-container/main-screen';
-import listTripsScreen from './Containers/list-trips/list-trips-screen';
 import detailContainer from './Containers/detail-container/detail-container';
 import commonTripList from './Containers/Common-trip-list/common-trip-list';
-import { StripeContainer } from '@stripe/stripe-react-native';
 import StripePayment from './Containers/payment-container/payment-container';
+import StackNavigatorComponent from './Components/stack-navigator/stack-navigator-componen';
+import DrawerNavigatorComponent from './Components/drawer-navigator/drawer-navigator-component';
 
 // const createStoreWithMW = applyMiddleware(promiseMW)(createStore)
 
@@ -53,7 +53,7 @@ export default function App() {
 
             }}
           />
-          <Navigator.Screen
+          {/* <Navigator.Screen
             name="Payment"
             component={StripePayment}
             options={{
@@ -63,7 +63,7 @@ export default function App() {
               headerTintColor: '#03CFFF',
 
             }}
-          />
+          /> */}
           <Navigator.Screen
             name="Login"
             component={loginContainer}
@@ -94,6 +94,10 @@ export default function App() {
             }}
           />
           <Navigator.Screen
+            name="DrawerNavigator"
+            component={DrawerNavigatorComponent}
+          />
+          {/* <Navigator.Screen
             name="MainPage"
             component={mainScreen}
             options={{
@@ -123,7 +127,7 @@ export default function App() {
               headerStyle: { backgroundColor: '#001648' },
               headerTintColor: '#03CFFF',
             }}
-          />
+          /> */}
         </Navigator.Navigator>
       </NavigationContainer>
     </Provider>

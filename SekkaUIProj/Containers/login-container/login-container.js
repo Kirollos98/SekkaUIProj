@@ -68,7 +68,7 @@ const Login = (props) => {
                   if (response.payload === 'Not Valid') {
                     Alert.alert(response.payload);
                   } else {
-                    props.navigation.replace('MainPage');
+                    props.navigation.replace('DrawerNavigator');
                   }
                 }}
               >

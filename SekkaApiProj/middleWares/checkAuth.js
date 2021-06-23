@@ -4,13 +4,19 @@ const CustomError = require('../Models/customError');
 
 const checkAuth = async (req, res, next) => {
 
-  const tokenId = req.headers.authorization.split(" ")[1];
+  console.log(req.headers.authorization);
+  const tokenId = req.headers.authorization.split(' ')[1];
   console.log(tokenId,"hona yarkod el token");
   if (!tokenId) {
-    return next(new CustomError(401, 'Unauthorized'));
+    return next(new Error("Unauthorized"));
   }
-  const token = await Token.findById(tokenId).catch(err => {
-    throw new CustomError(500, 'cannot find token');
+  console.log("hona yarkod el token b3d awel IF");
+
+  const token = await Token.findOne({_id:tokenId}).catch(err => {
+    if(err){
+      res.send(err)
+    }
+    //throw new CustomError(500, 'cannot find token');
   });
   console.log(token,"hona yarkod el token nafso mn el DB");
 

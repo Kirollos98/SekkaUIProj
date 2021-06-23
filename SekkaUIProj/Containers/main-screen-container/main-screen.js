@@ -53,7 +53,7 @@ class MainScreen extends Component {
     this.state = {
       selectedValueFrom: '',
       selectedValueTo: '',
-      date: new Date(1598051730000),
+      date: new Date(),
       mode: 'date',
       show: false,
       messFlag: false,

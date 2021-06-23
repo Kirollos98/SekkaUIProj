@@ -97,7 +97,7 @@ const login = (req,res)=>{
 
 const logout = async (req, res, next) => {
     //const tokenId = req.cookies.token;
-    const tokenId = req.headers.authorization.split(" ")[1];
+    const tokenId = req.headers.authorization.split(' ')[1];
     console.log(tokenId,"hena yarkod el token mn el logout");
     await Token.findOneAndRemove({ _id: tokenId }).catch(() => {
       throw new CustomError(500);
