@@ -12,6 +12,7 @@ import detailContainer from '../../Containers/detail-container/detail-container'
 import StripePayment from '../../Containers/payment-container/payment-container';
 import StackNavigatorComponent from '../stack-navigator/stack-navigator-componen';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import usersTripContainer from '../../Containers/usersTrip-container/usersTrip-container';
 
 
 
@@ -68,45 +69,37 @@ function CustomDrawerContent(props) {
 const DrawerNavigatorComponent = (props) => {
 
     return (
-        <Navigator.Navigator drawerContent={props => <CustomDrawerContent {...props} />} initialRouteName="StackNavigator">
-
-            <Navigator.Screen
-                name="StackNavigator"
-                component={StackNavigatorComponent}
-            />
-            <Navigator.Screen
-                name="MainPage"
-                component={mainScreen}
-                options={{
-                    title: 'Home',
-                    headerTitleStyle: { textAlign: 'center', marginRight: '20%' },
-                    headerStyle: { backgroundColor: '#001648' },
-                    headerTintColor: '#03CFFF',
-                }}
-            />
-            <Navigator.Screen
-                name="ListTrip"
-                component={commonTripList}
-                options={{
-                    title: 'Trips',
-                    headerTitleStyle: { textAlign: 'center', marginRight: '20%' },
-                    headerStyle: { backgroundColor: '#001648' },
-                    headerTintColor: '#03CFFF',
-                }}
-            />
-
-            <Navigator.Screen
-                name="detail"
-                component={detailContainer}
-                options={{
-                    title: 'detail',
-                    headerTitleStyle: { textAlign: 'center', marginRight: '20%' },
-                    headerStyle: { backgroundColor: '#001648' },
-                    headerTintColor: '#03CFFF',
-                }}
-            />
-        </Navigator.Navigator>
-    )
+      <Navigator.Navigator
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
+        initialRouteName="StackNavigator"
+      >
+        <Navigator.Screen
+          name="StackNavigator"
+          component={StackNavigatorComponent}
+        />
+        <Navigator.Screen
+          name="MainPage"
+          component={mainScreen}
+          options={{
+            title: 'Home',
+            headerTitleStyle: {textAlign: 'center', marginRight: '20%'},
+            headerStyle: {backgroundColor: '#001648'},
+            headerTintColor: '#03CFFF',
+          }}
+        />
+        <Navigator.Screen
+          name="User`s Trip"
+          component={usersTripContainer}
+          options={{
+            title: 'My Trips',
+            headerTitleStyle: {textAlign: 'center', marginRight: '20%'},
+            headerStyle: {backgroundColor: '#001648'},
+            headerTintColor: '#03CFFF',
+          }}
+        />
+       
+      </Navigator.Navigator>
+    );
 }
 
 

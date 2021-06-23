@@ -43,48 +43,7 @@ const TripList = (props) => {
   const Tab = createMaterialBottomTabNavigator();
   // let img = '../../assets/' + item.type + '.png';
   return (
-    // <FlatList
-    //     data={props.tripsLIST}
-    //     renderItem={(item)=>{
-
-    //     }}
-    //     ItemSeparatorComponent{()=>{
-    //         return(
-    //             <View style={{width:"100%",backgroundColor:"black"}}>
-
-    //             </View>
-    //         )
-    //     }}
-
-    // />
-    // <View>
-    //   <Tab.Navigator>
-    //     <Tab.Screen name="Train" component={TripScreen} />
-    //     <Tab.Screen name="Bus" component={TripScreen} />
-    //     <Tab.Screen name="plan" component={TripScreen} />
-    //   </Tab.Navigator>
-
-    /**
-     * 
-     * [2:59 PM] huda.ahmeed.2020 (Guest)
-    <ListItem avatar style={​{​height:120 ,margin:20,padding:20,borderRadius:30,backgroundColor:'#3081A7'}​}​>
-    <Left>
-    <Thumbnailstyle={​{​width:70,height:70}​}​source={​{​ uri:item.avatar }​}​/>
-    </Left>
-    <Body>
-    <Text>{​item.first_name}​</Text>
-    <Textnotestyle={​{​color:'white'}​}​>{​item.email}​</Text>
-    </Body>
-    <Rightstyle={​{​height:68}​}​>
-    <Iconname="eye"onPress={​
-                            () => {​
-    navigation.navigate('details', {​ id:item.id }​)
-                            }​
-    }​/>
-    </Right>
-    </ListItem>
-
-     */
+    
     <FlatList
       style={{ backgroundColor: '#001648' }}
       data={props.list}
@@ -141,6 +100,7 @@ const TripList = (props) => {
               <Icon
                 name="eye"
                 onPress={() => {
+                  console.log("propssss",props)
                   props.navigation.push('detail', { id: item._id });
                 }}
                 style={{ color: '#001648' }}
@@ -172,7 +132,16 @@ const EmptyList = (anime, visible) => {
 };
 
 const ItemSeparator = () => {
-  return <ListItem itemDivider></ListItem>;
+  return (
+    <ListItem
+      itemDivider
+      style={{backgroundColor: '#001648', justifyContent: 'center'}}
+    >
+      <Text style={{color: '#c8e1ff'}}>
+        ___________________________________
+      </Text>
+    </ListItem>
+  );
 };
 
 const styles = StyleSheet.create({

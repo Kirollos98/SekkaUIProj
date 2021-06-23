@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-  const Base = 'http://192.168.1.117:3344/api/trip/';
+  const Base = "http://192.168.1.12:3344/api/trip/";
 
 const storeData = async (value,name) => {
   try {
@@ -99,3 +99,48 @@ export async function bookTrip(bookingDetails){
     payload:response
   }
 }
+
+
+
+export async function usersTripfun() {
+  console.log('start actionssss usersTripfun');
+    let user = await getData('loggedUser');
+    let parseUser = await JSON.parse(user);
+
+    console.log('user ID', parseUser);
+    let userobj = {
+      userid: parseUser._id
+    };
+  let data = await fetch(`${Base}ListUsersTrips`, {
+    method: 'POST',
+    body: JSON.stringify(userobj),
+    headers: {'Content-Type': 'application/json'},
+  });
+
+  let response = await data.json();
+  console.log('actions usersTripfun', response);
+
+  // let newList = response.filter((item) => {
+  //   console.log('from trip obj ', trip.date);
+  //   console.log('from backend ', item.date.split('T')[0]);
+  //   return item.date.split('T')[0] == trip.date;
+  // });
+
+  // console.log('hena yarkod el action filter ,,,,,,', newList);
+
+  let responseFiltered = []; 
+  // response.map((item)=>{
+  //   responseFiltered.push(item.tripID)
+  // })
+  await response.forEach((element,key) => {
+    console.log("foreachhhhhhhhhh" ,element["TripID"])
+     responseFiltered.push(element["TripID"]);
+  });
+  console.log('responseFiltered===================================', responseFiltered);
+  return {
+    type: 'usersTrip',
+    payload: responseFiltered,
+  };
+}
+
+

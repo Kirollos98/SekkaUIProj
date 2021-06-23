@@ -33,9 +33,7 @@ const addTrip = (req, res) => {
   });
 };
 
-// fromid
-// toid
-// trip
+
 const search = async (req, resp) => {
   console.log('start heere from node search');
 
@@ -128,10 +126,43 @@ const BookingTrip = (req, res) => {
     }
   });
 };
+
+/**
+ * obj={
+ * refrence nrg3 cities 
+ userid 
+ * }
+ */
+
+const ListUsersTrips = async (req, resp) => {
+  Booking.find({ UserID: req.body.userid })
+    .populate({
+      path: "TripID",
+      populate: {
+        path: "fromId",
+        model: "City",
+      },
+    })
+    .populate({
+      path: "TripID",
+      populate: {
+        path: "toId",
+        model: "City",
+      },
+    })
+    .exec((err, bookingConfirmed) => {
+      console.log("list el trip hena ", bookingConfirmed);
+      resp.status(200).send(bookingConfirmed);
+    });
+};
+
+
+
 module.exports = {
   addTrip,
   getAllTrips,
-  search, 
+  search,
   detailTrip,
   BookingTrip,
+  ListUsersTrips,
 };
