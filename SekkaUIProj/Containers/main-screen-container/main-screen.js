@@ -256,8 +256,8 @@ const DatePick = () => (
           <Button
             style={{
               marginTop: '10%',
-              marginLeft: '30%',
               backgroundColor: '#c8e1ff',
+              alignSelf:'center'
               // shadowColor: '#97C2F7',
             }}
             onPress={async () => {

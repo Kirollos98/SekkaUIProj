@@ -31,16 +31,11 @@ const Navigator = createStackNavigator();
 export default function App() {
 
   useEffect(() => {
-    loadFont = async () => {
-      await Font.loadAsync({
-        Roboto: require('native-base/Fonts/Roboto.ttf'),
-        Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-        ...Ionicons.font,
-      });
-    }
-
-    loadFont();
-  }, []);
+    (async () => await Font.loadAsync({
+      Roboto: require('native-base/Fonts/Roboto.ttf'),
+      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+    }))();
+     }, [])
 
   const createStoreWithMW = applyMiddleware(promiseMW)(createStore)
   return (
@@ -52,8 +47,8 @@ export default function App() {
             component={registerContainer}
             options={{
               title: 'Registeration',
-              headerTitleStyle: { textAlign: 'center', color: '#03CFFF', marginRight: '25%' },
-              headerStyle: { backgroundColor: '#001648' },
+              headerTitleStyle: {textAlign: 'center', color: '#03CFFF',marginRight:'20%'},
+              headerStyle: {backgroundColor: '#001648'},
               headerTintColor: '#03CFFF',
 
             }}
@@ -76,9 +71,8 @@ export default function App() {
               title: 'Login',
               headerTitleStyle: {
                 textAlign: 'center',
-
                 color: '#03CFFF',
-                marginRight: '25%'
+                marginRight:'15%'
               },
               headerStyle: { backgroundColor: '#001648' },
               headerTintColor: '#03CFFF',
@@ -92,8 +86,9 @@ export default function App() {
               headerTitleStyle: {
                 textAlign: 'center',
                 color: '#03CFFF',
-                fontSize: 25,
-                marginRight: '20%'
+                fontSize:25,
+                alignSelf:'center'
+                // marginRight:'5%'
               },
               headerStyle: { backgroundColor: '#001648' },
             }}
