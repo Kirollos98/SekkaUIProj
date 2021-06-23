@@ -42,7 +42,6 @@ const login = (req,res)=>{
 
     User.findOne({name:req.body.name},(err,user)=>{
         if (user) {
-
             bcrypt.compare(req.body.password, user.password, (err, done) => {
                 if(done === true){
                   const _expiryDate = new Date(
@@ -56,7 +55,11 @@ const login = (req,res)=>{
                     res.send({done, token: token._id, user});
                   });
                 }else{
-                    res.send("not valid");
+                    res.send(false);
+                }
+
+                if (err) {
+                  res.send(false);
                 }
             })
             

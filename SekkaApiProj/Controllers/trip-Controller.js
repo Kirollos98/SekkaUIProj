@@ -12,7 +12,7 @@ const addTrip = (req, res) => {
     tripNum: req.body.tripNum,
     fromId: req.body.fromId,
     toId: req.body.toId,
-    date: Date.now(),
+    date: req.body.date,
     price: req.body.price,
     type: req.body.type,
     seat: req.body.seat,

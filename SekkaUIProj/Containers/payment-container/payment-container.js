@@ -64,7 +64,7 @@ const StripeForm = (props) => {
                 seats:props.paymentDetails.seats
             }
             await bookTrip(obj);
-            props.navigation.push("Home");
+            props.navigation.push('MainPage');
         }
         else {
             Alert.alert("there is a problem !!");

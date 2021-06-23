@@ -66,7 +66,14 @@ const Login = (props) => {
                   let response = await LoginAction(tempObj);
                   console.log('response from login ', response);
                   if (response.payload === 'Not Valid') {
-                    Alert.alert(response.payload);
+                    console.log(
+                      'responsssssssssssss from login here 3la fkraaa',
+                      response.payload
+                    );
+                    Alert.alert(
+                      'Please try again,'
+                       +'Check  your username and  Password'
+                    );
                   } else {
                     props.navigation.replace('DrawerNavigator');
                   }

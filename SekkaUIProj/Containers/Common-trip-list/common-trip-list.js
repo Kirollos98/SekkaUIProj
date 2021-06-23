@@ -22,22 +22,23 @@ const [bus,setBus] = useState([]);
 useEffect(()=>{
 
     if(props.tripList){
-        let trainList = props.tripList.filter((item) => item.type == 'train');
-        let busList = props.tripList.filter((item) => item.type == 'bus');
-        let planeList = props.tripList.filter((item) => item.type == 'plane');
+        let sourceList = props.tripList.filter((item) => new Date(item.date) > new Date() );
+        let trainList = sourceList.filter((item) => item.type == 'train');
+        let busList = sourceList.filter((item) => item.type == 'bus');
+        let planeList = sourceList.filter((item) => item.type == 'plane');
         setTrain(trainList);
         setBus(busList);
         setPlane(planeList);
     }
 },[])
     return (
-      <View style={{height: '100%', backgroundColor: '#ff0066'}}>
-        <Tabs style={{backgroundColor: '#ff0066'}} initialPage={0}>
+      <View style={{height: '100%', backgroundColor: '#001648'}}>
+        <Tabs style={{backgroundColor: '#001648'}} initialPage={0}>
           <Tab
-            tabStyle={{alignContent: 'center', backgroundColor: '#ff0066'}}
+            tabStyle={{alignContent: 'center', backgroundColor: '#001648'}}
             heading={
-              <TabHeading style={{backgroundColor:'#001648'}}>
-                <Icon name="bus"/>
+              <TabHeading style={{backgroundColor: '#001648'}}>
+                <Icon name="bus" />
                 <Text>Bus</Text>
               </TabHeading>
             }
@@ -47,8 +48,8 @@ useEffect(()=>{
           <Tab
             tabStyle={{alignContent: 'center', backgroundColor: '#F1E9E7'}}
             heading={
-              <TabHeading style={{backgroundColor:'#001648'}}>
-                <Icon name="train"  />
+              <TabHeading style={{backgroundColor: '#001648'}}>
+                <Icon name="train" />
                 <Text>Train</Text>
               </TabHeading>
             }
@@ -58,7 +59,7 @@ useEffect(()=>{
           <Tab
             tabStyle={{alignContent: 'center', backgroundColor: '#F1E9E7'}}
             heading={
-              <TabHeading style={{backgroundColor:'#001648'}}>  
+              <TabHeading style={{backgroundColor: '#001648'}}>
                 <Icon name="airplane" />
                 <Text>Plane</Text>
               </TabHeading>

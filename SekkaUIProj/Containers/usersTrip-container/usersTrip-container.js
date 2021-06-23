@@ -66,22 +66,22 @@ class usersTrip extends Component {
             tabStyle={{alignContent: 'center', backgroundColor: '#001648'}}
             heading={
               <TabHeading style={{backgroundColor: '#001648'}}>
-                <Icon name="bus" />
+                {/* <Icon name="bus" /> */}
                 <Text>Past</Text>
               </TabHeading>
             }
           >
             <ListTripsScreen
               navigation={this.props.navigation}
-              list={this.state.past}
             />
+              list={this.state.past}
           </Tab>
           <Tab
             tabStyle={{alignContent: 'center', backgroundColor: '#F1E9E7'}}
             heading={
               <TabHeading style={{backgroundColor: '#001648'}}>
-                <Icon name="airplane" />
-                <Text>Up Coming</Text>
+                {/* <Icon name="airplane" /> */}
+                <Text>Upcoming</Text>
               </TabHeading>
             }
           >
