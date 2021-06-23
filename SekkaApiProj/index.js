@@ -1,10 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 const apiRouter = require('./routers/api');
+
+
 require("./Database/Mongoose.js");
 
 const errorHandler = require('./middleWares/errorHandler');
 const app = express();
+
+
 
 app.use(cors())
 

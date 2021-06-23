@@ -3,7 +3,7 @@ import { Col, View, Text, Row, Button } from "native-base";
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { getTripDetial ,bookTrip} from '../../redux/action/trip-actions';
+import { getTripDetial ,proceedToPayment} from '../../redux/action/trip-actions';
 import { StyleSheet, ActivityIndicator, Image } from 'react-native';
 
 import { CaretLeftFilled, CaretRightFilled } from "@ant-design/icons"
@@ -69,9 +69,11 @@ const Detail = (props) => {
             <Button style={{ backgroundColor: "#001648", borderRadius: 5 }} onPress={async()=>{
               let bokingObj = {
                 tripId : props.details._id,
-                seats: seatNum
+                seats: seatNum,
+                amount:props.details.price*seatNum
               }
-              await bookTrip(bokingObj)
+              await props.proceedToPayment(bokingObj)
+              props.navigation.push('Payment');
             }}><Text>Book</Text></Button>
           </View>
 
@@ -108,6 +110,6 @@ export default connect(
     };
   },
   (dispatch) => {
-    return bindActionCreators({ getTripDetial,bookTrip }, dispatch);
+    return bindActionCreators({ getTripDetial,proceedToPayment }, dispatch);
   }
 )(Detail);

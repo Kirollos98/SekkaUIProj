@@ -4,7 +4,7 @@ import "react-native-gesture-handler";
 import React, { useEffect } from 'react';
 
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware} from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import promiseMW from 'redux-promise';
 
 
@@ -13,7 +13,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 import * as Font from 'expo-font';
 import { Container, Text } from 'native-base';
 import { StyleSheet, View } from 'react-native';
-import rootReducer from "./redux/reducer/index" 
+import rootReducer from "./redux/reducer/index"
 import registerContainer from './Containers/register-container/register-container';
 import Home from './Components/home-component/home-component';
 import loginContainer from './Containers/login-container/login-container';
@@ -21,6 +21,8 @@ import mainScreen from './Containers/main-screen-container/main-screen';
 import listTripsScreen from './Containers/list-trips/list-trips-screen';
 import detailContainer from './Containers/detail-container/detail-container';
 import commonTripList from './Containers/Common-trip-list/common-trip-list';
+import { StripeContainer } from '@stripe/stripe-react-native';
+import StripePayment from './Containers/payment-container/payment-container';
 
 // const createStoreWithMW = applyMiddleware(promiseMW)(createStore)
 
@@ -28,8 +30,8 @@ const Navigator = createStackNavigator();
 
 export default function App() {
 
-  useEffect(()=>{
-    loadFont = async()=>{
+  useEffect(() => {
+    loadFont = async () => {
       await Font.loadAsync({
         Roboto: require('native-base/Fonts/Roboto.ttf'),
         Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
@@ -38,7 +40,7 @@ export default function App() {
     }
 
     loadFont();
-  },[]);
+  }, []);
 
   const createStoreWithMW = applyMiddleware(promiseMW)(createStore)
   return (
@@ -50,10 +52,21 @@ export default function App() {
             component={registerContainer}
             options={{
               title: 'Registeration',
-              headerTitleStyle: {textAlign: 'center', color: '#03CFFF',marginRight:'25%'},
-              headerStyle: {backgroundColor: '#001648'},
+              headerTitleStyle: { textAlign: 'center', color: '#03CFFF', marginRight: '25%' },
+              headerStyle: { backgroundColor: '#001648' },
               headerTintColor: '#03CFFF',
-              
+
+            }}
+          />
+          <Navigator.Screen
+            name="Payment"
+            component={StripePayment}
+            options={{
+              title: 'Payment',
+              headerTitleStyle: { textAlign: 'center', color: '#03CFFF', marginRight: '25%' },
+              headerStyle: { backgroundColor: '#001648' },
+              headerTintColor: '#03CFFF',
+
             }}
           />
           <Navigator.Screen
@@ -63,11 +76,11 @@ export default function App() {
               title: 'Login',
               headerTitleStyle: {
                 textAlign: 'center',
-                
+
                 color: '#03CFFF',
-                marginRight:'25%'
+                marginRight: '25%'
               },
-              headerStyle: {backgroundColor: '#001648'},
+              headerStyle: { backgroundColor: '#001648' },
               headerTintColor: '#03CFFF',
             }}
           />
@@ -79,10 +92,10 @@ export default function App() {
               headerTitleStyle: {
                 textAlign: 'center',
                 color: '#03CFFF',
-                fontSize:25,
-                marginRight:'20%'
+                fontSize: 25,
+                marginRight: '20%'
               },
-              headerStyle: {backgroundColor: '#001648'},
+              headerStyle: { backgroundColor: '#001648' },
             }}
           />
           <Navigator.Screen
@@ -90,8 +103,8 @@ export default function App() {
             component={mainScreen}
             options={{
               title: 'Home',
-              headerTitleStyle: {textAlign: 'center',marginRight:'20%'},
-              headerStyle: {backgroundColor: '#001648'},
+              headerTitleStyle: { textAlign: 'center', marginRight: '20%' },
+              headerStyle: { backgroundColor: '#001648' },
               headerTintColor: '#03CFFF',
             }}
           />
@@ -100,8 +113,8 @@ export default function App() {
             component={commonTripList}
             options={{
               title: 'Trips',
-              headerTitleStyle: {textAlign: 'center',marginRight:'20%'},
-              headerStyle: {backgroundColor: '#001648'},
+              headerTitleStyle: { textAlign: 'center', marginRight: '20%' },
+              headerStyle: { backgroundColor: '#001648' },
               headerTintColor: '#03CFFF',
             }}
           />
@@ -111,8 +124,8 @@ export default function App() {
             component={detailContainer}
             options={{
               title: 'detail',
-              headerTitleStyle: {textAlign: 'center',marginRight:'20%'},
-              headerStyle: {backgroundColor: '#001648'},
+              headerTitleStyle: { textAlign: 'center', marginRight: '20%' },
+              headerStyle: { backgroundColor: '#001648' },
               headerTintColor: '#03CFFF',
             }}
           />

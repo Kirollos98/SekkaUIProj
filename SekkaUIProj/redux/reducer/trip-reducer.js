@@ -13,6 +13,10 @@ export default function searchTrip(state = {}, action) {
     case 'Trip-Booking': {
       return {...state, bookedTrip: action.payload};
     }
+    case 'Details-Needed': {
+      console.log("details gow el reducer ", action.payload);
+      return {...state, paymentDetails: action.payload};
+    }
     default: {
       return state;
     }
