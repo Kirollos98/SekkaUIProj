@@ -102,13 +102,20 @@ const login = (req,res)=>{
 
 const logout = async (req, res, next) => {
     //const tokenId = req.cookies.token;
+    let flag = false;
+    console.log(req.headers,"headers here");
     const tokenId = req.headers.authorization.split(' ')[1];
     console.log(tokenId,"hena yarkod el token mn el logout");
-    await Token.findOneAndRemove({ _id: tokenId }).catch(() => {
-      throw new CustomError(500);
+    await Token.findOneAndRemove({ _id: tokenId }).then((data)=>{
+      console.log(data);
+    }).catch(() => {
+      flag = true;
+      res.send({message:'something went wrong',success:false});
     });
     //res.clearCookie('token');
-    res.send('logged out successfully');
+    if(!flag){
+      res.send({message:'logged out successfully',success:true});
+    }
   };
   
 

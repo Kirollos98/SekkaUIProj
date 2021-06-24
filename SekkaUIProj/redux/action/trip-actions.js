@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-  const Base = 'http://192.168.1.12:3344/api/trip/';
+  const Base = 'http://192.168.1.162:3344/api/trip/';
 
 const storeData = async (value,name) => {
   try {
@@ -25,7 +25,7 @@ const getData = async (name) => {
 
 
 export async function search(trip){
-console.log("start actionssss")
+// console.log("start actionssss")
     let data = await fetch(`${Base}search`, {
       method: 'POST',
       body: JSON.stringify(trip),
@@ -34,15 +34,15 @@ console.log("start actionssss")
 
 
     let response = await data.json();
-console.log('actions',response);
+// console.log('actions',response);
 
     let newList = response.filter((item)=>{
-      console.log("from trip obj ",trip.date)
-      console.log('from backend ', item.date.split('T')[0]);
+      // console.log("from trip obj ",trip.date)
+      // console.log('from backend ', item.date.split('T')[0]);
       return item.date.split("T")[0] == trip.date
     })
 
-    console.log('hena yarkod el action filter ,,,,,,', newList);
+    // console.log('hena yarkod el action filter ,,,,,,', newList);
 
     return {
       type: 'SearchOperation',
@@ -103,7 +103,7 @@ export async function bookTrip(bookingDetails){
 
 
 export async function usersTripfun() {
-  console.log('start actionssss usersTripfun');
+  // console.log('start actionssss usersTripfun');
     let user = await getData('loggedUser');
     let parseUser = await JSON.parse(user);
 
@@ -118,7 +118,7 @@ export async function usersTripfun() {
   });
 
   let response = await data.json();
-  console.log('actions usersTripfun', response);
+  //console.log('actions usersTripfun', response);
 
   // let newList = response.filter((item) => {
   //   console.log('from trip obj ', trip.date);
@@ -132,14 +132,14 @@ export async function usersTripfun() {
   // response.map((item)=>{
   //   responseFiltered.push(item.tripID)
   // })
-  await response.forEach((element,key) => {
-    console.log("foreachhhhhhhhhh" ,element["TripID"])
-     responseFiltered.push(element["TripID"]);
-  });
-  console.log('responseFiltered===================================', responseFiltered);
+  // await response.forEach((element,key) => {
+  //   console.log("foreachhhhhhhhhh" ,element["TripID"])
+  //    responseFiltered.push(element["TripID"]);
+  // });
+  // console.log('responseFiltered===================================', responseFiltered);
   return {
     type: 'usersTrip',
-    payload: responseFiltered,
+    payload: response,
   };
 }
 

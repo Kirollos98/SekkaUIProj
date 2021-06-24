@@ -3,7 +3,7 @@ import { Col, View, Text, Row, Button } from "native-base";
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { getTripDetial ,proceedToPayment} from '../../redux/action/trip-actions';
+import { getTripDetial, proceedToPayment } from '../../redux/action/trip-actions';
 import { StyleSheet, ActivityIndicator, Image } from 'react-native';
 
 import { CaretLeftFilled, CaretRightFilled } from "@ant-design/icons"
@@ -23,6 +23,66 @@ const Detail = (props) => {
     }
     resolver();
   }, [])
+
+
+  const renderSeatsBtns = () => {
+    if (props.route.params.flag != true) {
+      return (
+        <View style={{ backgroundColor: "#001648", height: 70, borderRadius: 20, marginTop: "3%", padding: 10, display: "flex", flexDirection: "row" }}>
+
+          
+            <View style={{ flex: 2 }}>
+              <Text style={{ color: "#c8e1ff", margin: "auto", textAlign: "center", marginTop: "3%", fontSize: 20, marginStart: 10 }}>Number of seats</Text>
+            </View>
+            <View style={{ display: "flex", flexDirection: "row" }}>
+            <Button style={{ backgroundColor: "#001648" }} onPress={() => {
+              if (seatNum <= 1) {
+                alert("minimum of 1 seat");
+              } else {
+                setSeatNum(--seatNum);
+              }
+            }}><FontAwesomeIcon icon={faCaretLeft} color={"#c8e1ff"} size={30} /></Button>
+            <Text style={{ color: "#c8e1ff", margin: "auto", marginTop: "7%", textAlign: "center", fontSize: 20 }}>{seatNum}</Text>
+            <Button style={{ backgroundColor: "#001648" }} onPress={() => {
+              setSeatNum(++seatNum);
+            }}><FontAwesomeIcon icon={faCaretRight} color={"#c8e1ff"} size={30} /></Button>
+          </View>
+        </View >
+      )
+    } else {
+      return (
+        <View style={{ backgroundColor: "#001648", height: 70, borderRadius: 20, marginTop: "3%", padding: 10, display: "flex", flexDirection: "row" }}>
+
+          <View style={{ flex: 2 }}>
+            <Text style={{ color: "#c8e1ff", margin: "auto", textAlign: "center", marginTop: "3%", fontSize: 20, marginStart: 10 }}>Number of seats</Text>
+          </View>
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Text style={{ color: "#c8e1ff", marginEnd: "10%", marginTop: "7%", textAlign: "center", fontSize: 20 }}>{props.route.params.seatNumber}</Text>
+          </View>
+        </View>
+      )
+    }
+
+  }
+
+  const renderBookbtn = () => {
+    if (props.route.params.flag != true) {
+
+      return (
+        <View style={{ marginTop: "10%", margin: "auto", marginStart: "40%" }}>
+          <Button style={{ backgroundColor: "#001648", borderRadius: 5 }} onPress={async () => {
+            let bokingObj = {
+              tripId: props.details._id,
+              seats: seatNum,
+              amount: props.details.price * seatNum
+            }
+            await props.proceedToPayment(bokingObj)
+            props.navigation.push('Payment');
+          }}><Text>Book</Text></Button>
+        </View>
+      )
+    }
+  }
   if (props.details) {
 
     return (
@@ -50,32 +110,8 @@ const Detail = (props) => {
             <Text style={{ color: "#c8e1ff", margin: "auto", textAlign: "center", marginTop: "2%", fontSize: 20 }}>Departure on {moment(props.details.date).utc().format('DD-MM-YYYY')}</Text>
             <Text style={{ color: "#c8e1ff", margin: "auto", textAlign: "center", marginTop: "2%", fontSize: 20 }}>Time : {moment(props.details.date).utc().format('hh:mm:ss a')}</Text>
           </View>
-
-          <View style={{ backgroundColor: "#001648", height: 70, borderRadius: 20, marginTop: "3%", padding: 10, display: "flex", flexDirection: "row" }}>
-            <View style={{ flex: 2 }}>
-              <Text style={{ color: "#c8e1ff", margin: "auto", textAlign: "center", marginTop: "3%", fontSize: 20, marginStart: 10 }}>number of seats</Text>
-            </View>
-            <View style={{ display: "flex", flexDirection: "row" }}>
-              <Button style={{ backgroundColor: "#001648" }} onPress={() => {
-                setSeatNum(--seatNum);
-              }}><FontAwesomeIcon icon={faCaretLeft} color={"#c8e1ff"} size={30} /></Button>
-              <Text style={{ color: "#c8e1ff", margin: "auto", marginTop: "7%", textAlign: "center", fontSize: 20 }}>{seatNum}</Text>
-              <Button style={{ backgroundColor: "#001648" }} onPress={() => {
-                setSeatNum(++seatNum);
-              }}><FontAwesomeIcon icon={faCaretRight} color={"#c8e1ff"} size={30} /></Button>
-            </View>
-          </View>
-          <View style={{ marginTop: "10%", margin: "auto", marginStart: "40%" }}>
-            <Button style={{ backgroundColor: "#001648", borderRadius: 5 }} onPress={async()=>{
-              let bokingObj = {
-                tripId : props.details._id,
-                seats: seatNum,
-                amount:props.details.price*seatNum
-              }
-              await props.proceedToPayment(bokingObj)
-              props.navigation.push('Payment');
-            }}><Text>Book</Text></Button>
-          </View>
+          {renderSeatsBtns()}
+          {renderBookbtn()}
 
         </View>
 
@@ -110,6 +146,6 @@ export default connect(
     };
   },
   (dispatch) => {
-    return bindActionCreators({ getTripDetial,proceedToPayment }, dispatch);
+    return bindActionCreators({ getTripDetial, proceedToPayment }, dispatch);
   }
 )(Detail);

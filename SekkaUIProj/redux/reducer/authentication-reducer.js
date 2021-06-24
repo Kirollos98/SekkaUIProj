@@ -7,7 +7,7 @@ export default function authentication(state={},action) {
             return {...state,registeredUser:action.payload}
         }
         case 'logoutOperation':{
-            return {...state,message:action.payload}
+            return {...state,logoutResponse:action.payload}
         }
         default:{
             return state

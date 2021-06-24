@@ -1,11 +1,11 @@
-const Base = 'http://192.168.1.12:3344/api/payment/';
+const Base = 'http://192.168.1.162:3344/api/payment/';
 
 export async function Payment(amount){
-    console.log("amount el haydf3 gowwwwwwwwwwwaaaaaaaaaa");
+    // console.log("amount el haydf3 gowwwwwwwwwwwaaaaaaaaaa");
 
     let intent;
 
-    console.log("amount el haydf3",amount);
+    // console.log("amount el haydf3",amount);
 
     let data = await fetch(`${Base}create-payment-intent`,{
                     method:"POST",
@@ -23,8 +23,8 @@ export async function Payment(amount){
 
     // })
 
-    console.log("el intent fy el action",response);
-    console.log("ana b3d el response el mafrood awaited");
+    // console.log("el intent fy el action",response);
+    // console.log("ana b3d el response el mafrood awaited");
 
     return{
         type:"payment-response",

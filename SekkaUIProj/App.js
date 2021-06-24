@@ -40,13 +40,13 @@ export default function App(props) {
   
    const navigationRef = React.createRef();
    function openDrawer(routeName, params) {
-    navigationRef.current.dispatch(DrawerActions.openDrawer());
+    navigationRef.current.dispatch(DrawerActions.toggleDrawer());
   }
   const createStoreWithMW = applyMiddleware(promiseMW)(createStore)
   return (
     <Provider store={createStoreWithMW(rootReducer)}>
       <NavigationContainer ref={navigationRef}>
-        <Navigator.Navigator initialRouteName="Home">
+        <Navigator.Navigator initialRouteName="Payment">
           <Navigator.Screen
             name="Register"
             component={registerContainer}
@@ -61,7 +61,7 @@ export default function App(props) {
               headerTintColor: '#03CFFF',
             }}
           />
-          {/* <Navigator.Screen
+          <Navigator.Screen
             name="Payment"
             component={StripePayment}
             options={{
@@ -71,7 +71,7 @@ export default function App(props) {
               headerTintColor: '#03CFFF',
 
             }}
-          /> */}
+          />
           <Navigator.Screen
             name="Login"
             component={loginContainer}
@@ -115,22 +115,18 @@ export default function App(props) {
               },
               headerStyle: {backgroundColor: '#001648'},
               headerTintColor: '#03CFFF',
+              overlayColor:"#001648",
+              
               // headerLeft:(<Icon name="train" onPress={() => {
 
               // }}/>) ,
               headerLeft: (props) => (
                 <Icon
                   name="menu"
-                  style={{color: '#03CFFF'}}
+                  style={{color: '#03CFFF',marginLeft:15}}
                   {...props}
                   onPress={() =>
-                  { openDrawer()
-                    
-                       console.log('hedwwwwwwwwwwwwwwwwwwwwwwww', props);
-                  }  //   // props.navigation.toggleDrawer();
-                    //   // NavigationService.openDrawer();
-                    //   () => openDrawer();
-                    // 
+                   openDrawer()
                   }
                 />
               ),

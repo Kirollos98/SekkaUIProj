@@ -267,7 +267,7 @@ const DatePick = () => (
               // shadowColor: '#97C2F7',
             }}
             onPress={async () => {
-              console.log('Awel el on press --------------------------------');
+              // console.log('Awel el on press --------------------------------');
               if (
                 this.state.selectedValueFrom !== 'From' &&
                 this.state.selectedValueFrom !== ''
@@ -276,10 +276,10 @@ const DatePick = () => (
                   this.state.selectedValueTo !== 'From' &&
                   this.state.selectedValueTo !== ''
                 ) {
-                  console.log(
-                    this.state.date.toISOString(),
-                    'dateIossssssssssssssssssssssssssoooo'
-                  );
+                  // console.log(
+                  //   this.state.date.toISOString(),
+                  //   'dateIossssssssssssssssssssssssssoooo'
+                  // );
                   let obj = {
                     fromCityName: this.state.selectedValueFrom,
                     toCityName: this.state.selectedValueTo,
@@ -288,18 +288,19 @@ const DatePick = () => (
                       .replace(`.000Z`, ` `)
                       .split('T')[0],
                   };
-                  console.log('from obj hey ', obj);
-                  console.log('state to props ', this.props.listOfTrips);
+                  // console.log('from obj hey ', obj);
+                  // console.log('state to props ', this.props.listOfTrips);
 
                   await this.props.search(obj);
-                  console.log(
-                    'state to props b3d el search call ',
-                    this.props.listOfTrips
-                  );
+                  // console.log(
+                  //   'state to props b3d el search call ',
+                  //   this.props.listOfTrips
+                  // );
 
                   this.setState({listTrip: this.props.listOfTrips});
-                  console.log('mashy ya kiro yarab awsal hena ');
+                  //console.log('mashy ya kiro yarab awsal hena ');
 
+                  //this.props.navigation.pop();
                   this.props.navigation.push('ListTrip');
                   // this.setState({listTrip:listt})
                   // this.state.listTrip.map(()=>{
@@ -317,19 +318,19 @@ const DatePick = () => (
                   //   })
 
                   // this.setState({listTrip:filtered});
-                  console.log(
-                    '--------------------------------the new list',
-                    listt
-                  );
+                  // console.log(
+                  //   '--------------------------------the new list',
+                  //   listt
+                  // );
 
-                  console.log(
-                    'b3d assigning el state --------------------------------',
-                    this.state.listTrip
-                  );
-                  console.log(
-                    'list of trips======@@@### ',
-                    this.state.listTrip
-                  );
+                  // console.log(
+                  //   'b3d assigning el state --------------------------------',
+                  //   this.state.listTrip
+                  // );
+                  // console.log(
+                  //   'list of trips======@@@### ',
+                  //   this.state.listTrip
+                  // );
                 } else {
                   Alert.alert('Please enter your destination city');
                 }
@@ -347,7 +348,7 @@ const DatePick = () => (
 
   renderCities({ReciviedCities}) {
     if (ReciviedCities) {
-      console.log('recieveddddddddddd ', ReciviedCities);
+      // console.log('recieveddddddddddd ', ReciviedCities);
       let x = [];
       ReciviedCities.cities.forEach((element) => {
         x.push(element.cityName);
@@ -375,7 +376,7 @@ const DatePick = () => (
 
 export default connect(
     (state) => {
-        console.log("state",state)
+        // console.log("state",state)
         return {
           message: state.authentication.message,
           ReciviedCities: state.city.citiesLIST,

@@ -31,7 +31,7 @@ const TripList = (props) => {
       setVisible(true);
     }, 3000)
   }
-  useEffect(() => closeActivityIndicator(), [])
+  useEffect(() => {closeActivityIndicator(); console.log("props================================",props)}, [])
 
   let anime = animating;
   let vis = visible;
@@ -43,12 +43,132 @@ const TripList = (props) => {
   const Tab = createMaterialBottomTabNavigator();
   // let img = '../../assets/' + item.type + '.png';
   return (
-    
+
     <FlatList
       style={{ backgroundColor: '#001648' }}
       data={props.list}
       renderItem={({ item }) => {
+        // console.log("+++++++++++++++++++++++++++++++++++++++++++",item)
+        // console.log("+++++++++++++++++++++List++++++++++++++++++++++",props.list)
+        if (props.flag) {
+          return (
+            <ListItem
+              style={{
+                height: 120,
+                margin: '5%',
+                padding: '5%',
+                borderRadius: 20,
+                backgroundColor: '#c8e1ff',
+              }}
+            >
+              <Left style={{ flex: 0.5 }}>
+                <Image
+                  style={{ width: 50, height: 50 }}
+                  source={item.TripID.type == "train" ? require("../../assets/train.png") : item.TripID.type == "bus" ? require("../../assets/bus.png") : require("../../assets/plane.png")}
+                />
+              </Left>
+              <Body style={{ flex: 2 }}>
+                <Row>
+                  <Col>
+                    <Row>
 
+                      <Text style={{ color: '#001648', fontWeight: "bold" }}>TripNumber:</Text>
+                      <Text style={{ color: '#001648' }}>{item.TripID.tripNum}</Text>
+                    </Row>
+                    <Row>
+
+                      <Text style={{ color: '#001648', fontWeight: "bold" }}>Price:</Text>
+                      <Text style={{ color: '#001648' }}>{item.TripID.price / 1000} L.E</Text>
+                    </Row>
+                    <Row>
+                      <Text style={{ color: '#001648', fontWeight: "bold" }}>Time:</Text>
+                      <Text>{moment(item.TripID.date).utc().format('hh:mm:ss a')}</Text>
+                    </Row>
+                    <Row>
+                      <Text style={{ color: '#001648', fontWeight: "bold" }}>seats:</Text>
+                      <Text>{item.seat}</Text>
+                    </Row>
+                  </Col>
+
+
+                </Row>
+
+              </Body>
+              <Right>
+                <Icon
+                  name="eye"
+                  onPress={() => {
+
+                    // console.log("propssss+++++++++++++++++++++++++++++++++++", props)
+                    props.navigation.push('detail', { id: item.TripID._id, flag: props.flag,seatNumber:item.seat });
+                  }}
+                  style={{ color: '#001648' }}
+                // color={'white'}
+                />
+              </Right>
+            </ListItem>
+
+          );
+        } else {
+          return (
+            <ListItem
+              style={{
+                height: 120,
+                margin: '5%',
+                padding: '5%',
+                borderRadius: 20,
+                backgroundColor: '#c8e1ff',
+              }}
+            >
+              <Left style={{ flex: 0.5 }}>
+                <Image
+                  style={{ width: 50, height: 50 }}
+                  source={item.type == "train" ? require("../../assets/train.png") : item.type == "bus" ? require("../../assets/bus.png") : require("../../assets/plane.png")}
+                />
+              </Left>
+              <Body style={{ flex: 2 }}>
+                <Row>
+                  <Col>
+                    <Row>
+
+                      <Text style={{ color: '#001648', fontWeight: "bold" }}>TripNumber:</Text>
+                      <Text style={{ color: '#001648' }}>{item.tripNum}</Text>
+                    </Row>
+                    <Row>
+
+                      <Text style={{ color: '#001648', fontWeight: "bold" }}>Price:</Text>
+                      <Text style={{ color: '#001648' }}>{item.price / 1000} L.E</Text>
+                    </Row>
+                    <Row>
+                      <Text style={{ color: '#001648', fontWeight: "bold" }}>Time:</Text>
+                      <Text>{moment(item.date).utc().format('hh:mm:ss a')}</Text>
+                    </Row>
+                    <Row>
+                      <Text style={{ color: '#001648', fontWeight: "bold" }}>seats:</Text>
+                      <Text>{item.seat === 0 ? "Fully Booked" : item.seat}</Text>
+                    </Row>
+                  </Col>
+
+
+                </Row>
+
+              </Body>
+              <Right>
+                <Icon
+                  name="eye"
+                  onPress={() => {
+
+                    console.log("propssss+++++++++++++++++++++++++++++++++++", props)
+                    props.navigation.push('detail', { id: item._id, flag: props.flag });
+                  }}
+                  style={{ color: '#001648' }}
+                // color={'white'}
+                />
+              </Right>
+            </ListItem>
+
+          );
+        }
         // console.log(item.date);
 
         // console.log(moment(item.date).utc().format('hh:mm:ss a'));
@@ -57,62 +177,7 @@ const TripList = (props) => {
         // console.log(new Date(item.date).getMinutes());
         // console.log(new Date(item.date).getSeconds());
         // console.log(`${new Date(item.date)}:${new Date(item.date).getSeconds()}:${new Date(item.date).getSeconds()}`);
-        return (
-          <ListItem
-            style={{
-              height: 120,
-              margin: '5%',
-              padding: '5%',
-              borderRadius: 20,
-              backgroundColor: '#c8e1ff',
-            }}
-          >
-            <Left style={{ flex: 0.5 }}>
-              <Image
-                style={{ width: 50, height: 50 }}
-                source={item.type == "train" ? require("../../assets/train.png") : item.type == "bus" ? require("../../assets/bus.png") : require("../../assets/plane.png")}
-              />
-            </Left>
-            <Body style={{ flex:2 }}>
-              <Row>
-                <Col>
-                  <Row>
 
-                    <Text style={{ color: '#001648', fontWeight: "bold" }}>TripNumber:</Text>
-                    <Text style={{ color: '#001648' }}>{item.tripNum}</Text>
-                  </Row>
-                  <Row>
-
-                    <Text style={{ color: '#001648', fontWeight: "bold" }}>Price:</Text>
-                    <Text style={{ color: '#001648' }}>{item.price / 1000} L.E</Text>
-                  </Row>
-                  <Row>
-                    <Text style={{ color: '#001648', fontWeight: "bold" }}>Time:</Text>
-                    <Text>{moment(item.date).utc().format('hh:mm:ss a')}</Text>
-                  </Row>
-                  <Row>
-                    <Text style={{ color: '#001648', fontWeight: "bold" }}>seats:</Text>
-                    <Text>{item.seat === 0?"Fully Booked":item.seat}</Text>
-                  </Row>
-                </Col>
-
-
-              </Row>
-
-            </Body>
-            <Right>
-              <Icon
-                name="eye"
-                onPress={() => {
-                  console.log("propssss",props)
-                  props.navigation.push('detail', { id: item._id });
-                }}
-                style={{ color: '#001648' }}
-              // color={'white'}
-              />
-            </Right>
-          </ListItem>
-        );
       }}
       ItemSeparatorComponent={ItemSeparator}
       keyExtractor={(item) => item._id.toString()}
@@ -129,7 +194,7 @@ const EmptyList = (anime, visible) => {
       <ActivityIndicator size="large" color="red" animating={anime} />
       {
         visible &&
-        (<Text style={{ textAlign: "center",color:"#c8e1ff" }}>No Trips available</Text>)
+        (<Text style={{ textAlign: "center", color: "#c8e1ff" }}>No Trips available</Text>)
       }
     </View>
   );
@@ -139,9 +204,9 @@ const ItemSeparator = () => {
   return (
     <ListItem
       itemDivider
-      style={{backgroundColor: '#001648', justifyContent: 'center'}}
+      style={{ backgroundColor: '#001648', justifyContent: 'center' }}
     >
-      <Text style={{color: '#c8e1ff'}}>
+      <Text style={{ color: '#c8e1ff' }}>
         ___________________________________
       </Text>
     </ListItem>

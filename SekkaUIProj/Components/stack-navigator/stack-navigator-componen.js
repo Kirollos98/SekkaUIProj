@@ -15,6 +15,8 @@ const Navigator = createStackNavigator();
 
 const StackNavigatorComponent = ()=>{
 
+  
+
     return (
       <Navigator.Navigator initialRouteName="MainPage">
         <Navigator.Screen

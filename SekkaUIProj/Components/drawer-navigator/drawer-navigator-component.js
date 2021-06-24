@@ -8,7 +8,7 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 import registerContainer from '../../Containers/register-container/register-container';
-import {Icon, Text} from 'native-base';
+import {Icon, Row, Text, View} from 'native-base';
 import loginContainer from '../../Containers/login-container/login-container';
 import Home from '../home-component/home-component';
 import mainScreen from '../../Containers/main-screen-container/main-screen';
@@ -17,7 +17,13 @@ import detailContainer from '../../Containers/detail-container/detail-container'
 import StripePayment from '../../Containers/payment-container/payment-container';
 import StackNavigatorComponent from '../stack-navigator/stack-navigator-componen';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
+import {LogoutAction} from '../../redux/action/authentication-actions'
+import { bindActionCreators } from "redux";
+
 import usersTripContainer from '../../Containers/usersTrip-container/usersTrip-container';
+import { Alert } from 'react-native';
+import { connect } from 'react-redux';
+import UserTripNavigator from '../user-trips-navigator/user-trips-navigator';
 
 const Navigator = createDrawerNavigator();
 // const Navigator2 = createDrawerNavigator({
@@ -36,36 +42,35 @@ const Navigator = createDrawerNavigator();
 //    )
 // });
 
-function CustomDrawerContent(props) {
+function CustomDrawerContent(properties) {
   return (
-    <DrawerContentScrollView {...props}>
-      <DrawerItemList {...props} />
+    <DrawerContentScrollView {...properties}>
+      <DrawerItemList {...properties} />
       <DrawerItem
+        onPress={async()=>{
+          console.log("logging out !");
+          console.log("logging out !----------------",externalProps);
+          await externalProps.LogoutAction();
+          if(externalProps.loggingoutOp){
+            if(externalProps.loggingoutOp.success){
+              console.log(externalProps.loggingoutOp);
+              externalProps.navigation.push("Home");
+            }
+          }
+        }}
         label={() => (
-          <Text style={{color: 'black'}}>
+          <View style={{display:"flex", flexDirection:"row"}}>
+            
             <MaterialCommunityIcons
-              name="logout"
-              size={30}
-              color="#001648"
-              style={{textAlign: 'center'}}
-            />
-            Logout
-          </Text>
-        )}
-        // style={{ backgroundColor: 'red' }}
-        onPress={() => alert('Logged out')}
-      />
-      <DrawerItem
-        label={() => (
-          <Text style={{color: 'black'}}>
-            <MaterialCommunityIcons
-              name="logout"
-              size={30}
-              color="#001648"
-              style={{textAlign: 'center'}}
-            />
-            Logout
-          </Text>
+                name="logout"
+                size={30}
+                color="#001648"
+                style={{textAlign: 'center'}}
+              />
+            <Text style={{color: 'black',marginStart:"15%"}}>
+              Logout
+            </Text>
+          </View>
         )}
         // style={{ backgroundColor: 'red' }}
       />
@@ -73,23 +78,32 @@ function CustomDrawerContent(props) {
   );
 }
 
+let externalProps= {};
+
 const DrawerNavigatorComponent = (props) => {
+  externalProps = props
   return (
     <Navigator.Navigator
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      overlayColor="#001648"
+      drawerType="back"
+      drawerContent={(properties) => <CustomDrawerContent {...properties} />}
       initialRouteName="StackNavigator"
+      screenOptions={{
+        unmountOnBlur:true
+      }}
     >
       <Navigator.Screen
         name="StackNavigator"
         component={StackNavigatorComponent}
         options={{
-          title: 'SEKKA',
+          title: "Home",
           headerTitleStyle: {textAlign: 'center', marginRight: '20%'},
           headerStyle: {backgroundColor: '#001648'},
           headerTintColor: '#03CFFF',
+          drawerIcon:()=>(<Icon name="home" style={{color:"#001648"}}/>),
         }}
       />
-      <Navigator.Screen
+      {/* <Navigator.Screen
         name="MainPage"
         component={mainScreen}
         options={{
@@ -98,19 +112,36 @@ const DrawerNavigatorComponent = (props) => {
           headerStyle: {backgroundColor: '#001648'},
           headerTintColor: '#03CFFF',
         }}
-      />
+      /> */}
       <Navigator.Screen
         name="User`s Trip"
-        component={usersTripContainer}
+        component={UserTripNavigator}
         options={{
           title: 'My Trips',
           headerTitleStyle: {textAlign: 'center', marginRight: '20%'},
           headerStyle: {backgroundColor: '#001648'},
           headerTintColor: '#03CFFF',
+          drawerIcon:()=>(
+          <MaterialCommunityIcons
+            name="ticket-account"
+            size={30}
+            color="#001648"
+          />),
+          
         }}
       />
     </Navigator.Navigator>
   );
 };
 
-export default DrawerNavigatorComponent;
+export default connect(
+  (state)=>{
+    // console.log(state,"---------------------------");
+    return{
+      loggingoutOp:state.authentication.logoutResponse
+    }
+  },
+  (dispatch)=>{
+    return bindActionCreators({LogoutAction},dispatch)
+  }
+)(DrawerNavigatorComponent) ;

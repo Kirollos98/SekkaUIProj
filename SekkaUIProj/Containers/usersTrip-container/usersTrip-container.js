@@ -24,36 +24,39 @@ class usersTrip extends Component {
       past: [],
     };
   }
+//   useEffect(()=>{
+//     const reset = ()=>{
+//         console.log("unmounting");
+//         props.navigation.reset({
+//             routes: [{ name: "User`s Trip" }]
+//           });
+//     }
+//     return reset;
+// },[])
+
   async componentDidMount() {
     console.log(
       ' component did mounttttttttttttt///////////////////////////////////////'
     );
     await this.props.usersTripfun();
     if (this.props.listOfTrips) {
-      console.log('new date =>>>>>>>> ', new Date());
-      console.log(' date.now  =>>>>>>>> ', Date.now());
-      console.log('tripList =>>>>>>>> ', this.props.listOfTrips);
+      // console.log('new date =>>>>>>>> ', new Date());
+      // console.log(' date.now  =>>>>>>>> ', Date.now());
+      // console.log('tripList =>>>>>>>> ', this.props.listOfTrips);
       let upcominglist = this.props.listOfTrips.filter((item) => {
-        console.log(
-          new Date(item.date) <= new Date(),
-          ' item.datttttttttttttttttttttttttttttte'
-        );
-        return new Date(item.date) >= new Date();
+        return new Date(item.TripID.date) >= new Date();
       });
 
       let pastList = this.props.listOfTrips.filter(
-        (item) => new Date(item.date) < new Date()
+        (item) => new Date(item.TripID.date) < new Date()
       );
       this.setState({
         upcoming: upcominglist,
         past: pastList,
       });
 
-      console.log(
-        upcominglist,
-        'upcominglistupcominglistupcominglistupcominglist'
-      );
-      console.log(pastList, 'pastListpastListpastListpastListpastList');
+      //console.log( '+=++++++++++++++++++past+++++++++++++++++++++++++++',this.state.past);
+      //console.log( '+=++++++++++++++++++upcoming+++++++++++++++++++++++++++',this.state.upcoming);
     }
   }
 
@@ -72,6 +75,7 @@ class usersTrip extends Component {
             <ListTripsScreen
               navigation={this.props.navigation}
               list={this.state.past}
+              flag={true}
             />
           </Tab>
           <Tab
@@ -85,6 +89,7 @@ class usersTrip extends Component {
             <ListTripsScreen
               navigation={this.props.navigation}
               list={this.state.upcoming}
+              flag={true}
             />
           </Tab>
         </Tabs>
@@ -95,7 +100,7 @@ class usersTrip extends Component {
 
 export default connect(
   (state) => {
-    console.log('state', state.SearchTrip);
+    // console.log('state', state.SearchTrip);
     return {
       listOfTrips: state.SearchTrip.usersTrip,
     };

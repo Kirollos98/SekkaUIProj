@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Base = 'http://192.168.1.12:3344/api/';
+const Base = 'http://192.168.1.162:3344/api/';
 
 const storeData = async (value,name) => {
     try {
@@ -26,7 +26,7 @@ const getData = async (name) => {
 export async function LoginAction(user){
     //var authToken = await getData("authToken");
    try{
-      console.log("User From Login Action",user);
+      // console.log("User From Login Action",user);
     let data = await fetch(`${Base}auth/login`, {
       method: 'POST',
       body: JSON.stringify(user),
@@ -36,7 +36,7 @@ export async function LoginAction(user){
       },
     });
     response = await data.json();
-    console.log("response from Action" , response);
+    // console.log("response from Action" , response);
     if(response === false){
       return {
         type: 'loginOperation',
@@ -45,7 +45,7 @@ export async function LoginAction(user){
     }else{
       await storeData(response.token, 'authToken');
       await storeData(response.user, 'loggedUser');
-      console.log(response.user);
+      // console.log(response.user);
       return {
         type: 'loginOperation',
         payload: response.user,
@@ -68,9 +68,9 @@ export async function RegisterAction(newUser){
           body: JSON.stringify(newUser),
           headers: {'Content-Type': 'application/json'},
         });
-    console.log("hellooooo")
+    // console.log("hellooooo")
     let x=await data.json();
-    console.log("cosol el x",x)
+    // console.log("cosol el x",x)
 
     return {
         type:"registerOperation",
@@ -81,15 +81,17 @@ export async function RegisterAction(newUser){
 
 export async function LogoutAction(){
     var authToken = await getData("authToken");
+    var token = authToken.split('"')[1];
+    // console.log(token);
     console.log(authToken,"hopaa")
     let data = await fetch(`${Base}auth/logout`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${authToken}`,
+        Authorization: "Bearer "+token,
       },
     });
     response = await data.json();
-    console.log(response);
+    // console.log(response);
     return {
         type:"logoutOperation",
         payload:response
@@ -99,7 +101,7 @@ export async function LogoutAction(){
 export const getCities = async (flag) => {
   let user;
   let parseUser="";
-  console.log(flag,"flaaaaaaaaaaaaaaaaaaaaaaaaaaag")
+  // console.log(flag,"flaaaaaaaaaaaaaaaaaaaaaaaaaaag")
   if(flag){
      user = await getData('loggedUser');
      parseUser = (await JSON.parse(user));

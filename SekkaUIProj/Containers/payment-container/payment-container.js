@@ -75,12 +75,18 @@ const StripeForm = (props) => {
             publishableKey="pk_test_51Ihh3pLQxH57LdTXafmak0NHkx8Mer1DN5Jo8mWRNIJ2jUqQ59j75UzxwJFREObX2bTrRYStwyXwvbRVRl7dyo7T00agOHEZkS"
             merchantIdentifier="merchant-identifier"
         >
-            <View>
+            <View >
                 <CardField
                     postalCodeEnabled={false}
                     style={{
                         height: 50,
-                        width: "100%"
+                        width: "100%",
+                        display:"flex",
+                        flexDirection:"column"
+                        
+                    }}
+                    cardStyle={{
+                        
                     }}
                 />
                 <Button onPress={handelPayment}><Text>Pay now</Text></Button>
@@ -91,7 +97,7 @@ const StripeForm = (props) => {
 
 export default connect(
     (state) => {
-        console.log("mapstatetoprops",state.payment.paymentResponse);
+        // console.log("mapstatetoprops",state.payment.paymentResponse);
         return {
             paymentDetails: state.SearchTrip.paymentDetails,
             clientKey: state.payment.paymentResponse
