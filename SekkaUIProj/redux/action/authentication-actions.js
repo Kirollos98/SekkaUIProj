@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Base = "http://192.168.1.12:3344/api/";
+const Base = 'http://192.168.1.12:3344/api/';
 
 const storeData = async (value,name) => {
     try {
@@ -96,6 +96,8 @@ export async function LogoutAction(){
 }
 
 export const getCities = async () => {
+   let user = await getData('loggedUser');
+    let parseUser = await JSON.parse(user);
   let payload = null;
   try {
     const response = await fetch(`${Base}city/getAllCities`, {
@@ -106,9 +108,9 @@ export const getCities = async () => {
   } catch (err) {
     console.log(err);
   }
-
+let obj = {cities: payload,user:parseUser}
   return {
-    type: "Cities_LIST",
-    payload
+    type: 'Cities_LIST',
+    payload: obj,
   };
 };

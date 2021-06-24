@@ -52,6 +52,7 @@ const login = (req,res)=>{
                     expiryDate: _expiryDate,
                   });
                   token.save((err, data) => {
+                    console.log({done, user});
                     res.send({done, token: token._id, user});
                   });
                 }else{
@@ -59,12 +60,13 @@ const login = (req,res)=>{
                 }
 
                 if (err) {
-                  res.send(false);
+                  res.send(err);
                 }
             })
             
         }
         else {
+          console.log("eeee")
             res.send(false);
         }
     })

@@ -35,6 +35,8 @@ import { Component } from "react";
 class MainScreen extends Component {
   constructor(props) {
     super(props);
+    
+     
     const elementIcon = () => (
       // <TouchableOpacity onPress={() => this._alertIndex(value)}>
       //   <View style={styles.btn}>
@@ -68,6 +70,10 @@ class MainScreen extends Component {
  
   async componentDidMount() {
     await this.props.getCities();
+    this.setState({selectedValueFrom:this.props.ReciviedCities.user.city})
+    // let user = await getData('loggedUser');
+    // let parseUser = await JSON.parse(user);
+    // console.log('userparsedddddddddddddddddddddddddddddddddddddddddddddddddddd');
   }
   onChange = (event, selectedDate) => {
     const currentDate = selectedDate || this.state.date;
@@ -341,8 +347,9 @@ const DatePick = () => (
 
   renderCities({ReciviedCities}) {
     if (ReciviedCities) {
+      console.log('recieveddddddddddd ', ReciviedCities);
       let x = [];
-      ReciviedCities.forEach((element) => {
+      ReciviedCities.cities.forEach((element) => {
         x.push(element.cityName);
       });
 
@@ -368,11 +375,12 @@ const DatePick = () => (
 
 export default connect(
     (state) => {
-        
+        console.log("state",state)
         return {
           message: state.authentication.message,
           ReciviedCities: state.city.citiesLIST,
           listOfTrips: state.SearchTrip.tripsLIST,
+
         };
     },
     (dispatch) => {
