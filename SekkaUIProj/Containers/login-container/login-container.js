@@ -7,7 +7,7 @@ import { LoginAction } from "../../redux/action/authentication-actions"
 import LottieView from 'lottie-react-native';
 const Login = (props) => {
 
-    let [userName, setUserName] = useState();
+    let [email, setEmail] = useState();
     let [password, setPassword] = useState();
     var [ isPress, setIsPress ] = React.useState(false);
 
@@ -33,11 +33,11 @@ const Login = (props) => {
         <LottieView source={require('../../assets/lottie/login.json')} autoPlay loop style={{width:400,height:400,alignSelf:"center"}}/>          
         <Form style={{marginTop:-70}}>
             <Item floatingLabel last >
-              <Label style={{color: '#03CFFF',marginVertical:-5,marginLeft:-15}}>Username</Label>
+              <Label style={{color: '#03CFFF',marginVertical:-5,marginLeft:-15}}>Email</Label>
               <Input
-                value={userName}
+                value={email}
                 onChangeText={(txt) => {
-                  setUserName(txt);
+                  setEmail(txt);
                 }}
                 style={{color: 'white'}}
               />
@@ -59,7 +59,7 @@ const Login = (props) => {
                 block
                 onPress={async () => {
                   let tempObj = {
-                    name: userName,
+                    email: email,
                     password: password,
                   };
 
@@ -72,7 +72,7 @@ const Login = (props) => {
                     );
                     Alert.alert(
                       'Please try again,'
-                       +'Check  your username and  Password'
+                       +'Check  your email and  Password'
                     );
                   } else {
                     props.navigation.replace('DrawerNavigator');

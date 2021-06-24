@@ -6,12 +6,13 @@ import React, { useEffect } from 'react';
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux';
 import promiseMW from 'redux-promise';
+import {HeaderBackButton} from '@react-navigation/stack';
 
 
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer,DrawerActions } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack"
 import * as Font from 'expo-font';
-import { Container, Text } from 'native-base';
+import {Container, Text, Icon} from 'native-base';
 import { StyleSheet, View } from 'react-native';
 import rootReducer from "./redux/reducer/index"
 import registerContainer from './Containers/register-container/register-container';
@@ -28,29 +29,36 @@ import DrawerNavigatorComponent from './Components/drawer-navigator/drawer-navig
 
 const Navigator = createStackNavigator();
 
-export default function App() {
-
+export default function App(props) {
+  
   useEffect(() => {
     (async () => await Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
     }))();
-     }, [])
-
+  }, [])
+  
+   const navigationRef = React.createRef();
+   function openDrawer(routeName, params) {
+    navigationRef.current.dispatch(DrawerActions.openDrawer());
+  }
   const createStoreWithMW = applyMiddleware(promiseMW)(createStore)
   return (
     <Provider store={createStoreWithMW(rootReducer)}>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Navigator.Navigator initialRouteName="Home">
           <Navigator.Screen
             name="Register"
             component={registerContainer}
             options={{
               title: 'Registeration',
-              headerTitleStyle: {textAlign: 'center', color: '#03CFFF',marginRight:'20%'},
+              headerTitleStyle: {
+                textAlign: 'center',
+                color: '#03CFFF',
+                marginRight: '20%',
+              },
               headerStyle: {backgroundColor: '#001648'},
               headerTintColor: '#03CFFF',
-
             }}
           />
           {/* <Navigator.Screen
@@ -72,9 +80,9 @@ export default function App() {
               headerTitleStyle: {
                 textAlign: 'center',
                 color: '#03CFFF',
-                marginRight:'15%'
+                marginRight: '15%',
               },
-              headerStyle: { backgroundColor: '#001648' },
+              headerStyle: {backgroundColor: '#001648'},
               headerTintColor: '#03CFFF',
             }}
           />
@@ -86,16 +94,47 @@ export default function App() {
               headerTitleStyle: {
                 textAlign: 'center',
                 color: '#03CFFF',
-                fontSize:25,
-                alignSelf:'center'
+                fontSize: 25,
+                alignSelf: 'center',
                 // marginRight:'5%'
               },
-              headerStyle: { backgroundColor: '#001648' },
+              headerStyle: {backgroundColor: '#001648'},
             }}
           />
           <Navigator.Screen
             name="DrawerNavigator"
             component={DrawerNavigatorComponent}
+            options={{
+              title: 'SEKKA',
+              headerTitleStyle: {
+                textAlign: 'center',
+                color: '#03CFFF',
+                fontSize: 25,
+                alignSelf: 'center',
+                marginRight: '20%',
+              },
+              headerStyle: {backgroundColor: '#001648'},
+              headerTintColor: '#03CFFF',
+              // headerLeft:(<Icon name="train" onPress={() => {
+
+              // }}/>) ,
+              headerLeft: (props) => (
+                <Icon
+                  name="menu"
+                  style={{color: '#03CFFF'}}
+                  {...props}
+                  onPress={() =>
+                  { openDrawer()
+                    
+                       console.log('hedwwwwwwwwwwwwwwwwwwwwwwww', props);
+                  }  //   // props.navigation.toggleDrawer();
+                    //   // NavigationService.openDrawer();
+                    //   () => openDrawer();
+                    // 
+                  }
+                />
+              ),
+            }}
           />
           {/* <Navigator.Screen
             name="MainPage"

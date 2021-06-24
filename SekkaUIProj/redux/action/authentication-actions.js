@@ -70,10 +70,11 @@ export async function RegisterAction(newUser){
         });
     console.log("hellooooo")
     let x=await data.json();
-    console.log(x)
+    console.log("cosol el x",x)
+
     return {
         type:"registerOperation",
-        payload:newUser
+        payload:x
     }
 }
 
@@ -95,9 +96,14 @@ export async function LogoutAction(){
     }
 }
 
-export const getCities = async () => {
-   let user = await getData('loggedUser');
-    let parseUser = await JSON.parse(user);
+export const getCities = async (flag) => {
+  let user;
+  let parseUser="";
+  console.log(flag,"flaaaaaaaaaaaaaaaaaaaaaaaaaaag")
+  if(flag){
+     user = await getData('loggedUser');
+     parseUser = (await JSON.parse(user));
+  }
   let payload = null;
   try {
     const response = await fetch(`${Base}city/getAllCities`, {
@@ -108,7 +114,15 @@ export const getCities = async () => {
   } catch (err) {
     console.log(err);
   }
-let obj = {cities: payload,user:parseUser}
+   let obj;
+  if (flag) {
+    obj ={cities: payload,user:parseUser}
+    
+  }else{
+    obj=payload;
+  }
+ 
+console.log("objjj",obj)
   return {
     type: 'Cities_LIST',
     payload: obj,

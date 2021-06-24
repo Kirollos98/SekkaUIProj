@@ -1,4 +1,3 @@
-
 import {
   View,
   Text,
@@ -13,7 +12,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 // import React, {useEffect, useState} from 'react';
 import ListTripsScreen from '../list-trips/list-trips-screen';
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import {usersTripfun} from '../../redux/action/trip-actions';
 
@@ -47,9 +46,9 @@ class usersTrip extends Component {
       );
       this.setState({
         upcoming: upcominglist,
-        past:pastList
+        past: pastList,
       });
-      
+
       console.log(
         upcominglist,
         'upcominglistupcominglistupcominglistupcominglist'
@@ -66,21 +65,19 @@ class usersTrip extends Component {
             tabStyle={{alignContent: 'center', backgroundColor: '#001648'}}
             heading={
               <TabHeading style={{backgroundColor: '#001648'}}>
-                {/* <Icon name="bus" /> */}
                 <Text>Past</Text>
               </TabHeading>
             }
           >
             <ListTripsScreen
               navigation={this.props.navigation}
-            />
               list={this.state.past}
+            />
           </Tab>
           <Tab
             tabStyle={{alignContent: 'center', backgroundColor: '#F1E9E7'}}
             heading={
               <TabHeading style={{backgroundColor: '#001648'}}>
-                {/* <Icon name="airplane" /> */}
                 <Text>Upcoming</Text>
               </TabHeading>
             }
@@ -107,6 +104,3 @@ export default connect(
     return bindActionCreators({usersTripfun}, dispatch);
   }
 )(usersTrip);
-
-
-

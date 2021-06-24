@@ -48,30 +48,35 @@ class Register extends Component {
       this.state.password == null ||
       this.state.passwordConfirm == null ||
       this.state.city == null ||
-      this.state.userName == "" ||
-      this.state.email == "" ||
-      this.state.password == "" ||
-      this.state.passwordConfirm == "" ||
-      this.state.city == ""||
-      this.state.city == "city"
+      this.state.userName == '' ||
+      this.state.email == '' ||
+      this.state.password == '' ||
+      this.state.passwordConfirm == '' ||
+      this.state.city == '' ||
+      this.state.city == 'city'
     ) {
       Alert.alert(
         'Incomplete data',
         'Please fill all data'[{text: 'OK', onPress: () => {}}]
       );
       return false;
-    } else if (this.state.password != this.state.passwordConfirm) {
+    }else if (this.validate() === false) {
+      Alert.alert(
+        'Email is not valid ',
+        'Please enter your email again'[{text: 'OK', onPress: () => {}}]
+      );
+      return false;
+    }else if (this.state.password != this.state.passwordConfirm) {
       Alert.alert(
         'Conflict in passwords',
         'Please enter your password again'[{text: 'OK', onPress: () => {}}]
       );
       return false;
-    }
-    return true;
+    }  return true;
   };
 
   async componentDidMount() {
-    await this.props.getCities();
+    await this.props.getCities(false);
 
     if (this.state.registerFlag) {
       Alert.alert('Registered Successfully !!');
@@ -88,7 +93,21 @@ class Register extends Component {
       this.props.navigation.replace('Login');
     }
   }
-
+  validate = () => {
+    // console.log(text);
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(this.state.email) === false) {
+      console.log('Email is Not Correct');
+      //this.setState({email: text});
+      return false;
+    } 
+    else {
+      //this.setState({email: text});
+      console.log('Email is Correct');
+      return true;
+    
+    }
+  };
   render() {
     var touchProps = {
       activeOpacity: 1,
@@ -191,7 +210,7 @@ class Register extends Component {
                 style={{color: 'white'}}
               />
             </Item>
-            <Item  last>
+            <Item last>
               {/* <Label
                 style={{color: '#03CFFF', marginVertical: -5, marginLeft: -15}}
               >
@@ -232,15 +251,26 @@ class Register extends Component {
                   };
                   if (this.validForm() == true) {
                     console.log('hwaaa');
+                    let validRegister;
+
                     let x = async () => {
-                      await RegisterAction({
+                     validRegister= await RegisterAction({
                         name: this.state.userName,
                         password: this.state.password,
                         email: this.state.email,
                         city: this.state.city,
                       });
-                      this.setState({RegisterFlag: true});
+                      console.log('validRegister', validRegister );
+                      if (validRegister.payload == false){
+
+                          Alert.alert("Please enter a unique email");
+                      }else{
+                       this.setState({RegisterFlag: true});
+
                       this.props.navigation.replace('Login');
+
+                      }
+                      
                     };
                     x();
 
@@ -254,7 +284,7 @@ class Register extends Component {
                     // setPasswordConfirm("")
                     // setEmail("")
                   } else {
-                  }
+                  }f
                 }}
               >
                 <Text
@@ -295,7 +325,7 @@ class Register extends Component {
   }
 
   renderCities({ReciviedCities}) {
-    console.log("renderrrrrrrrrrrrr")
+    console.log('renderrrrrrrrrrrrr');
     if (ReciviedCities) {
       let x = [];
       ReciviedCities.forEach((element) => {
@@ -331,6 +361,7 @@ class Register extends Component {
 
 export default connect(
     (state)=>{
+      console.log('state', state.city);
         return{
             registeredUser:state.authentication.registeredUser,
             ReciviedCities: state.city.citiesLIST,

@@ -19,7 +19,7 @@ const register = (req,res)=>{
             if(err){
                 console.log(err);
                 err.statusCode=422;
-                res.send(err);     
+                res.send(false);     
             }
             else{
                 res.status(200).send(data);
@@ -40,7 +40,7 @@ const login = (req,res)=>{
     // })
 
 
-    User.findOne({name:req.body.name},(err,user)=>{
+    User.findOne({email:req.body.email},(err,user)=>{
         if (user) {
             bcrypt.compare(req.body.password, user.password, (err, done) => {
                 if(done === true){

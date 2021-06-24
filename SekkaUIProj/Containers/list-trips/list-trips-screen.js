@@ -73,7 +73,7 @@ const TripList = (props) => {
                 source={item.type == "train" ? require("../../assets/train.png") : item.type == "bus" ? require("../../assets/bus.png") : require("../../assets/plane.png")}
               />
             </Left>
-            <Body style={{ flex: 3 }}>
+            <Body style={{ flex:2 }}>
               <Row>
                 <Col>
                   <Row>
@@ -89,6 +89,10 @@ const TripList = (props) => {
                   <Row>
                     <Text style={{ color: '#001648', fontWeight: "bold" }}>Time:</Text>
                     <Text>{moment(item.date).utc().format('hh:mm:ss a')}</Text>
+                  </Row>
+                  <Row>
+                    <Text style={{ color: '#001648', fontWeight: "bold" }}>seats:</Text>
+                    <Text>{item.seat === 0?"Fully Booked":item.seat}</Text>
                   </Row>
                 </Col>
 

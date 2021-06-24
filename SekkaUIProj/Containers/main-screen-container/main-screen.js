@@ -69,7 +69,7 @@ class MainScreen extends Component {
    
  
   async componentDidMount() {
-    await this.props.getCities();
+    await this.props.getCities(true);
     this.setState({selectedValueFrom:this.props.ReciviedCities.user.city})
     // let user = await getData('loggedUser');
     // let parseUser = await JSON.parse(user);

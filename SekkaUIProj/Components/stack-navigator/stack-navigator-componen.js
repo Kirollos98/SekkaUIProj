@@ -16,52 +16,57 @@ const Navigator = createStackNavigator();
 const StackNavigatorComponent = ()=>{
 
     return (
-        <Navigator.Navigator initialRouteName="MainPage">
-          
-          <Navigator.Screen
-            name="Payment"
-            component={StripePayment}
-            options={{
-              title: 'Payment',
-              headerTitleStyle: { textAlign: 'center', color: '#03CFFF', marginRight: '25%' },
-              headerStyle: { backgroundColor: '#001648' },
-              headerTintColor: '#03CFFF',
+      <Navigator.Navigator initialRouteName="MainPage">
+        <Navigator.Screen
+          name="Payment"
+          component={StripePayment}
+          options={{
+            title: 'Payment',
+            headerTitleStyle: {
+              textAlign: 'center',
+              color: '#03CFFF',
+              marginRight: '25%',
+            },
+            headerStyle: {backgroundColor: '#001648'},
+            headerTintColor: '#03CFFF',
+          }}
+        />
+        <Navigator.Screen
+          name="MainPage"
+          component={mainScreen}
+          options={{
+            // title: 'Home',
+            // headerTitleStyle: { textAlign: 'center', marginRight: '20%' },
+            // headerStyle: { backgroundColor: '#001648' },
+            // headerTintColor: '#03CFFF',
+            headerShown: false,
+          }}
+        />
+        <Navigator.Screen
+          name="ListTrip"
+          component={commonTripList}
+          options={{
+            // title: 'Trips',
+            // headerTitleStyle: { textAlign: 'center', marginRight: '20%' },
+            // headerStyle: { backgroundColor: '#001648' },
+            // headerTintColor: '#03CFFF',
+            headerShown: false,
+          }}
+        />
 
-            }}
-          />
-          <Navigator.Screen
-            name="MainPage"
-            component={mainScreen}
-            options={{
-              title: 'Home',
-              headerTitleStyle: { textAlign: 'center', marginRight: '20%' },
-              headerStyle: { backgroundColor: '#001648' },
-              headerTintColor: '#03CFFF',
-            }}
-          />
-          <Navigator.Screen
-            name="ListTrip"
-            component={commonTripList}
-            options={{
-              title: 'Trips',
-              headerTitleStyle: { textAlign: 'center', marginRight: '20%' },
-              headerStyle: { backgroundColor: '#001648' },
-              headerTintColor: '#03CFFF',
-            }}
-          />
-
-          <Navigator.Screen
-            name="detail"
-            component={detailContainer}
-            options={{
-              title: 'detail',
-              headerTitleStyle: { textAlign: 'center', marginRight: '20%' },
-              headerStyle: { backgroundColor: '#001648' },
-              headerTintColor: '#03CFFF',
-            }}
-          />
-        </Navigator.Navigator>
-    )
+        <Navigator.Screen
+          name="detail"
+          component={detailContainer}
+          options={{
+            // title: 'detail',
+            // headerTitleStyle: {textAlign: 'center', marginRight: '20%'},
+            // headerStyle: {backgroundColor: '#001648'},
+            // headerTintColor: '#03CFFF',
+            headerShown: false,
+          }}
+        />
+      </Navigator.Navigator>
+    );
 }
 
 
