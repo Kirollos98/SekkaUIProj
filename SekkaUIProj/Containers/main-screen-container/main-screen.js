@@ -9,6 +9,7 @@
  } from 'native-base';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
  import DateTimePicker from '@react-native-community/datetimepicker';
+ import LottieView from 'lottie-react-native';
 
  import React from "react";
  import {
@@ -342,6 +343,11 @@ const DatePick = () => (
             <Text style={{color: '#001648'}}>submit Your Trip!</Text>
           </Button>
         </View>
+        <View style={{width:'100%'}}>
+
+          <LottieView source={require('../../assets/lottie/traveler.json')} autoPlay loop style={{width:400,height:350,alignSelf:"center"}}/>          
+        </View>
+
       </Container>
     );
   }

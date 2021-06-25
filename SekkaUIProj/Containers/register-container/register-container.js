@@ -284,7 +284,7 @@ class Register extends Component {
                     // setPasswordConfirm("")
                     // setEmail("")
                   } else {
-                  }f
+                  }
                 }}
               >
                 <Text
@@ -319,13 +319,14 @@ class Register extends Component {
               </Text>
             </Text>
           </Form>
+        
         </Content>
       </Container>
     );
   }
 
   renderCities({ReciviedCities}) {
-    console.log('renderrrrrrrrrrrrr');
+    //console.log('renderrrrrrrrrrrrr');
     if (ReciviedCities) {
       let x = [];
       ReciviedCities.forEach((element) => {

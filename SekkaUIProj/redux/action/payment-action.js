@@ -9,7 +9,7 @@ export async function Payment(amount){
 
     let data = await fetch(`${Base}create-payment-intent`,{
                     method:"POST",
-                    body:JSON.stringify({amount:amount/1000000}),
+                    body:JSON.stringify({amount:amount*100}),
                     headers:{
                         'Content-Type': 'application/json'
                     }
@@ -23,8 +23,8 @@ export async function Payment(amount){
 
     // })
 
-    // console.log("el intent fy el action",response);
-    // console.log("ana b3d el response el mafrood awaited");
+     console.log("el intent fy el action",response);
+     console.log("ana b3d el response el mafrood awaited");
 
     return{
         type:"payment-response",

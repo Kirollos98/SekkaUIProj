@@ -46,7 +46,7 @@ export default function App(props) {
   return (
     <Provider store={createStoreWithMW(rootReducer)}>
       <NavigationContainer ref={navigationRef}>
-        <Navigator.Navigator initialRouteName="Payment">
+        <Navigator.Navigator initialRouteName="Home">
           <Navigator.Screen
             name="Register"
             component={registerContainer}
@@ -59,9 +59,10 @@ export default function App(props) {
               },
               headerStyle: {backgroundColor: '#001648'},
               headerTintColor: '#03CFFF',
+              
             }}
           />
-          <Navigator.Screen
+          {/* <Navigator.Screen
             name="Payment"
             component={StripePayment}
             options={{
@@ -71,7 +72,7 @@ export default function App(props) {
               headerTintColor: '#03CFFF',
 
             }}
-          />
+          /> */}
           <Navigator.Screen
             name="Login"
             component={loginContainer}

@@ -76,6 +76,7 @@ class usersTrip extends Component {
               navigation={this.props.navigation}
               list={this.state.past}
               flag={true}
+              upcoming={false}
             />
           </Tab>
           <Tab
@@ -90,6 +91,7 @@ class usersTrip extends Component {
               navigation={this.props.navigation}
               list={this.state.upcoming}
               flag={true}
+              upcoming={true}
             />
           </Tab>
         </Tabs>

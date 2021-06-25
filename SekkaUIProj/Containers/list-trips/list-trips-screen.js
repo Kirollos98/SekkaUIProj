@@ -78,7 +78,7 @@ const TripList = (props) => {
                     <Row>
 
                       <Text style={{ color: '#001648', fontWeight: "bold" }}>Price:</Text>
-                      <Text style={{ color: '#001648' }}>{item.TripID.price / 1000} L.E</Text>
+                      <Text style={{ color: '#001648' }}>{item.TripID.price} L.E</Text>
                     </Row>
                     <Row>
                       <Text style={{ color: '#001648', fontWeight: "bold" }}>Time:</Text>
@@ -100,7 +100,7 @@ const TripList = (props) => {
                   onPress={() => {
 
                     // console.log("propssss+++++++++++++++++++++++++++++++++++", props)
-                    props.navigation.push('detail', { id: item.TripID._id, flag: props.flag,seatNumber:item.seat });
+                    props.navigation.push('detail', { id: item.TripID._id, flag: props.flag,seatNumber:item.seat,isUpcoming:props.upcoming });
                   }}
                   style={{ color: '#001648' }}
                 // color={'white'}
@@ -158,8 +158,8 @@ const TripList = (props) => {
                   name="eye"
                   onPress={() => {
 
-                    console.log("propssss+++++++++++++++++++++++++++++++++++", props)
-                    props.navigation.push('detail', { id: item._id, flag: props.flag });
+                    //console.log("propssss+++++++++++++++++++++++++++++++++++", props)
+                    props.navigation.push('detail', { id: item._id, flag: props.flag});
                   }}
                   style={{ color: '#001648' }}
                 // color={'white'}
@@ -227,11 +227,5 @@ const styles = StyleSheet.create({
 });
 
 export default TripList;
-// export default connect(
-//     (state)=>{
-//         return{
-//             tripList:state.SearchTrip.tripsLIST
-//         }
-//     },
-// )(TripList) ;
+
 

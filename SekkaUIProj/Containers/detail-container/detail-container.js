@@ -4,17 +4,21 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { getTripDetial, proceedToPayment } from '../../redux/action/trip-actions';
-import { StyleSheet, ActivityIndicator, Image } from 'react-native';
-
+import { addComplain } from '../../redux/action/user-action';
+import { StyleSheet, ActivityIndicator, Image, Alert } from 'react-native';
+import DialogInput from 'react-native-dialog-input';
 import { CaretLeftFilled, CaretRightFilled } from "@ant-design/icons"
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons'
+import { faCaretLeft, faCaretRight, faPlaceOfWorship } from '@fortawesome/free-solid-svg-icons'
+import { Rating, AirbnbRating } from 'react-native-ratings';
 
 import moment from "moment";
 
 const Detail = (props) => {
 
   let [seatNum, setSeatNum] = useState(1);
+  let [dialogFlag, setdialogFlag] = useState(false);
+  // let [complain, setComplain] = useState('');
   //let navigator = useNavigation();
   //console.log(naviga);
   useEffect(() => {
@@ -30,11 +34,11 @@ const Detail = (props) => {
       return (
         <View style={{ backgroundColor: "#001648", height: 70, borderRadius: 20, marginTop: "3%", padding: 10, display: "flex", flexDirection: "row" }}>
 
-          
-            <View style={{ flex: 2 }}>
-              <Text style={{ color: "#c8e1ff", margin: "auto", textAlign: "center", marginTop: "3%", fontSize: 20, marginStart: 10 }}>Number of seats</Text>
-            </View>
-            <View style={{ display: "flex", flexDirection: "row" }}>
+
+          <View style={{ flex: 2 }}>
+            <Text style={{ color: "#c8e1ff", margin: "auto", textAlign: "center", marginTop: "3%", fontSize: 20, marginStart: 10 }}>Number of seats</Text>
+          </View>
+          <View style={{ display: "flex", flexDirection: "row" }}>
             <Button style={{ backgroundColor: "#001648" }} onPress={() => {
               if (seatNum <= 1) {
                 alert("minimum of 1 seat");
@@ -83,25 +87,85 @@ const Detail = (props) => {
       )
     }
   }
+
+  const ratingCompleted = (rating) => {
+    console.log("Rating is: " + rating)
+  }
+
+  const renderComplainBtn = () => {
+    console.log("props in details=========", props.route);
+    if (props.route.params.flag == true && props.route.params.isUpcoming !=true) {
+
+      return (
+        <View style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", marginTop: "5%" }}>
+
+
+          <Button style={{ backgroundColor: "#AA0000", borderRadius: 5 }} onPress={async () => {
+            console.log("alert in complain");
+            setdialogFlag(true);
+            //Alert.prompt("Complain", "please fill the following fields");
+          }}><Text>Complain</Text></Button>
+
+          <AirbnbRating
+            starContainerStyle={{backgroundColor:"#001648",padding:5,borderRadius:5}}
+            count={5}
+            reviews={[ "Bad", "OK", "Good", "Very Good", "Unbelievable"]}
+            defaultRating={2}
+            size={20}
+            selectedColor="#FCC201"
+            reviewColor="#001648"
+            onFinishRating={ratingCompleted}
+          />
+
+        </View>
+      )
+    }
+  }
+
+
+  const submitComplain = async (complain) => {
+    let complainObj = {
+      tripId: props.details._id,
+      complain: complain
+    }
+    await props.addComplain(complainObj)
+
+    if (faPlaceOfWorship.complainResponse.done) {
+      Alert.alert("Complain notification", "Your Complain has been added successfully !");
+    } else {
+      Alert.alert("Complain notification", "Somthing went wrong !");
+
+    }
+  }
+
   if (props.details) {
 
     return (
       <View style={{ backgroundColor: "#001648", height: "100%" }}>
+        <DialogInput isDialogVisible={dialogFlag}
+          title={"Complain"}
+          message={"Complain Goes Here"}
+          hintInput={"complain ...."}
+
+          submitInput={(inputText) => { submitComplain(inputText); setdialogFlag(false) }}
+          closeDialog={() => { setdialogFlag(false) }}>
+        </DialogInput>
+
         <View style={{ backgroundColor: "#c8e1ff", borderRadius: 30, margin: "5%", padding: "5%", height: "90%" }}>
           <View style={{ backgroundColor: "#c8e1ff", display: "flex", flexDirection: "row", margin: "5%" }}>
-            <Col style={{ flex: 1 }}>
+            <Col style={{ flex: 1,maxHeight:100 }}>
               <Text style={{ fontSize: 20, fontWeight: "bold" }}>From</Text>
               <Text style={{ fontSize: 30, fontWeight: "bold" }}>{props.details.fromId.cityName.toUpperCase()}</Text>
             </Col>
 
-            <Col style={{ flex: 1 }}>
+            <Col style={{ flex: 1,maxHeight:100 }}>
               <Image
                 resizeMode="contain"
                 style={{ maxWidth: 100, maxHeight: 100 }}
                 source={props.details.type == "train" ? require("../../assets/train.png") : props.details.type == "bus" ? require("../../assets/bus.png") : require("../../assets/plane.png")}
               ></Image>
             </Col>
-            <Col style={{ flex: 1 }}>
+            <Col style={{ flex: 1,maxHeight:100 }}>
               <Text style={{ fontSize: 20, fontWeight: "bold" }}>To</Text>
               <Text style={{ fontSize: 30, fontWeight: "bold" }}>{props.details.toId.cityName.toUpperCase()}</Text>
             </Col>
@@ -112,7 +176,7 @@ const Detail = (props) => {
           </View>
           {renderSeatsBtns()}
           {renderBookbtn()}
-
+          {renderComplainBtn()}
         </View>
 
       </View>
@@ -143,9 +207,10 @@ export default connect(
   (state) => {
     return {
       details: state.SearchTrip.tripDetails,
+      complainResponse: state.user.complainResponse
     };
   },
   (dispatch) => {
-    return bindActionCreators({ getTripDetial, proceedToPayment }, dispatch);
+    return bindActionCreators({ getTripDetial, proceedToPayment, addComplain }, dispatch);
   }
 )(Detail);

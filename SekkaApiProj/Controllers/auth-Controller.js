@@ -59,9 +59,9 @@ const login = (req,res)=>{
                     res.send(false);
                 }
 
-                if (err) {
-                  res.send(err);
-                }
+                // if (err) {
+                //   res.send(err);
+                // }
             })
             
         }

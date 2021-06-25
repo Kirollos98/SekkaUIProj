@@ -91,7 +91,7 @@ export async function LogoutAction(){
       },
     });
     response = await data.json();
-    // console.log(response);
+     console.log("Login operation ===================>",response);
     return {
         type:"logoutOperation",
         payload:response
@@ -101,7 +101,7 @@ export async function LogoutAction(){
 export const getCities = async (flag) => {
   let user;
   let parseUser="";
-  // console.log(flag,"flaaaaaaaaaaaaaaaaaaaaaaaaaaag")
+   console.log(flag,"flaaaaaaaaaaaaaaaaaaaaaaaaaaag")
   if(flag){
      user = await getData('loggedUser');
      parseUser = (await JSON.parse(user));
@@ -112,7 +112,7 @@ export const getCities = async (flag) => {
       method: 'get',
     });
     payload = await response.json();
-  //  console.log(payload);
+    console.log("payload ==============================",payload);
   } catch (err) {
     console.log(err);
   }
