@@ -7,6 +7,7 @@ import { Payment } from "../../redux/action/payment-action"
 import { bookTrip } from "../../redux/action/trip-actions"
 import { PropertySafetyFilled } from "@ant-design/icons";
 import { Alert } from "react-native";
+ import LottieView from 'lottie-react-native';
 
 
 // const StripePayment = (props) => {
@@ -71,28 +72,46 @@ const StripeForm = (props) => {
         }
     }
     return (
-        <StripeProvider
-            publishableKey="pk_test_51Ihh3pLQxH57LdTXafmak0NHkx8Mer1DN5Jo8mWRNIJ2jUqQ59j75UzxwJFREObX2bTrRYStwyXwvbRVRl7dyo7T00agOHEZkS"
-            merchantIdentifier="merchant-identifier"
-        >
-            <View >
-                <CardField
-                    postalCodeEnabled={false}
-                    style={{
-                        height: 50,
-                        width: "100%",
-                        display:"flex",
-                        flexDirection:"column"
-                        
-                    }}
-                    cardStyle={{
-                        
-                    }}
-                />
-                <Button onPress={handelPayment}><Text>Pay now</Text></Button>
-            </View>
-        </StripeProvider>
-    )
+      <StripeProvider
+        publishableKey="pk_test_51Ihh3pLQxH57LdTXafmak0NHkx8Mer1DN5Jo8mWRNIJ2jUqQ59j75UzxwJFREObX2bTrRYStwyXwvbRVRl7dyo7T00agOHEZkS"
+        merchantIdentifier="merchant-identifier"
+      >
+        <View style={{backgroundColor: '#001648', height: '100%'}}>
+          <CardField
+            postalCodeEnabled={false}
+            style={{
+              height: 50,
+              width: '90%',
+              display: 'flex',
+              flexDirection: 'column',
+              marginTop: '10%',
+              margin: '5%',
+            }}
+            cardStyle={{borderRadius: 10}}
+          />
+          <View style={{marginTop: '10%', marginLeft: '37%'}}>
+            <Button
+              onPress={handelPayment}
+              style={{backgroundColor: '#c8e1ff', borderRadius: 7}}
+            >
+              <Text
+                style={{color: '#001648', fontSize: 20, fontWeight: 'bold'}}
+              >
+                Pay now
+              </Text>
+            </Button>
+          </View>
+          <View style={{height: '100%', width: '100%', marginTop: '30%'}}>
+            <LottieView
+              source={require('../../assets/lottie/payment.json')}
+              autoPlay
+              loop
+              style={{width: 300, height: 300, alignSelf: 'center'}}
+            />
+          </View>
+        </View>
+      </StripeProvider>
+    );
 }
 
 export default connect(

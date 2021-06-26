@@ -264,7 +264,8 @@ const DatePick = () => (
             style={{
               marginTop: '10%',
               backgroundColor: '#c8e1ff',
-              alignSelf:'center'
+              alignSelf:'center',
+              borderRadius:7
               // shadowColor: '#97C2F7',
             }}
             onPress={async () => {

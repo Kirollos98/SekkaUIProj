@@ -19,7 +19,7 @@ const register = (req,res)=>{
             if(err){
                 console.log(err);
                 err.statusCode=422;
-                res.send(false);     
+                res.send(false);    
             }
             else{
                 res.status(200).send(data);

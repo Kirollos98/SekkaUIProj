@@ -109,8 +109,9 @@ const Detail = (props) => {
           <AirbnbRating
             starContainerStyle={{backgroundColor:"#001648",padding:5,borderRadius:5}}
             count={5}
+            
             reviews={[ "Bad", "OK", "Good", "Very Good", "Unbelievable"]}
-            defaultRating={2}
+            defaultRating={0}
             size={20}
             selectedColor="#FCC201"
             reviewColor="#001648"
@@ -208,6 +209,7 @@ export default connect(
     return {
       details: state.SearchTrip.tripDetails,
       complainResponse: state.user.complainResponse
+      
     };
   },
   (dispatch) => {

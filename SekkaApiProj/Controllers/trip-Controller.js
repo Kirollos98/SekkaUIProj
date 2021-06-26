@@ -104,6 +104,8 @@ const BookingTrip = (req, res) => {
               UserID: req.body.userId,
               TripID: req.body.tripId,
               seat: req.body.seats,
+              date: new Date(),
+              rate:3,
             });
 
             newBooking.save((err, newBook) => {
@@ -127,12 +129,8 @@ const BookingTrip = (req, res) => {
   });
 };
 
-/**
- * obj={
- * refrence nrg3 cities 
- userid 
- * }
- */
+
+
 
 const ListUsersTrips = async (req, resp) => {
   Booking.find({ UserID: req.body.userid })

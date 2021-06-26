@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Base = 'http://192.168.1.162:3344/api/user/';
+const Base = 'http://192.168.1.12:3344/api/user/';
 
 const storeData = async (value,name) => {
     try {
