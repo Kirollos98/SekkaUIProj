@@ -7,7 +7,6 @@ const bookingSchema = new mongoose.Schema({
   TripID: {type: mongoose.SchemaTypes.ObjectId, ref: 'Trip'},
   seat: {type: Number},
   date:{type:Date},
-  rate:{type:Number}
   // time:{type:Timestamp}
 });
 //assign the user schema to User Class

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Base = 'http://192.168.1.12:3344/api/user/';
+const Base = 'http://192.168.1.162:3344/api/user/';
 
 const storeData = async (value,name) => {
     try {
@@ -75,4 +75,47 @@ export async function addComplain(newComplain){
         type:"Adding-Complain",
         payload:response
     }
+}
+
+
+
+export async function addRate(newRate){
+  let user = await getData('loggedUser');
+  let parseUser = await JSON.parse(user);
+  newRate.userId = parseUser._id;
+  console.log("rate action ============", newRate);
+
+  let data = await fetch(`${Base}add-rate`,{
+      method:"POST",
+      body:JSON.stringify(newRate),
+      headers:{
+          'Content-Type': 'application/json',
+       }
+  })
+
+  let response = await data.json();
+  console.log("after getting back",response);
+
+  return{
+      type:"Adding-Rate",
+      payload:response
+  }
+}
+
+export async function getRate(bookId){
+
+  let data = await fetch(`${Base}get-rate/${bookId}`,{
+      method:"GET",
+      headers:{
+          'Content-Type': 'application/json',
+       }
+  })
+
+  let response = await data.json();
+
+  return{
+    type:"Get-Rate",
+    payload:response
+  }
+
 }

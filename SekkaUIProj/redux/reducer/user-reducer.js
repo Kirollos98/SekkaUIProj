@@ -13,6 +13,14 @@ export default function User(state = {}, action) {
             // console.log("gwa user reducer", action.payload)
             return { ...state, complainResponse: action.payload }
         }
+        case 'Adding-Rate': {
+            // console.log("gwa user reducer", action.payload)
+            return { ...state, rateResponse: action.payload }
+        }
+        case 'Get-Rate': {
+            console.log("gwa user reducer", action.payload)
+            return { ...state, rating: action.payload }
+        }
         default: {
             return state
         }

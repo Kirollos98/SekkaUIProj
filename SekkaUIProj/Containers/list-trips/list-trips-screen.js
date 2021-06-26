@@ -100,7 +100,7 @@ const TripList = (props) => {
                   onPress={() => {
 
                     // console.log("propssss+++++++++++++++++++++++++++++++++++", props)
-                    props.navigation.push('detail', { id: item.TripID._id, flag: props.flag,seatNumber:item.seat,isUpcoming:props.upcoming });
+                    props.navigation.push('detail', { id: item.TripID._id, flag: props.flag,seatNumber:item.seat,isUpcoming:props.upcoming,bookingID: item._id});
                   }}
                   style={{ color: '#001648' }}
                 // color={'white'}

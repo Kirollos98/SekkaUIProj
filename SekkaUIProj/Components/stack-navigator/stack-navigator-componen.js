@@ -28,9 +28,12 @@ const StackNavigatorComponent = ()=>{
               textAlign: 'center',
               color: '#03CFFF',
               marginRight: '25%',
+              
+
             },
             headerStyle: {backgroundColor: '#001648'},
             headerTintColor: '#03CFFF',
+            headerShown:false
           }}
         />
         <Navigator.Screen

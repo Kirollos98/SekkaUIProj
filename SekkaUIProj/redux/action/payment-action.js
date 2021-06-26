@@ -1,4 +1,4 @@
-const Base = 'http://192.168.1.12:3344/api/payment/';
+const Base = 'http://192.168.1.162:3344/api/payment/';
 
 export async function Payment(amount){
     // console.log("amount el haydf3 gowwwwwwwwwwwaaaaaaaaaa");

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { getTripDetial, proceedToPayment } from '../../redux/action/trip-actions';
-import { addComplain } from '../../redux/action/user-action';
+import { addComplain,addRate,getRate } from '../../redux/action/user-action';
 import { StyleSheet, ActivityIndicator, Image, Alert } from 'react-native';
 import DialogInput from 'react-native-dialog-input';
 import { CaretLeftFilled, CaretRightFilled } from "@ant-design/icons"
@@ -24,7 +24,9 @@ const Detail = (props) => {
   useEffect(() => {
     const resolver = async () => {
       await props.getTripDetial(props.route.params.id);
+      await props.getRate(props.route.params.bookingID);
     }
+    
     resolver();
   }, [])
 
@@ -88,12 +90,18 @@ const Detail = (props) => {
     }
   }
 
-  const ratingCompleted = (rating) => {
+  const ratingCompleted = async (rating) => {
     console.log("Rating is: " + rating)
+    let rateObj = {
+      bookingId: props.route.params.bookingID,
+      rate: rating
+    }
+
+    await props.addRate(rateObj);
   }
 
   const renderComplainBtn = () => {
-    console.log("props in details=========", props.route);
+    console.log("props in details=========", props);
     if (props.route.params.flag == true && props.route.params.isUpcoming !=true) {
 
       return (
@@ -109,9 +117,9 @@ const Detail = (props) => {
           <AirbnbRating
             starContainerStyle={{backgroundColor:"#001648",padding:5,borderRadius:5}}
             count={5}
-            
+            isDisabled={props.rate.rate?true:false}
             reviews={[ "Bad", "OK", "Good", "Very Good", "Unbelievable"]}
-            defaultRating={0}
+            defaultRating={props.rate.rate}
             size={20}
             selectedColor="#FCC201"
             reviewColor="#001648"
@@ -126,9 +134,11 @@ const Detail = (props) => {
 
   const submitComplain = async (complain) => {
     let complainObj = {
-      tripId: props.details._id,
+      bookingId: props.route.params.bookingID,
       complain: complain
     }
+    console.log("Complain",complainObj);
+
     await props.addComplain(complainObj)
 
     if (faPlaceOfWorship.complainResponse.done) {
@@ -208,11 +218,11 @@ export default connect(
   (state) => {
     return {
       details: state.SearchTrip.tripDetails,
-      complainResponse: state.user.complainResponse
-      
+      complainResponse: state.user.complainResponse,
+      rate:state.user.rating
     };
   },
   (dispatch) => {
-    return bindActionCreators({ getTripDetial, proceedToPayment, addComplain }, dispatch);
+    return bindActionCreators({ getTripDetial, proceedToPayment, addComplain,addRate,getRate }, dispatch);
   }
 )(Detail);

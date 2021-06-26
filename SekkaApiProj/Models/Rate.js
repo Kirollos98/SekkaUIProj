@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
-const complainSchema = new mongoose.Schema({
+const rateSchema = new mongoose.Schema({
   userId: { type: mongoose.SchemaTypes.ObjectId, ref: 'User' },
   bookingId: { type: mongoose.SchemaTypes.ObjectId, ref: 'Booking' },
-  complain: { type: String },
+  rate: { type: Number },
 });
 
-const Complain = mongoose.model('Complain', complainSchema);
+const Rate = mongoose.model('Rate', rateSchema);
 
-module.exports = Complain;
+module.exports = Rate;
