@@ -3,34 +3,79 @@ const User = require('../Models/User');
 const City = require('../Models/City');
 const Booking = require('../Models/book');
 
+
+function between(min, max) {  
+  return Math.floor(
+    Math.random() * (max - min) + min
+  )
+}
+
+
+
+
 const getAllTrips = async (req, res, next) => {
   res.send(await Trip.find({}));
 };
 
 const addTrip = (req, res) => {
-  let tripToAdd = new Trip({
-    tripNum: req.body.tripNum,
-    fromId: req.body.fromId,
-    toId: req.body.toId,
-    date: req.body.date,
-    price: req.body.price,
-    type: req.body.type,
-    seat: req.body.seat,
-  });
 
-  tripToAdd.save((err, data) => {
-    if (err) {
-      console.log(err);
+  console.log("array body", req.body.trips);
 
-      err.statusCode = 422;
 
-      //next(err);
+  let i = 0
+  for ( i ; i < req.body.trips.length; i++) {
+    let tripToAdd = new Trip({
+      tripNum: req.body.trips[i].tripNum+between(100,500),
+      fromId: req.body.trips[i].fromId,
+      toId: req.body.trips[i].toId,
+      date: req.body.trips[i].date,
+      price: req.body.trips[i].price,
+      type: req.body.trips[i].type,
+      seat: req.body.trips[i].seat,
+    });
+    tripToAdd.save((err, data) => {
+      if (err) {
+        console.log(err);
 
-      res.send(err);
-    } else {
-      res.status(200).send(data);
-    }
-  });
+        err.statusCode = 422;
+
+        //next(err);
+
+        res.send(err);
+      } else {
+        console.log("data added !",data);
+        //res.status(200).send(data);
+      }
+    });
+
+  }
+  if(i==req.body.trips.length){
+    res.send("all trips are added successfully !");
+  }
+
+  // let tripToAdd = new Trip({
+  //   tripNum: req.body.tripNum,
+  //   fromId: req.body.fromId,
+  //   toId: req.body.toId,
+  //   date: req.body.date,
+  //   price: req.body.price,
+  //   type: req.body.type,
+  //   seat: req.body.seat,
+  // });
+
+  // tripToAdd.save((err, data) => {
+  //   if (err) {
+  //     console.log(err);
+
+  //     err.statusCode = 422;
+
+  //     //next(err);
+
+  //     res.send(err);
+  //   } else {
+  //     res.status(200).send(data);
+  //   }
+  // });
 };
 
 
@@ -40,18 +85,18 @@ const search = async (req, resp) => {
   let from;
   let to;
   let trip;
-  await City.findOne({cityName: req.body.fromCityName}, (requ, res) => {
+  await City.findOne({ cityName: req.body.fromCityName }, (requ, res) => {
     //console.log('gwa', res);
     from = res._id;
     // res.send(res._id);s
   });
   console.log('bara', from);
-  await City.findOne({cityName: req.body.toCityName}, (reqs, ress) => {
+  await City.findOne({ cityName: req.body.toCityName }, (reqs, ress) => {
     //console.log('gwa', ress);
     to = ress._id;
     // res.send(res._id);
   });
-  await Trip.find({fromId: from, toId: to}, (request, response) => {
+  await Trip.find({ fromId: from, toId: to }, (request, response) => {
     console.log('di trip nod henaaaa', response);
 
     trip = response;
@@ -74,7 +119,7 @@ const search = async (req, resp) => {
 const detailTrip = async (req, res) => {
   console.log(req.params);
 
-  await Trip.findOne({_id: req.params.id})
+  await Trip.findOne({ _id: req.params.id })
     .populate('fromId')
     .populate('toId')
     //  .select('cityName')
@@ -89,8 +134,8 @@ const detailTrip = async (req, res) => {
 };
 //trip => seats => minus => add
 const BookingTrip = (req, res) => {
-  console.log(req.body,"body here ");
-  Trip.findOne({_id: req.body.tripId}, (err, trip) => {
+  console.log(req.body, "body here ");
+  Trip.findOne({ _id: req.body.tripId }, (err, trip) => {
     console.log('--------+++++++++++-------', trip.seat);
     if (!err) {
       if (trip.seat >= req.body.seats) {
@@ -105,7 +150,7 @@ const BookingTrip = (req, res) => {
               TripID: req.body.tripId,
               seat: req.body.seats,
               date: new Date(),
-              rate:3,
+              rate: 3,
             });
 
             newBooking.save((err, newBook) => {
@@ -114,8 +159,8 @@ const BookingTrip = (req, res) => {
                   'error happened while booking your trip, try again later'
                 );
               } else {
-                Booking.findOne({_id:newBook._id}).populate("UserID").populate("TripID").exec((err,bookingConfirmed)=>{
-                  
+                Booking.findOne({ _id: newBook._id }).populate("UserID").populate("TripID").exec((err, bookingConfirmed) => {
+
                   res.status(200).send(bookingConfirmed);
                 })
               }

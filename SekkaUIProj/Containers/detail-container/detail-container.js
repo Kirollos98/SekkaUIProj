@@ -166,7 +166,7 @@ const Detail = (props) => {
           <View style={{ backgroundColor: "#c8e1ff", display: "flex", flexDirection: "row", margin: "5%" }}>
             <Col style={{ flex: 1,maxHeight:100 }}>
               <Text style={{ fontSize: 20, fontWeight: "bold" }}>From</Text>
-              <Text style={{ fontSize: 30, fontWeight: "bold" }}>{props.details.fromId.cityName.toUpperCase()}</Text>
+              <Text style={{ fontSize: 25, fontWeight: "bold" }}>{props.details.fromId.cityName.toUpperCase()}</Text>
             </Col>
 
             <Col style={{ flex: 1,maxHeight:100 }}>
@@ -178,12 +178,12 @@ const Detail = (props) => {
             </Col>
             <Col style={{ flex: 1,maxHeight:100 }}>
               <Text style={{ fontSize: 20, fontWeight: "bold" }}>To</Text>
-              <Text style={{ fontSize: 30, fontWeight: "bold" }}>{props.details.toId.cityName.toUpperCase()}</Text>
+              <Text style={{ fontSize: 25, fontWeight: "bold" }}>{props.details.toId.cityName.toUpperCase()}</Text>
             </Col>
           </View>
           <View style={{ backgroundColor: "#001648", height: 70, borderRadius: 20 }}>
             <Text style={{ color: "#c8e1ff", margin: "auto", textAlign: "center", marginTop: "2%", fontSize: 20 }}>Departure on {moment(props.details.date).utc().format('DD-MM-YYYY')}</Text>
-            <Text style={{ color: "#c8e1ff", margin: "auto", textAlign: "center", marginTop: "2%", fontSize: 20 }}>Time : {moment(props.details.date).utc().format('hh:mm:ss a')}</Text>
+            <Text style={{ color: "#c8e1ff", margin: "auto", textAlign: "center", marginTop: "2%", fontSize: 20 }}>Time : {moment(props.details.date).utc().format('hh:mm a')}</Text>
           </View>
           {renderSeatsBtns()}
           {renderBookbtn()}

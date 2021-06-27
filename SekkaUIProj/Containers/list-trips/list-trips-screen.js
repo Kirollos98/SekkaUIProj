@@ -31,7 +31,7 @@ const TripList = (props) => {
       setVisible(true);
     }, 3000)
   }
-  useEffect(() => {closeActivityIndicator(); console.log("props================================",props)}, [])
+  useEffect(() => { closeActivityIndicator(); console.log("props================================", props) }, [])
 
   let anime = animating;
   let vis = visible;
@@ -41,6 +41,8 @@ const TripList = (props) => {
     return `0${time}`
   }
   const Tab = createMaterialBottomTabNavigator();
+
+ 
   // let img = '../../assets/' + item.type + '.png';
   return (
 
@@ -48,6 +50,26 @@ const TripList = (props) => {
       style={{ backgroundColor: '#001648' }}
       data={props.list}
       renderItem={({ item }) => {
+
+        const fullyBooked = () => {
+          
+          if (item.seat > 0) {
+            return (
+              <Icon
+                name="eye"
+                onPress={() => {
+      
+                  //console.log("propssss+++++++++++++++++++++++++++++++++++", props)
+                  props.navigation.push('detail', { id: item._id, flag: props.flag });
+                }}
+                style={{ color: '#001648' }}
+              // color={'white'}
+              />
+            )
+          }
+        }
+
+
         // console.log("+++++++++++++++++++++++++++++++++++++++++++",item)
         // console.log("+++++++++++++++++++++List++++++++++++++++++++++",props.list)
         if (props.flag) {
@@ -82,7 +104,7 @@ const TripList = (props) => {
                     </Row>
                     <Row>
                       <Text style={{ color: '#001648', fontWeight: "bold" }}>Time:</Text>
-                      <Text>{moment(item.TripID.date).utc().format('hh:mm:ss a')}</Text>
+                      <Text>{moment(item.TripID.date).utc().format('hh:mm a')}</Text>
                     </Row>
                     <Row>
                       <Text style={{ color: '#001648', fontWeight: "bold" }}>seats:</Text>
@@ -95,12 +117,13 @@ const TripList = (props) => {
 
               </Body>
               <Right>
+
                 <Icon
                   name="eye"
                   onPress={() => {
 
                     // console.log("propssss+++++++++++++++++++++++++++++++++++", props)
-                    props.navigation.push('detail', { id: item.TripID._id, flag: props.flag,seatNumber:item.seat,isUpcoming:props.upcoming,bookingID: item._id});
+                    props.navigation.push('detail', { id: item.TripID._id, flag: props.flag, seatNumber: item.seat, isUpcoming: props.upcoming, bookingID: item._id });
                   }}
                   style={{ color: '#001648' }}
                 // color={'white'}
@@ -137,11 +160,11 @@ const TripList = (props) => {
                     <Row>
 
                       <Text style={{ color: '#001648', fontWeight: "bold" }}>Price:</Text>
-                      <Text style={{ color: '#001648' }}>{item.price / 1000} L.E</Text>
+                      <Text style={{ color: '#001648' }}>{item.price} L.E</Text>
                     </Row>
                     <Row>
                       <Text style={{ color: '#001648', fontWeight: "bold" }}>Time:</Text>
-                      <Text>{moment(item.date).utc().format('hh:mm:ss a')}</Text>
+                      <Text>{moment(item.date).utc().format('hh:mm a')}</Text>
                     </Row>
                     <Row>
                       <Text style={{ color: '#001648', fontWeight: "bold" }}>seats:</Text>
@@ -154,7 +177,8 @@ const TripList = (props) => {
 
               </Body>
               <Right>
-                <Icon
+                {fullyBooked()}
+                {/* <Icon
                   name="eye"
                   onPress={() => {
 
@@ -163,7 +187,7 @@ const TripList = (props) => {
                   }}
                   style={{ color: '#001648' }}
                 // color={'white'}
-                />
+                /> */}
               </Right>
             </ListItem>
 
