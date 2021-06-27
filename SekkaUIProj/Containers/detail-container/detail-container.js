@@ -23,8 +23,8 @@ const Detail = (props) => {
   //console.log(naviga);
   useEffect(() => {
     const resolver = async () => {
-      await props.getTripDetial(props.route.params.id);
       await props.getRate(props.route.params.bookingID);
+      await props.getTripDetial(props.route.params.id);
     }
     
     resolver();
