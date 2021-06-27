@@ -98,35 +98,50 @@ export async function LogoutAction(){
     }
 }
 
-export const getCities = async (flag) => {
-  let user;
-  let parseUser="";
-   console.log(flag,"flaaaaaaaaaaaaaaaaaaaaaaaaaaag")
-  if(flag){
-     user = await getData('loggedUser');
-     parseUser = (await JSON.parse(user));
-  }
+export const getCities = async () => {
+  console.log("gow rl getCities");
   let payload = null;
   try {
     const response = await fetch(`${Base}city/getAllCities`, {
       method: 'get',
     });
     payload = await response.json();
-    console.log("payload ==============================",payload);
   } catch (err) {
     console.log(err);
   }
-   let obj;
-  if (flag) {
+  console.log("response",payload)
+  return {
+    type: 'Cities_LIST_Register',
+    payload: payload,
+  };
+};
+
+
+
+export const getCitiesAndUser = async () => {
+  let user;
+  let parseUser="";
+
+     user = await getData('loggedUser');
+     parseUser = (await JSON.parse(user));
+  
+  let payload = null;
+  try {
+    const response = await fetch(`${Base}city/getAllCities`, {
+      method: 'get',
+    });
+    payload = await response.json();
+  } catch (err) {
+    console.log(err);
+  }
+    let obj;
+
     obj ={cities: payload,user:parseUser}
     
-  }else{
-    obj=payload;
-  }
  
-console.log("objjj",obj)
+    console.log("objjj",obj)
   return {
-    type: 'Cities_LIST',
+    type: 'Cities_LIST_Home',
     payload: obj,
   };
 };

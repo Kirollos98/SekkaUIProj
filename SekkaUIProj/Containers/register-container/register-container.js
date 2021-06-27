@@ -76,7 +76,7 @@ class Register extends Component {
   };
 
   async componentDidMount() {
-    await this.props.getCities(false);
+    await this.props.getCities();
 
     if (this.state.registerFlag) {
       Alert.alert('Registered Successfully !!');

@@ -65,7 +65,7 @@ class usersTrip extends Component {
       <View style={{height: '100%', backgroundColor: '#001648'}}>
         <Tabs style={{backgroundColor: '#001648'}} initialPage={0}>
           <Tab
-            tabStyle={{alignContent: 'center', backgroundColor: '#001648'}}
+            
             heading={
               <TabHeading style={{backgroundColor: '#001648'}}>
                 <Text>Past</Text>
@@ -80,7 +80,7 @@ class usersTrip extends Component {
             />
           </Tab>
           <Tab
-            tabStyle={{alignContent: 'center', backgroundColor: '#F1E9E7'}}
+            
             heading={
               <TabHeading style={{backgroundColor: '#001648'}}>
                 <Text>Upcoming</Text>

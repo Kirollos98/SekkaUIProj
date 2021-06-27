@@ -19,7 +19,7 @@ import {MaterialCommunityIcons} from '@expo/vector-icons';
  } from 'react-native';
  import { connect } from "react-redux"
  import { bindActionCreators } from "redux";
- import { LogoutAction, getCities } from "../../redux/action/authentication-actions"
+ import { LogoutAction, getCitiesAndUser } from "../../redux/action/authentication-actions"
  import {search} from '../../redux/action/trip-actions.js';
  import { createIconSetFromFontello } from "react-native-vector-icons";
  import {
@@ -70,7 +70,7 @@ class MainScreen extends Component {
    
  
   async componentDidMount() {
-    await this.props.getCities(true);
+    await this.props.getCitiesAndUser();
     this.setState({selectedValueFrom:this.props.ReciviedCities.user.city})
     // let user = await getData('loggedUser');
     // let parseUser = await JSON.parse(user);
@@ -386,12 +386,12 @@ export default connect(
         // console.log("state",state)
         return {
           message: state.authentication.message,
-          ReciviedCities: state.city.citiesLIST,
+          ReciviedCities: state.city.citiesLISTHome,
           listOfTrips: state.SearchTrip.tripsLIST,
 
         };
     },
     (dispatch) => {
-        return bindActionCreators({LogoutAction, getCities, search}, dispatch);
+        return bindActionCreators({LogoutAction, getCitiesAndUser, search}, dispatch);
     }
 )(MainScreen)

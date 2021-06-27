@@ -21,8 +21,11 @@ class UserProfile extends Component {
     }
 
     async componentDidMount() {
-        await this.props.getCities(true);
+        console.log("ComponentDidMount !!!",this.props);
+        await this.props.getCities();
+        console.log("ComponentDidMount !!! 2");
         await this.props.getUserData();
+        console.log("ComponentDidMount !!! 3");
         this.setState({
             userName: this.props.UserData.name,
             email: this.props.UserData.email,
@@ -226,10 +229,10 @@ class UserProfile extends Component {
 
 export default connect(
     (state) => {
-        //console.log("state in profile----------------------------", state)
+        console.log("state in profile----------------------------", state)
         return {
             UserData: state.user.userData,
-            ReciviedCities: state.city.citiesLIST.cities
+            ReciviedCities: state.city.citiesLIST
         }
     },
     (dispatch) => {
