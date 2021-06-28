@@ -7,6 +7,10 @@ export default function city(state={},action) {
         case 'Cities_LIST_Home':{
             // console.log("gwa reducer", action.payload)
             return {...state,citiesLISTHome:action.payload}
+        }//
+        case 'Cities_LIST_Profile':{
+            // console.log("gwa reducer", action.payload)
+            return {...state,citiesLISTProfile:action.payload}
         }
         default:{
             return state

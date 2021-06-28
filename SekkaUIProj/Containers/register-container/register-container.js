@@ -362,7 +362,7 @@ class Register extends Component {
 
 export default connect(
     (state)=>{
-      console.log('state', state.city);
+      console.log('state', state);
         return{
             registeredUser:state.authentication.registeredUser,
             ReciviedCities: state.city.citiesLIST,

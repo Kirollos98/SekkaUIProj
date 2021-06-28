@@ -106,8 +106,12 @@ export const getCities = async () => {
       method: 'get',
     });
     payload = await response.json();
+    console.log("gowa el try");
+
   } catch (err) {
     console.log(err);
+  console.log("gow el catch");
+
   }
   console.log("response",payload)
   return {
@@ -116,6 +120,28 @@ export const getCities = async () => {
   };
 };
 
+
+export const getCitiesInProfile = async () => {
+  console.log("gow rl getCitiesInProfile");
+  let payload = null;
+  try {
+    const response = await fetch(`${Base}city/getAllCities`, {
+      method: 'get',
+    });
+    payload = await response.json();
+    console.log("gowa el try");
+
+  } catch (err) {
+    console.log(err);
+  console.log("gow el catch");
+
+  }
+  console.log("response",payload)
+  return {
+    type: 'Cities_LIST_Profile',
+    payload: payload,
+  };
+};
 
 
 export const getCitiesAndUser = async () => {

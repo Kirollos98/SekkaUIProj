@@ -63,7 +63,7 @@ const Login = (props) => {
                     password: password,
                   };
 
-                  let response = await LoginAction(tempObj);
+                  let response = await props.LoginAction(tempObj);
                   console.log('response from login ', response);
                   if (response.payload === 'Not Valid') {
                     console.log(

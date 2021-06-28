@@ -4,7 +4,7 @@ import { Label, View, Text, Button, Textarea, Input, Container, Header, Content,
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getUserData,editUserData } from '../../redux/action/user-action';
-import { getCities } from '../../redux/action/authentication-actions';
+import { getCitiesInProfile } from '../../redux/action/authentication-actions';
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 
@@ -22,29 +22,24 @@ class UserProfile extends Component {
 
     async componentDidMount() {
         console.log("ComponentDidMount !!!",this.props);
-        await this.props.getCities();
-        console.log("ComponentDidMount !!! 2");
         await this.props.getUserData();
-        console.log("ComponentDidMount !!! 3");
         this.setState({
             userName: this.props.UserData.name,
             email: this.props.UserData.email,
             city: this.props.UserData.city,
         })
+        console.log("ComponentDidMount !!! 2");
+        await this.props.getCitiesInProfile();
+        console.log("ComponentDidMount !!! 3");
+        
     }
 
 
     validForm = () => {
         if (
             this.state.userName == null ||
-            this.state.email == null ||
-            this.state.password == null ||
-            this.state.passwordConfirm == null ||
             this.state.city == null ||
             this.state.userName == '' ||
-            this.state.email == '' ||
-            this.state.password == '' ||
-            this.state.passwordConfirm == '' ||
             this.state.city == '' ||
             this.state.city == 'city'
         ) {
@@ -53,19 +48,8 @@ class UserProfile extends Component {
                 'Please fill all data'[{ text: 'OK', onPress: () => { } }]
             );
             return false;
-        } else if (this.validate() === false) {
-            Alert.alert(
-                'Email is not valid ',
-                'Please enter your email again'[{ text: 'OK', onPress: () => { } }]
-            );
-            return false;
-        } else if (this.state.password != this.state.passwordConfirm) {
-            Alert.alert(
-                'Conflict in passwords',
-                'Please enter your password again'[{ text: 'OK', onPress: () => { } }]
-            );
-            return false;
-        } return true;
+        } 
+        return true;
     };
 
 
@@ -232,11 +216,11 @@ export default connect(
         console.log("state in profile----------------------------", state)
         return {
             UserData: state.user.userData,
-            ReciviedCities: state.city.citiesLIST
+            ReciviedCities: state.city.citiesLISTProfile
         }
     },
     (dispatch) => {
-        return bindActionCreators({ getUserData, getCities,editUserData }, dispatch);
+        return bindActionCreators({ getUserData, getCitiesInProfile,editUserData }, dispatch);
     }
 )(UserProfile)
 
