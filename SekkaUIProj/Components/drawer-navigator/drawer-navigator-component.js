@@ -25,6 +25,7 @@ import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import UserTripNavigator from '../user-trips-navigator/user-trips-navigator';
 import userDetailsEditContainer from '../../Containers/user-details-edit-container/user-details-edit-container';
+import About from '../about-component/about-component';
 
 const Navigator = createDrawerNavigator();
 // const Navigator2 = createDrawerNavigator({
@@ -45,9 +46,10 @@ const Navigator = createDrawerNavigator();
 
 function CustomDrawerContent(properties) {
   return (
-    <DrawerContentScrollView {...properties}>
+    <DrawerContentScrollView {...properties} >
       <DrawerItemList {...properties} />
       <DrawerItem
+     
         onPress={async () => {
           console.log("logging out !");
           console.log("logging out !----------------", externalProps);
@@ -60,21 +62,45 @@ function CustomDrawerContent(properties) {
           }
         }}
         label={() => (
-          <View style={{ display: "flex", flexDirection: "row" }}>
+          <View style={{ display: "flex", flexDirection: "row",marginTop:"110%" }}>
 
-            <MaterialCommunityIcons
-              name="logout"
-              size={30}
-              color="#001648"
-              style={{ textAlign: 'center' }}
-            />
+            
             <Text style={{ color: 'black', marginStart: "15%" }}>
-              Logout
+              
             </Text>
           </View>
         )}
       // style={{ backgroundColor: 'red' }}
       />
+      <DrawerItem
+     
+     onPress={async () => {
+       console.log("logging out !");
+       console.log("logging out !----------------", externalProps);
+       await externalProps.LogoutAction();
+       if (externalProps.loggingoutOp) {
+         if (externalProps.loggingoutOp.success) {
+           console.log(externalProps.loggingoutOp);
+           externalProps.navigation.replace("Home");
+         }
+       }
+     }}
+     label={() => (
+       <View style={{ display: "flex", flexDirection: "row" }}>
+
+         <MaterialCommunityIcons
+           name="logout"
+           size={30}
+           color="#001648"
+           style={{ textAlign: 'center' }}
+         />
+         <Text style={{ color: 'black', marginStart: "15%" }}>
+           Logout
+         </Text>
+       </View>
+     )}
+   // style={{ backgroundColor: 'red' }}
+   />
     </DrawerContentScrollView>
   );
 }
@@ -104,6 +130,7 @@ const DrawerNavigatorComponent = (props) => {
           drawerIcon: () => (<Icon name="home" style={{ color: "#001648" }} />),
         }}
       />
+
       {/* <Navigator.Screen
         name="MainPage"
         component={mainScreen}
@@ -147,6 +174,18 @@ const DrawerNavigatorComponent = (props) => {
               color="#001648"
             />),
 
+        }}
+      />
+
+      <Navigator.Screen
+        name="About"
+        component={About}
+        options={{
+          title: "About us",
+          headerTitleStyle: { textAlign: 'center', marginRight: '20%' },
+          headerStyle: { backgroundColor: '#001648' },
+          headerTintColor: '#03CFFF',
+          drawerIcon: () => (<Icon name="information-circle" style={{ color: "#001648" }} />),
         }}
       />
 

@@ -24,6 +24,7 @@ import commonTripList from './Containers/Common-trip-list/common-trip-list';
 import StripePayment from './Containers/payment-container/payment-container';
 import StackNavigatorComponent from './Components/stack-navigator/stack-navigator-componen';
 import DrawerNavigatorComponent from './Components/drawer-navigator/drawer-navigator-component';
+import About from './Components/about-component/about-component';
 
 // const createStoreWithMW = applyMiddleware(promiseMW)(createStore)
 
@@ -73,6 +74,18 @@ export default function App(props) {
 
             }}
           /> */}
+
+          {/* <Navigator.Screen
+            name="About"
+            component={About}
+            options={{
+              title: 'About us',
+              headerTitleStyle: { textAlign: 'center', color: '#03CFFF', marginRight: '25%' },
+              headerStyle: { backgroundColor: '#001648' },
+              headerTintColor: '#03CFFF',
+
+            }}
+          /> */}
           <Navigator.Screen
             name="Login"
             component={loginContainer}
@@ -100,13 +113,14 @@ export default function App(props) {
                 // marginRight:'5%'
               },
               headerStyle: {backgroundColor: '#001648'},
+              headerShown:false
             }}
           />
           <Navigator.Screen
             name="DrawerNavigator"
             component={DrawerNavigatorComponent}
             options={{
-              title: 'SEKKA',
+              title: '',
               headerTitleStyle: {
                 textAlign: 'center',
                 color: '#03CFFF',

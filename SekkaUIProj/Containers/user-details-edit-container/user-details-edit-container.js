@@ -4,7 +4,7 @@ import { Label, View, Text, Button, Textarea, Input, Container, Header, Content,
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getUserData,editUserData } from '../../redux/action/user-action';
-import { getCitiesInProfile } from '../../redux/action/authentication-actions';
+import { getCities } from '../../redux/action/authentication-actions';
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 
@@ -29,7 +29,7 @@ class UserProfile extends Component {
             city: this.props.UserData.city,
         })
         console.log("ComponentDidMount !!! 2");
-        await this.props.getCitiesInProfile();
+        await this.props.getCities();
         console.log("ComponentDidMount !!! 3");
         
     }
@@ -216,11 +216,11 @@ export default connect(
         console.log("state in profile----------------------------", state)
         return {
             UserData: state.user.userData,
-            ReciviedCities: state.city.citiesLISTProfile
+            ReciviedCities: state.city.citiesLIST
         }
     },
     (dispatch) => {
-        return bindActionCreators({ getUserData, getCitiesInProfile,editUserData }, dispatch);
+        return bindActionCreators({ getUserData, getCities,editUserData }, dispatch);
     }
 )(UserProfile)
 

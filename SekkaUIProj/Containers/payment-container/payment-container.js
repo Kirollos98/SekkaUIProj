@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react"
 import { Button, View, Text } from "native-base";
 import { Payment } from "../../redux/action/payment-action"
 import { bookTrip } from "../../redux/action/trip-actions"
+import { getUserData } from "../../redux/action/user-action"
 import { PropertySafetyFilled } from "@ant-design/icons";
 import { Alert } from "react-native";
 import LottieView from 'lottie-react-native';
@@ -36,6 +37,7 @@ const StripeForm = (props) => {
     console.log("gow el user Effect");
     console.log("gow el user Effect props", props);
     const resolver = async () => {
+      await props.getUserData();
       if (props.paymentDetails) {
         console.log("gow el IF");
         await props.Payment(props.paymentDetails.amount);
@@ -54,7 +56,7 @@ const StripeForm = (props) => {
     await confirmPayment(props.clientKey.clientSecret, {
       type: "Card",
       billingDetails: {
-        email: "kiro.hafez@gmail.com"
+        email: props.userData.email
       }
     }).then(res => {
       Alert.alert("Payment Successfull !!");
@@ -145,11 +147,12 @@ export default connect(
     // console.log("mapstatetoprops",state.payment.paymentResponse);
     return {
       paymentDetails: state.SearchTrip.paymentDetails,
-      clientKey: state.payment.paymentResponse
+      clientKey: state.payment.paymentResponse,
+      userData: state.user.userData
     }
   },
   (dispatch) => {
-    return bindActionCreators({ Payment, bookTrip }, dispatch)
+    return bindActionCreators({ Payment, bookTrip,getUserData }, dispatch)
   }
 )(StripeForm);
 

@@ -9,7 +9,7 @@ const payment = async (req, res, next) => {
     console.log("body", req.body);
     const paymentIntent = await stripe.paymentIntents.create({
         amount:req.body.amount,
-        currency:"usd"
+        currency:"egp"
     })
     res.send({
         clientSecret:paymentIntent.client_secret,
